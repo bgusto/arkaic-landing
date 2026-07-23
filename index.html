@@ -14,9 +14,9 @@
         rel="stylesheet">
     <style>
         :root {
-            --paper: #FAFAF8;
-            --black: #111111;
-            --ink-light: #444444;
+            --bg: #322B2B;
+            --cream: #EBEBE7;
+            --muted: rgba(50, 43, 43, 0.65);
         }
 
         * {
@@ -26,15 +26,34 @@
         }
 
         body {
-            background:
-                radial-gradient(120% 90% at 15% 0%, #FFFFFE 0%, var(--paper) 45%, #EFEDE6 100%);
-            background-attachment: fixed;
-            color: var(--black);
+            background: var(--cream);
+            color: var(--bg);
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
             min-height: 100dvh;
             display: flex;
             flex-direction: column;
+        }
+
+        /* movie strip pinned to the bottom; white plot background is
+           multiplied onto the cream backdrop so they match exactly */
+        .movie {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100vw;
+            background: var(--cream);
+            isolation: isolate;
+            line-height: 0;
+            z-index: -1;
+        }
+
+        .movie video {
+            width: 100%;
+            display: block;
+            mix-blend-mode: multiply;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 22%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 22%);
         }
 
         .grain {
@@ -46,6 +65,8 @@
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
+        /* center content in the static space above the movie (movie is 3:1,
+           so its height is 100vw / 3) */
         main {
             flex: 1;
             display: flex;
@@ -54,6 +75,7 @@
             justify-content: center;
             text-align: center;
             padding: 2rem clamp(1.5rem, 5vw, 4rem);
+            margin-bottom: calc(100vw / 3);
         }
 
         h1 {
@@ -81,14 +103,14 @@
             font-weight: 600;
             letter-spacing: 0.28em;
             text-transform: uppercase;
-            color: var(--ink-light);
+            color: var(--muted);
             margin-top: 2.5rem;
         }
 
         .pitch {
             font-size: clamp(1rem, 1.3vw, 1.15rem);
             line-height: 1.8;
-            color: var(--ink-light);
+            color: var(--muted);
             max-width: 42em;
             margin-top: 2.5rem;
         }
@@ -99,9 +121,10 @@
 
         .footer {
             font-size: 0.7rem;
+            font-weight: 500;
             letter-spacing: 0.18em;
             text-transform: uppercase;
-            color: var(--ink-light);
+            color: var(--muted);
             text-align: center;
             padding: 1.25rem;
         }
@@ -109,6 +132,9 @@
 </head>
 
 <body>
+    <div class="movie">
+        <video autoplay muted loop playsinline src="schlieren.mp4"></video>
+    </div>
     <div class="grain"></div>
 
     <main>
@@ -121,6 +147,12 @@
     <footer class="footer">
         <span>All Rights Reserved</span>
     </footer>
+
+    <script>
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.querySelector('.movie video').pause();
+        }
+    </script>
 </body>
 
 </html>
