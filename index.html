@@ -71,7 +71,10 @@
             justify-content: center;
             text-align: center;
             padding: 2rem clamp(1.5rem, 5vw, 4rem);
-            margin-bottom: calc(100vw / 3);
+            /* reserve the movie strip's height, but never more than 45dvh —
+               on short/wide screens the content overlaps the strip's faded
+               top instead of pushing the page past the viewport */
+            margin-bottom: min(calc(100vw / 3), 45dvh);
         }
 
         h1 {
@@ -126,14 +129,13 @@
             display: none;
         }
 
-        .footer {
+        .rights {
             font-size: 0.7rem;
             font-weight: 500;
             letter-spacing: 0.18em;
             text-transform: uppercase;
             color: var(--muted);
-            text-align: center;
-            padding: 1.25rem;
+            margin-top: 1.25rem;
         }
     </style>
 </head>
@@ -151,11 +153,8 @@
         </p>
         <p class="coming-soon">Coming soon</p>
         <p class="contact">For all inquiries, reach out to <a href="mailto:bgusto@arkaic.inc">bgusto@arkaic.inc</a>.</p>
+        <p class="rights">All Rights Reserved</p>
     </main>
-
-    <footer class="footer">
-        <span>All Rights Reserved</span>
-    </footer>
 
     <script>
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
