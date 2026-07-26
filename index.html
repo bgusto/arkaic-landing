@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ARKAIC</title>
     <meta name="description"
-        content="First principles software for the future of science and engineering. Coming soon.">
+        content="Rethinking physics simulation software to make it more accessible, affordable, and efficient. Coming soon.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -35,15 +35,14 @@
             flex-direction: column;
         }
 
-        /* movie strip pinned to the bottom; white plot background is
-           multiplied onto the cream backdrop so they match exactly */
+        /* movie strip pinned to the bottom; the cream tint and top fade
+           are baked into the video so it plays on the fast video path */
         .movie {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100vw;
             background: var(--cream);
-            isolation: isolate;
             line-height: 0;
             z-index: -1;
         }
@@ -51,9 +50,6 @@
         .movie video {
             width: 100%;
             display: block;
-            mix-blend-mode: multiply;
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 22%);
-            mask-image: linear-gradient(to bottom, transparent 0%, black 22%);
         }
 
         .grain {
@@ -153,7 +149,8 @@
         <p class="tagline">
             It's time to <strong class="accent">rethink</strong> physics simulation software and make it more accessible, affordable, and efficient.
         </p>
-        <p class="contact">Reach out at <a href="mailto:bgusto@arkaic.inc">bgusto@arkaic.inc</a>.</p>
+        <p class="coming-soon">Coming soon</p>
+        <p class="contact">For all inquiries, reach out to <a href="mailto:bgusto@arkaic.inc">bgusto@arkaic.inc</a>.</p>
     </main>
 
     <footer class="footer">
