@@ -4,8 +4,8 @@
 // Drift: a sum of slow sines at incommensurate frequencies with random phases,
 // smooth everywhere and non-repeating. Threaded forms get little travel across
 // their letter seam (rx) and more along it (ry).
-// Spring: F = -k·d - c·v + repulsion(pointer), integrated per frame. The
-// displacement is capped per axis so a threaded form never crosses its seam.
+// Spring: F = -k·d - c·v + repulsion(pointer), integrated per frame. No hard
+// limits: threaded forms are simply stiffer across their seam than along it.
 // Honors prefers-reduced-motion (no drift, no spring).
 (() => {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -28,14 +28,20 @@
   const Eval = (list, t) => list.reduce((sum, o) => sum + o.a * Math.sin(TAU * o.f * t + o.p), 0);
 
   // ---- spring constants (px, s) ----
-  const K = 42;                         // stiffness: ~1 s natural period
-  const C = 2 * Math.sqrt(K) * 0.55;    // damping ratio 0.55: springs back with a small overshoot
-  const REACH = 150;                    // pointer influence radius
-  const PUSH = 1400;                    // peak repulsive acceleration at the pointer
+  // Bouncy return: damping ratio 0.32 gives a couple of visible oscillations.
+  // Travel is limited by the spring alone: threaded forms are stiffer across
+  // their letter seam than along it (stiffness scales with ry/rx), so the
+  // same push moves them far less across than along, with no hard wall.
+  const K = 34;                          // stiffness along the free axis (~1.1 s period)
+  const ZETA = 0.32;
+  const SIGMA = 85;                      // pointer field width (Gaussian), px
+  const PUSH = 780;                      // peak repulsive acceleration at the pointer
 
   const bodies = prisms.map((el) => {
     const rx = Number(el.dataset.rx || 14);
     const ry = Number(el.dataset.ry || rx);
+    const ratio = ry / rx;
+    const kx = K * ratio, ky = K;
     return {
       el, rx, ry,
       rot: Number(el.dataset.rot || 12),
@@ -43,10 +49,11 @@
       oy: Oscillators(3, 0.025, 0.080),
       or: Oscillators(2, 0.020, 0.060),
       t0: Rand(0, 1000),
-      // spring state
+      // spring state and per-axis constants
       dx: 0, dy: 0, vx: 0, vy: 0,
-      capX: Math.min(rx * 1.6, 16),     // threaded forms: stay on the seam
-      capY: Math.min(ry * 1.6, 24),
+      kx, ky,
+      cx: 2 * Math.sqrt(kx) * ZETA,
+      cy: 2 * Math.sqrt(ky) * ZETA,
     };
   });
 
@@ -65,31 +72,26 @@
     const t = now / 1000;
 
     for (const b of bodies) {
-      // spring + damping
-      let ax = -K * b.dx - C * b.vx;
-      let ay = -K * b.dy - C * b.vy;
-      // repulsion from the pointer, falling off quadratically to zero at REACH
+      // spring + damping, per axis
+      let ax = -b.kx * b.dx - b.cx * b.vx;
+      let ay = -b.ky * b.dy - b.cy * b.vy;
+      // repulsion from the pointer: a wide Gaussian field, so the force eases
+      // in and out as the pointer passes instead of shoving
       if (pointer) {
         const r = b.el.getBoundingClientRect();
         const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
         const ex = cx - pointer.x, ey = cy - pointer.y;
         const dist = Math.hypot(ex, ey) || 1;
-        if (dist < REACH) {
-          const s = 1 - dist / REACH;
-          const f = PUSH * s * s;
-          ax += (ex / dist) * f;
-          ay += (ey / dist) * f;
-        }
+        const f = PUSH * Math.exp(-(dist * dist) / (2 * SIGMA * SIGMA));
+        ax += (ex / dist) * f;
+        ay += (ey / dist) * f;
       }
       b.vx += ax * dt; b.vy += ay * dt;
       b.dx += b.vx * dt; b.dy += b.vy * dt;
-      // per-axis caps keep threaded forms on their seam; kill velocity into the cap
-      if (Math.abs(b.dx) > b.capX) { b.dx = Math.sign(b.dx) * b.capX; b.vx *= -0.3; }
-      if (Math.abs(b.dy) > b.capY) { b.dy = Math.sign(b.dy) * b.capY; b.vy *= -0.3; }
 
       const x = Eval(b.ox, t + b.t0) * b.rx + b.dx;
       const y = Eval(b.oy, t + b.t0) * b.ry + b.dy;
-      const rot = Eval(b.or, t + b.t0) * b.rot + b.dx * 0.4; // a push also tips the form slightly
+      const rot = Eval(b.or, t + b.t0) * b.rot + b.vx * 0.06; // motion, not offset, tips the form
       b.el.style.transform = `translate(-50%, -50%) translate(${x.toFixed(2)}px, ${y.toFixed(2)}px) rotate(${rot.toFixed(2)}deg)`;
     }
     requestAnimationFrame(Tick);
