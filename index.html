@@ -1,166 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARKAIC</title>
-    <meta name="description"
-        content="Rethinking physics simulation software to make it more accessible, affordable, and efficient. Coming soon.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
-    <style>
-        :root {
-            --bg: #322B2B;
-            --cream: #EBEBE7;
-            --muted: rgba(50, 43, 43, 0.65);
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Arkaic — Computing Built for Discovery</title>
+  <meta name="description" content="Arkaic builds physics simulation, optimization, and surrogate modeling software that puts serious computation within reach of researchers, engineers, educators, and independent technical professionals.">
+  <meta name="theme-color" content="#1E1D1A">
+  <link rel="icon" type="image/svg+xml" href="assets/logo-icon-paper.svg">
+  <link rel="canonical" href="https://arkaic.inc/">
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Arkaic">
+  <meta property="og:title" content="Arkaic — Computing Built for Discovery">
+  <meta property="og:description" content="Physics simulation and optimization software without enterprise barriers.">
+  <meta property="og:url" content="https://arkaic.inc/">
+  <meta property="og:image" content="https://arkaic.inc/assets/og.jpg">
+  <meta name="twitter:card" content="summary_large_image">
 
-        body {
-            background: var(--cream);
-            color: var(--bg);
-            font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
-            min-height: 100dvh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* movie strip pinned to the bottom; the cream tint and top fade
-           are baked into the video so it plays on the fast video path */
-        .movie {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100vw;
-            background: var(--cream);
-            line-height: 0;
-            z-index: -1;
-        }
-
-        .movie video {
-            width: 100%;
-            display: block;
-        }
-
-        .grain {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 2000;
-            opacity: 0.5;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
-        }
-
-        /* center content in the static space above the movie (movie is 3:1,
-           so its height is 100vw / 3) */
-        main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 2rem clamp(1.5rem, 5vw, 4rem);
-            /* reserve the movie strip's height, but never more than 45dvh —
-               on short/wide screens the content overlaps the strip's faded
-               top instead of pushing the page past the viewport */
-            margin-bottom: min(calc(100vw / 3), 45dvh);
-        }
-
-        h1 {
-            font-family: 'Inter', sans-serif;
-            font-weight: 700;
-            font-size: clamp(4rem, 10vw, 10rem);
-            letter-spacing: 0.03em;
-            line-height: 1;
-        }
-
-        .tagline {
-            font-size: clamp(1.1rem, 1.8vw, 1.5rem);
-            line-height: 1.5;
-            margin-top: 1.5rem;
-            max-width: 32em;
-        }
-
-        .accent {
-            color: #47586B;
-            font-weight: 700;
-        }
-
-        .coming-soon {
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.28em;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-top: 2.5rem;
-        }
-
-        .contact {
-            font-size: clamp(1rem, 1.3vw, 1.15rem);
-            color: var(--muted);
-            margin-top: 1.5rem;
-        }
-
-        .contact a {
-            color: inherit;
-            text-underline-offset: 3px;
-        }
-
-        .pitch {
-            font-size: clamp(1rem, 1.3vw, 1.15rem);
-            line-height: 1.8;
-            color: var(--muted);
-            max-width: 42em;
-            margin-top: 2.5rem;
-        }
-
-        .pitch:empty {
-            display: none;
-        }
-
-        .rights {
-            font-size: 0.7rem;
-            font-weight: 500;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-top: 1.25rem;
-        }
-    </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montagu+Slab:opsz,wght@16..144,400&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <div class="movie">
-        <video autoplay muted loop playsinline src="schlieren.mp4"></video>
-    </div>
-    <div class="grain"></div>
+  <a class="skip" href="#main">Skip to content</a>
 
-    <main>
-        <h1>ARKAIC</h1>
-        <p class="tagline">
-            It's time to <strong class="accent">rethink</strong> physics simulation software and make it more accessible, affordable, and efficient.
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Arkaic home">
+      <img src="assets/logo-horizontal-paper.svg" alt="Arkaic" width="146" height="34">
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#products">Products</a>
+      <a href="#company">Company</a>
+      <a href="#contact">Contact</a>
+      <a class="button button-paper" href="https://app.arkaic.inc">Sign in</a>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- 00 · Hero -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-inner">
+        <h1 id="hero-title" class="display">
+          <span class="line">Computing Built</span>
+          <span class="line">for Discovery.</span>
+        </h1>
+        <div class="prisms" aria-hidden="true">
+          <img class="prism" data-depth="0.5" src="assets/prism-tetrahedron-cyan.svg" alt="" width="293" height="255">
+          <img class="prism" data-depth="0.8" src="assets/prism-octahedron-coral.svg" alt="" width="293" height="293">
+          <img class="prism" data-depth="0.35" src="assets/prism-hexahedron-gold.svg" alt="" width="268" height="293">
+        </div>
+        <p class="lede">
+          Arkaic builds physics simulation and optimization software for people who want to
+          understand difficult things. Serious computational capability, transparent methods,
+          and pricing that does not assume an enterprise budget.
         </p>
-        <p class="coming-soon">Coming soon</p>
-        <p class="contact">For all inquiries, reach out to <a href="mailto:bgusto@arkaic.inc">bgusto@arkaic.inc</a>.</p>
-        <p class="rights">All Rights Reserved</p>
-    </main>
+        <div class="actions">
+          <a class="button button-paper" href="https://app.arkaic.inc">Try Evolve</a>
+          <a class="button button-outline" href="#contact">Get in touch</a>
+        </div>
+      </div>
+      <div class="strokes-band" aria-hidden="true"></div>
+    </section>
 
-    <script>
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            document.querySelector('.movie video').pause();
-        }
-    </script>
+    <!-- 01 · The problem -->
+    <section class="section paper" id="problem" aria-labelledby="problem-title">
+      <div class="grid">
+        <div class="span-2">
+          <p class="tag"><span class="tag-num">01</span><span class="tag-label">The problem</span></p>
+          <h2 id="problem-title" class="h2">Scientific computing has become increasingly more inaccessible.</h2>
+          <svg class="strokes" viewBox="0 0 84 26" aria-hidden="true"><g stroke="currentColor" fill="none"><line x1="0" y1="1.5" x2="84" y2="1.5" stroke-width="3"/><line x1="0" y1="7.5" x2="84" y2="7.5" stroke-width="2.25"/><line x1="0" y1="13" x2="84" y2="13" stroke-width="1.5"/><line x1="0" y1="18" x2="84" y2="18" stroke-width="1"/><line x1="0" y1="22.5" x2="84" y2="22.5" stroke-width="0.6"/></g></svg>
+        </div>
+        <div class="span-2 body-col">
+          <p>
+            At one end are enterprise platforms: capable, and priced, licensed, and onboarded
+            for large organizations. At the other are free tools that demand deep expertise
+            before real work can begin, and leave the workflow in pieces.
+          </p>
+          <p>
+            Arkaic occupies the middle. <strong>Advanced tools without enterprise barriers.</strong>
+            The point is not to make scientific computing simplistic. It is to remove the
+            unnecessary obstacles to doing serious technical work.
+          </p>
+        </div>
+      </div>
+
+      <ul class="pillars grid" role="list">
+        <li class="pillars-lead"><h3 class="h3">Building for curious minds</h3></li>
+        <li>
+          <div class="tile tile-cyan"><img src="assets/prism-tetrahedron-cyan.svg" alt="" width="293" height="255"></div>
+          <h3 class="h3">Accessible by design</h3>
+          <p>Powerful simulation should not be gated by enterprise pricing or a steep learning curve. We build software that puts advanced methods within reach of more people.</p>
+        </li>
+        <li>
+          <div class="tile tile-gold"><img src="assets/prism-hexahedron-gold.svg" alt="" width="268" height="293"></div>
+          <h3 class="h3">Built for discovery</h3>
+          <p>From optimization today to fluid dynamics and learned surrogates tomorrow: an ecosystem of tools designed for exploration, experimentation, and research.</p>
+        </li>
+        <li>
+          <div class="tile tile-coral"><img src="assets/prism-octahedron-coral.svg" alt="" width="293" height="293"></div>
+          <h3 class="h3">Open to science</h3>
+          <p>Transparent numerical methods you can read and understand, and a controlled-source model that lets academia, government, and industry take part.</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- 02 · Products -->
+    <section class="section graphite" id="products" aria-labelledby="products-title">
+      <div class="grid">
+        <div class="span-2">
+          <p class="tag paper-tag"><span class="tag-num">02</span><span class="tag-label">Products</span></p>
+          <h2 id="products-title" class="h2">Evolve</h2>
+          <p class="status"><span class="dot"></span>Available now</p>
+          <p class="body-lg">
+            Optimization of expensive simulations. Author the evaluator, compose sampling and
+            optimization blocks, run trials in containers, and keep every raw artifact for
+            reprocessing. Multi-fidelity Bayesian optimization on the inside; a plain workflow
+            on the outside.
+          </p>
+          <div class="actions">
+            <a class="button button-paper" href="https://app.arkaic.inc">Open Evolve</a>
+          </div>
+        </div>
+        <div class="span-2 media">
+          <video class="schlieren" autoplay muted loop playsinline preload="metadata" aria-label="Numerical schlieren of a compressible flow">
+            <source src="schlieren.mp4" type="video/mp4">
+          </video>
+          <p class="caption">Numerical schlieren of a compressible flow, computed with Arkaic's in-house solver.</p>
+        </div>
+      </div>
+
+      <div class="grid roadmap">
+        <div class="span-1"><p class="label">In development</p></div>
+        <div class="span-3 roadmap-list">
+          <div class="roadmap-item">
+            <h3 class="h3">Multi-fidelity surrogate modeling</h3>
+            <p>Neural-network ensembles where data is plentiful. Multi-fidelity Gaussian processes where it is scarce and uncertainty matters.</p>
+          </div>
+          <div class="roadmap-item">
+            <h3 class="h3">Computational fluid dynamics</h3>
+            <p>Transparent, well-documented solvers that run on your own hardware, with the cloud as an extension rather than a requirement.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 · Company -->
+    <section class="section paper" id="company" aria-labelledby="company-title">
+      <div class="grid company">
+        <div class="span-2">
+          <p class="tag"><span class="tag-num">03</span><span class="tag-label">Company</span></p>
+          <h2 id="company-title" class="h2">First principles computing for all.</h2>
+          <p class="body-col">
+            Arkaic preserves technical depth while making that depth easier to approach.
+            We would rather build a tool you can understand than one you have to trust.
+          </p>
+          <ul class="principles" role="list">
+            <li>Transparent numerical methods.</li>
+            <li>Local execution remains possible; the cloud extends capability rather than forcing dependence.</li>
+            <li>Low, fixed, transparent pricing for independent users and small organizations.</li>
+            <li>Native assistants that help you find your way through difficult workflows. The computer helps you figure out how to use the computer.</li>
+            <li>A controlled-source development model open to academic, government, and industry participation.</li>
+          </ul>
+        </div>
+        <figure class="span-2 photo">
+          <img src="assets/desk.jpg" alt="A walnut desk with a keyboard, notebooks, a pen, and an Arkaic floppy disk" width="1600" height="762" loading="lazy">
+        </figure>
+      </div>
+    </section>
+
+    <!-- 04 · Contact -->
+    <section class="section graphite contact" id="contact" aria-labelledby="contact-title">
+      <div class="grid">
+        <div class="span-2">
+          <svg class="strokes paper-strokes" viewBox="0 0 84 26" aria-hidden="true"><g stroke="currentColor" fill="none"><line x1="0" y1="1.5" x2="84" y2="1.5" stroke-width="3"/><line x1="0" y1="7.5" x2="84" y2="7.5" stroke-width="2.25"/><line x1="0" y1="13" x2="84" y2="13" stroke-width="1.5"/><line x1="0" y1="18" x2="84" y2="18" stroke-width="1"/><line x1="0" y1="22.5" x2="84" y2="22.5" stroke-width="0.6"/></g></svg>
+          <h2 id="contact-title" class="h2">Better tools make more science possible.</h2>
+        </div>
+        <div class="span-2 contact-body">
+          <p class="body-lg">
+            We are early, and we are building with the people who will use this.
+            For collaborations, pilots, or questions, write to us.
+          </p>
+          <a class="mail" href="mailto:bgusto@arkaic.inc">bgusto@arkaic.inc</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <img src="assets/logo-horizontal-paper.svg" alt="Arkaic" width="120" height="28">
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="https://app.arkaic.inc">Sign in</a>
+      <a href="mailto:bgusto@arkaic.inc">Contact</a>
+    </nav>
+    <p class="fine">© 2026 Arkaic Inc. All rights reserved.</p>
+  </footer>
+
+  <script src="main.js" defer></script>
 </body>
-
 </html>
