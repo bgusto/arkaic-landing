@@ -1,40 +1,47 @@
-// Arkaic landing: the three wireframe forms drift near the headline and lean
-// toward the pointer. Motion is small and physically motivated (brand: forms
-// "hover or float around typography and can react to mouse movement").
+// Arkaic landing: each wireframe form drifts randomly about its own centroid.
+// Slow, small, and smooth: a random walk toward re-sampled targets, no pointer
+// coupling. Honors prefers-reduced-motion.
 (() => {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const prisms = Array.from(document.querySelectorAll(".prism"));
-  const hero = document.querySelector(".hero");
-  if (!hero || prisms.length === 0) return;
-
-  // Pause the video when the user prefers reduced motion.
   const video = document.querySelector("video.schlieren");
   if (video && reduce.matches) video.pause();
 
-  if (reduce.matches || !window.matchMedia("(pointer: fine)").matches) return;
+  const prisms = Array.from(document.querySelectorAll(".prism"));
+  if (prisms.length === 0 || reduce.matches) return;
 
-  let targetX = 0, targetY = 0, x = 0, y = 0, raf = 0;
+  const bodies = prisms.map((el) => {
+    const radius = Number(el.dataset.radius || 14);
+    return {
+      el, radius,
+      x: 0, y: 0, rot: 0,
+      tx: 0, ty: 0, trot: 0,
+      speed: 0.010 + Math.random() * 0.008, // per-frame easing; each form has its own tempo
+    };
+  });
 
-  function OnMove(event) {
-    const rect = hero.getBoundingClientRect();
-    targetX = ((event.clientX - rect.left) / rect.width - 0.5) * 2;   // -1 … 1
-    targetY = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
-    if (!raf) raf = requestAnimationFrame(Tick);
+  function Retarget(b) {
+    // uniform point in a disc around the centroid
+    const angle = Math.random() * Math.PI * 2;
+    const r = b.radius * Math.sqrt(Math.random());
+    b.tx = Math.cos(angle) * r;
+    b.ty = Math.sin(angle) * r;
+    b.trot = (Math.random() - 0.5) * 10;
   }
+  bodies.forEach(Retarget);
 
-  function Tick() {
-    x += (targetX - x) * 0.08;
-    y += (targetY - y) * 0.08;
-    for (const prism of prisms) {
-      const depth = Number(prism.dataset.depth || 0.5);
-      const dx = x * 28 * depth;
-      const dy = y * 20 * depth;
-      const rot = x * 6 * depth;
-      prism.style.transform = `translate(${dx.toFixed(1)}px, ${dy.toFixed(1)}px) rotate(${rot.toFixed(2)}deg)`;
+  let last = performance.now();
+  function Tick(now) {
+    const dt = Math.min((now - last) / 16.667, 3); // normalise to 60fps frames
+    last = now;
+    for (const b of bodies) {
+      const k = 1 - Math.pow(1 - b.speed, dt);
+      b.x += (b.tx - b.x) * k;
+      b.y += (b.ty - b.y) * k;
+      b.rot += (b.trot - b.rot) * k;
+      if (Math.hypot(b.tx - b.x, b.ty - b.y) < 0.6) Retarget(b);
+      b.el.style.transform = `translate(${b.x.toFixed(2)}px, ${b.y.toFixed(2)}px) rotate(${b.rot.toFixed(2)}deg)`;
     }
-    raf = Math.abs(targetX - x) + Math.abs(targetY - y) > 0.002 ? requestAnimationFrame(Tick) : 0;
+    requestAnimationFrame(Tick);
   }
-
-  hero.addEventListener("pointermove", OnMove, { passive: true });
-  hero.addEventListener("pointerleave", () => { targetX = 0; targetY = 0; if (!raf) raf = requestAnimationFrame(Tick); });
+  requestAnimationFrame(Tick);
 })();
