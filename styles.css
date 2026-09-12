@@ -159,13 +159,15 @@ strong { font-weight: 500; }
 .lt-front { position: relative; z-index: 3; }
 .prisms { position: absolute; inset: 0; pointer-events: none; }
 .prism {
-  position: absolute; width: clamp(44px, 5.2vw, 84px); height: auto;
+  position: absolute; width: clamp(30px, 3.6vw, 58px); height: auto;
   will-change: transform; z-index: 2;
+  /* left/top are the form's centre; main.js keeps the -50% offset in its transform */
+  transform: translate(-50%, -50%);
 }
-.prism-back { width: clamp(56px, 6.8vw, 110px); z-index: 1; }
-.prism:nth-child(1) { left: 8.5%; top: 5%; }     /* tetrahedron: the o covers it, it covers the m */
-.prism:nth-child(2) { left: 56%; top: 4%; }     /* octahedron: inside the u of "Built", in front */
-.prism:nth-child(3) { left: 31%; top: 30%; }    /* cube: the c covers it, it covers the o */
+.prism-back { width: clamp(38px, 4.7vw, 76px); z-index: 1; }
+.prism:nth-child(1) { left: 12.7%; top: 16%; }   /* tetrahedron on the o|m seam: o in front, m behind */
+.prism:nth-child(2) { left: 59.2%; top: 14%; }   /* octahedron inside the u of "Built", in front */
+.prism:nth-child(3) { left: 34.2%; top: 40%; }   /* cube on the c|o seam: c in front, o behind */
 .strokes-band {
   margin-top: clamp(56px, 10vh, 120px);
   height: 96px;
