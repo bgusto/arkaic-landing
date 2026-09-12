@@ -209,6 +209,7 @@ strong { font-weight: 500; }
 .tile-coral { background: var(--coral); }
 
 /* products */
+.evolve { font-style: italic; color: var(--coral); } /* Thermal, medium */
 .status { display: inline-flex; align-items: center; gap: 10px; margin: 18px 0 20px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; color: var(--paper-70); }
 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
 .roadmap-list { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: 32px; padding-top: 8px; }
