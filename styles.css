@@ -211,19 +211,14 @@ strong { font-weight: 500; }
 /* products */
 .status { display: inline-flex; align-items: center; gap: 10px; margin: 18px 0 20px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; color: var(--paper-70); }
 .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
-.media { align-self: stretch; }
-.schlieren { width: 100%; height: auto; aspect-ratio: 3 / 1; object-fit: cover; background: var(--graphite); border: 1px solid var(--paper-18); }
-.caption { margin-top: 12px; font-size: 13px; color: var(--paper-45); }
-.roadmap { padding-top: 40px; border-top: 1px solid var(--paper-18); }
-.roadmap .label { color: var(--paper-70); }
-.roadmap-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: 32px; }
+.roadmap-list { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: 32px; padding-top: 8px; }
+.roadmap-item { padding-top: 24px; border-top: 1px solid var(--paper-18); }
 .roadmap-item p { color: var(--paper-70); font-size: 15px; line-height: 1.45; }
 
 /* company */
-.principles { list-style: none; margin-top: 32px; border-top: 1px solid var(--ink); }
+.principles { list-style: none; border-top: 1px solid var(--ink); }
 .principles li { padding: 16px 0; border-bottom: 1px solid var(--ink-15); color: var(--ink); font-size: 16px; line-height: 1.4; }
 .company .body-col { margin-top: 20px; }
-.photo img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
 
 /* contact */
 .contact-body .body-lg { color: var(--paper-70); }
@@ -258,11 +253,9 @@ strong { font-weight: 500; }
   .span-1, .span-2, .span-3 { grid-column: span 1; }
   .pillars { grid-template-columns: minmax(0, 1fr); }
   .tile { max-width: 220px; }
-  .roadmap-list { grid-template-columns: minmax(0, 1fr); }
   .h2 { max-width: none; }
   .hero { min-height: auto; padding-top: 64px; }
   .prism { width: 40px; }
-  .photo { order: -1; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

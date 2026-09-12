@@ -9,9 +9,6 @@
 // Honors prefers-reduced-motion (no drift, no spring).
 (() => {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const video = document.querySelector("video.schlieren");
-  if (video && reduce.matches) video.pause();
-
   const prisms = Array.from(document.querySelectorAll(".prism"));
   if (prisms.length === 0 || reduce.matches) return;
 
