@@ -167,7 +167,7 @@ strong { font-weight: 500; }
 .prism-back { width: clamp(44px, 5.5vw, 86px); z-index: 1; }
 .prism:nth-child(1) { left: 12.7%; top: 16%; }   /* tetrahedron on the o|m seam: o in front, m behind */
 .prism:nth-child(2) { left: 59.2%; top: 14%; }   /* octahedron inside the u of "Built", in front */
-.prism:nth-child(3) { left: 34.2%; top: 40%; }   /* cube behind the c and o of "Discovery", seen through the gap */
+.prism:nth-child(3) { left: 39%; top: 37%; }   /* cube over the o of "Discovery", behind the v */
 .strokes-band {
   margin-top: clamp(56px, 10vh, 120px);
   height: 96px;
