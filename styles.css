@@ -219,6 +219,9 @@ strong { font-weight: 500; }
 /* company */
 .principles { list-style: none; border-top: 1px solid var(--ink); }
 .principles li { padding: 16px 0; border-bottom: 1px solid var(--ink-15); color: var(--ink); font-size: 16px; line-height: 1.4; }
+/* same list on a Graphite section: Paper rules and type */
+.graphite .principles { border-top-color: var(--paper); }
+.graphite .principles li { border-bottom-color: var(--paper-18); color: var(--paper); }
 .company .body-col { margin-top: 20px; }
 
 /* contact */
