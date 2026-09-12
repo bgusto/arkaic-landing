@@ -1,6 +1,8 @@
-// Arkaic landing: each wireframe form drifts randomly about its own centroid.
-// Slow, small, and smooth: a random walk toward re-sampled targets, no pointer
-// coupling. Honors prefers-reduced-motion.
+// Arkaic landing: each wireframe form drifts about its own centroid.
+// Motion is a sum of slow sines at incommensurate frequencies with random
+// phases, so it is smooth everywhere (no direction snaps) yet never repeats.
+// Threaded forms get little travel across their letter seam (rx) and more
+// along it (ry). Honors prefers-reduced-motion.
 (() => {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
   const video = document.querySelector("video.schlieren");
@@ -9,40 +11,37 @@
   const prisms = Array.from(document.querySelectorAll(".prism"));
   if (prisms.length === 0 || reduce.matches) return;
 
-  const bodies = prisms.map((el) => {
-    // elliptical wander: forms threaded between letters get little room across
-    // the seam (rx) and more along it (ry)
-    const rx = Number(el.dataset.rx || 14);
-    const ry = Number(el.dataset.ry || rx);
-    return {
-      el, rx, ry,
-      x: 0, y: 0, rot: 0,
-      tx: 0, ty: 0, trot: 0,
-      speed: 0.010 + Math.random() * 0.008, // per-frame easing; each form has its own tempo
-    };
-  });
+  const TAU = Math.PI * 2;
+  const Rand = (lo, hi) => lo + Math.random() * (hi - lo);
 
-  function Retarget(b) {
-    // uniform point in an ellipse around the centroid
-    const angle = Math.random() * Math.PI * 2;
-    const r = Math.sqrt(Math.random());
-    b.tx = Math.cos(angle) * r * b.rx;
-    b.ty = Math.sin(angle) * r * b.ry;
-    b.trot = (Math.random() - 0.5) * 10;
+  // one oscillator = amplitude share, frequency (Hz), phase
+  function Oscillators(count, fLo, fHi) {
+    const list = [];
+    for (let i = 0; i < count; i++) list.push({ f: Rand(fLo, fHi), p: Rand(0, TAU), a: Rand(0.5, 1) });
+    const norm = list.reduce((sum, o) => sum + o.a, 0);
+    for (const o of list) o.a /= norm; // shares sum to 1 so the envelope never exceeds the radius
+    return list;
   }
-  bodies.forEach(Retarget);
+  const Eval = (list, t) => list.reduce((sum, o) => sum + o.a * Math.sin(TAU * o.f * t + o.p), 0);
 
-  let last = performance.now();
+  const bodies = prisms.map((el) => ({
+    el,
+    rx: Number(el.dataset.rx || 14),
+    ry: Number(el.dataset.ry || el.dataset.rx || 14),
+    rot: Number(el.dataset.rot || 12), // degrees, peak
+    ox: Oscillators(3, 0.030, 0.085),  // periods of roughly 12 to 33 s
+    oy: Oscillators(3, 0.025, 0.080),
+    or: Oscillators(2, 0.020, 0.060),
+    t0: Rand(0, 1000),
+  }));
+
   function Tick(now) {
-    const dt = Math.min((now - last) / 16.667, 3); // normalise to 60fps frames
-    last = now;
+    const t = now / 1000;
     for (const b of bodies) {
-      const k = 1 - Math.pow(1 - b.speed, dt);
-      b.x += (b.tx - b.x) * k;
-      b.y += (b.ty - b.y) * k;
-      b.rot += (b.trot - b.rot) * k;
-      if (Math.hypot(b.tx - b.x, b.ty - b.y) < 0.6) Retarget(b);
-      b.el.style.transform = `translate(-50%, -50%) translate(${b.x.toFixed(2)}px, ${b.y.toFixed(2)}px) rotate(${b.rot.toFixed(2)}deg)`;
+      const x = Eval(b.ox, t + b.t0) * b.rx;
+      const y = Eval(b.oy, t + b.t0) * b.ry;
+      const r = Eval(b.or, t + b.t0) * b.rot;
+      b.el.style.transform = `translate(-50%, -50%) translate(${x.toFixed(2)}px, ${y.toFixed(2)}px) rotate(${r.toFixed(2)}deg)`;
     }
     requestAnimationFrame(Tick);
   }
