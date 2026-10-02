@@ -210,15 +210,18 @@ strong { font-weight: 500; }
 .waitlist-band,
 .features,
 .section > .compare { margin-top: clamp(64px, 9vh, 112px); }
-.features .principles {
-  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: var(--col-gap);
-}
+/* two columns that read top to bottom, left column first */
+.features .principles { columns: 2; column-gap: var(--col-gap); }
+.features .principles li { break-inside: avoid; }
 
 /* waitlist: Eigenmode field (texture 04, cyan) behind a centred Paper card,
    the same construction as the closing contact band (texture 06, coral) */
 .waitlist-band {
   display: grid; place-items: center;
+  /* full bleed, like the closing band: the section pads by the gutter, so
+     pulling out by the gutter reaches both edges of the window */
+  max-width: none;
+  margin-left: calc(-1 * var(--gutter)); margin-right: calc(-1 * var(--gutter));
   padding: clamp(56px, 10vh, 120px) clamp(16px, 4vw, 48px);
   background: var(--cyan) url("assets/eigenmode-04-cyan.jpg") center / cover no-repeat;
 }
@@ -230,15 +233,107 @@ strong { font-weight: 500; }
 .waitlist-card .waitlist { margin: 0 auto; }
 
 /* comparison: heading on the left margin like "What Evolve does."; the
-   flyer's table (cut from the PDF) centred, with its caption beneath it */
-.compare img { width: 100%; max-width: 760px; height: auto; margin: 0 auto; }
+   matrix centred, with its key and caption beneath it.
+   The matrix follows the flyer: a Graphite "Capabilities" bar, light column
+   strips whose tops bend up and to the right into rounded tabs carrying the
+   names, and a coral-tinted Evolve strip. Each tab is a parallelogram skewed
+   30°, so its sides run at 60° and the name, rotated -60°, runs along it. */
+.compare {
+  --strip: rgba(30, 29, 26, 0.04);
+  --strip-evolve: rgba(242, 118, 73, 0.14);
+  --col-w: 46px;
+  --col-gap: 24px;
+  --head-h: 150px;
+  --row-h: 52px;
+  --skew: 30deg;               /* tab lean; names are rotated to match */
+  --label-w: auto;
+}
+/* the tabs lean past the last column, so reserve that overhang on the right
+   and centre the table and its tabs together */
+.compare-scroll { display: flex; justify-content: center; overflow-x: auto; padding-top: 8px; }
+.matrix {
+  flex: none;
+  margin-right: calc(var(--head-h) * tan(var(--skew)));
+  border-collapse: separate; border-spacing: var(--col-gap) 0;
+  font-family: var(--font-text); color: var(--ink);
+}
+.matrix th, .matrix td { padding: 0; font-weight: 500; }
+
+/* header row */
+.matrix thead th { height: var(--head-h); vertical-align: bottom; }
+.matrix-corner span {
+  display: block; padding: 16px 18px;
+  background: var(--graphite); color: var(--paper);
+  font-size: 22px; letter-spacing: -0.01em; text-align: left;
+}
+.matrix-col { position: relative; width: var(--col-w); min-width: var(--col-w); }
+.matrix-tab {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 100%;
+  background: var(--strip);
+  border-radius: calc(var(--col-w) / 2) calc(var(--col-w) / 2) 0 0;
+  transform: skewX(calc(-1 * var(--skew))); transform-origin: bottom left;
+}
+/* each name's midpoint sits at the middle of its tab: halfway up, and
+   shifted right by the lean at that height */
+.matrix-name {
+  position: absolute;
+  left: calc(var(--col-w) / 2 + var(--head-h) / 2 * tan(var(--skew)));
+  bottom: calc(var(--head-h) / 2);
+  transform: translate(-50%, 50%) rotate(calc(var(--skew) - 90deg));
+  white-space: nowrap; font-size: 17px; font-weight: 700; letter-spacing: -0.01em;
+}
+.matrix-col.is-evolve .matrix-tab { background: var(--strip-evolve); }
+.matrix-col.is-evolve .matrix-name {
+  font-family: "Shrikhand", var(--font-display); font-weight: 400;
+  font-size: 19px; color: var(--coral); letter-spacing: 0;
+}
+
+/* body rows: the label column and each tool's column are continuous strips */
+.matrix tbody th {
+  width: var(--label-w); height: var(--row-h); padding: 0 24px 0 18px;
+  background: var(--strip); text-align: left; white-space: nowrap;
+  font-size: 17px; letter-spacing: -0.01em;
+}
+.matrix tbody td { background: var(--strip); text-align: center; vertical-align: middle; }
+.matrix tbody td.is-evolve { background: var(--strip-evolve); }
+.matrix tbody tr:last-child > * { padding-bottom: 6px; }
+.matrix .mark { display: inline-block; width: 22px; height: 22px; vertical-align: middle; }
+
+/* key */
+.matrix-key {
+  list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 32px;
+  margin-top: 22px; font-size: 15px;
+}
+.matrix-key li { display: inline-flex; align-items: center; gap: 8px; }
+.matrix-key .mark { width: 18px; height: 18px; }
+
+/* tablets and small laptops: narrower strips, and capability names wrap */
+@media (max-width: 1060px) {
+  .compare { --col-w: 38px; --col-gap: 14px; --head-h: 130px; --row-h: 50px; --label-w: 220px; }
+  .matrix tbody th { white-space: normal; padding: 8px 14px; font-size: 15px; line-height: 1.25; }
+  .matrix-corner span { font-size: 18px; padding: 12px 14px; }
+  .matrix-name { font-size: 15px; }
+  .matrix-col.is-evolve .matrix-name { font-size: 16px; }
+  .matrix .mark { width: 18px; height: 18px; }
+}
+/* phones: tighter still, with a shallower lean so the tabs stay on screen */
+@media (max-width: 480px) {
+  .compare { --col-w: 26px; --col-gap: 4px; --head-h: 92px; --row-h: 46px; --skew: 15deg; --label-w: 96px; }
+  .matrix tbody th { padding: 6px 8px; font-size: 12px; }
+  .matrix-corner span { font-size: 14px; padding: 9px 8px; }
+  .matrix-name { font-size: 11px; }
+  .matrix-col.is-evolve .matrix-name { font-size: 13px; }
+  .matrix .mark { width: 15px; height: 15px; }
+  .matrix-key { gap: 10px 22px; font-size: 14px; }
+}
+
 .compare-note { margin: 16px auto 0; max-width: 74ch; text-align: center; font-size: 13px; line-height: 1.45; color: var(--ink-70); }
 
-/* team: two people, centred as a pair; the tag stays on the left margin like 01 */
+/* team: three people across the content width; the tag stays on the left margin like 01 */
 .team {
-  list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-  column-gap: clamp(40px, 6vw, 112px); row-gap: 48px;
-  max-width: 1080px; margin: 28px auto 0;
+  list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: clamp(32px, 4vw, 72px); row-gap: 48px;
+  margin: 28px auto 0;
 }
 .team li { border-top: 1px solid var(--paper-45); padding-top: 20px; }
 .person-name {
@@ -282,7 +377,7 @@ strong { font-weight: 500; }
   .grid { grid-template-columns: minmax(0, 1fr); }
   .span-2 { grid-column: span 1; }
   .team { grid-template-columns: minmax(0, 1fr); }
-  .features .principles { grid-template-columns: minmax(0, 1fr); }
+  .features .principles { columns: 1; }
   .waitlist input[type="email"] { border-right: 1px solid var(--ink-45); flex-basis: 100%; }
   .waitlist .button { flex: 1 1 100%; margin-top: 10px; }
   .h2 { max-width: none; }
