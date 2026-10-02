@@ -329,11 +329,11 @@ strong { font-weight: 500; }
 
 .compare-note { margin: 16px auto 0; max-width: 74ch; text-align: center; font-size: 13px; line-height: 1.45; color: var(--ink-70); }
 
-/* team: three people across the content width; the tag stays on the left margin like 01 */
+/* team: two people, centred as a pair; the tag stays on the left margin like 01 */
 .team {
-  list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-  column-gap: clamp(32px, 4vw, 72px); row-gap: 48px;
-  margin: 28px auto 0;
+  list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(40px, 6vw, 112px); row-gap: 48px;
+  max-width: 1080px; margin: 28px auto 0;
 }
 .team li { border-top: 1px solid var(--paper-45); padding-top: 20px; }
 .person-name {
