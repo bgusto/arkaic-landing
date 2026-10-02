@@ -34,6 +34,15 @@
   const SIGMA = 85;                      // pointer field width (Gaussian), px
   const PUSH = 780;                      // peak repulsive acceleration at the pointer
 
+  // Drift radii (data-rx/ry) are tuned for the 1280px desktop headline; scale
+  // them with the type so small screens keep the forms on their letters.
+  const headline = document.querySelector(".display");
+  const REF_FONT = 107.5;
+  let scale = 1;
+  const Rescale = () => { scale = parseFloat(getComputedStyle(headline).fontSize) / REF_FONT; };
+  Rescale();
+  window.addEventListener("resize", Rescale, { passive: true });
+
   const bodies = prisms.map((el) => {
     const rx = Number(el.dataset.rx || 14);
     const ry = Number(el.dataset.ry || rx);
@@ -86,8 +95,8 @@
       b.vx += ax * dt; b.vy += ay * dt;
       b.dx += b.vx * dt; b.dy += b.vy * dt;
 
-      const x = Eval(b.ox, t + b.t0) * b.rx + b.dx;
-      const y = Eval(b.oy, t + b.t0) * b.ry + b.dy;
+      const x = Eval(b.ox, t + b.t0) * b.rx * scale + b.dx;
+      const y = Eval(b.oy, t + b.t0) * b.ry * scale + b.dy;
       const rot = Eval(b.or, t + b.t0) * b.rot + b.vx * 0.06; // motion, not offset, tips the form
       b.el.style.transform = `translate(-50%, -50%) translate(${x.toFixed(2)}px, ${y.toFixed(2)}px) rotate(${rot.toFixed(2)}deg)`;
     }

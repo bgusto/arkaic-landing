@@ -141,24 +141,27 @@ strong { font-weight: 500; }
 /* prisms wander around their own centroids (main.js) and thread through the
    type: the headline creates no stacking context, so a letter wrapped in
    .lt-front (z 3) paints over a form while its plain neighbour (unpositioned,
-   painted first) sits behind it. */
+   painted first) sits behind it.
+   Each prism sits in an .anchor around its letter (positioned, but no z-index,
+   so still no stacking context), and its size and offset are in em: it tracks
+   that letter at every width and line wrap. */
 .lt-front { position: relative; z-index: 3; }
-.prisms { position: absolute; inset: 0; pointer-events: none; }
+.anchor { position: relative; }
 .prism {
-  position: absolute; width: clamp(34px, 4.2vw, 66px); height: auto;
-  will-change: transform; z-index: 2;
+  position: absolute; width: 0.5em; height: auto; max-width: none;
+  pointer-events: none; will-change: transform; z-index: 2;
   /* left/top are the form's centre; main.js keeps the -50% offset in its transform */
   transform: translate(-50%, -50%);
 }
-.prism-back { width: clamp(44px, 5.5vw, 86px); z-index: 1; }
-.prism:nth-child(1) { left: 12.7%; top: 16%; }   /* tetrahedron on the o|m seam: o in front, m behind */
-.prism:nth-child(2) { left: 59.2%; top: 14%; }   /* octahedron inside the u of "Built", in front */
-.prism:nth-child(3) { left: 39%; top: 37%; }   /* cube over the o of "Discovery", behind the v */
+.prism-back { width: 0.655em; z-index: 1; }
+.prism-tetra { left: 0.66em; top: 0.62em; }   /* on the o|m seam of "Computing": o in front, m behind */
+.prism-octa { width: 0.72em; left: 100%; top: 0.38em; }   /* over the top right of the l in "Built", under the t */
+.prism-cube { left: 0.62em; top: 0.25em; }   /* over the o of "Discovery", behind the v */
 .strokes-band {
   /* same max width as the content grid, so its ends line up with the rules below */
   width: 100%; max-width: var(--max);
   margin: clamp(56px, 10vh, 120px) auto 0;
-  height: 96px;
+  height: 42px;   /* six strokes: a 2px line every 8px */
   background: repeating-linear-gradient(
     to bottom,
     var(--paper-45) 0 2px,
@@ -247,7 +250,12 @@ strong { font-weight: 500; }
   .waitlist .button { flex: 1 1 100%; margin-top: 10px; }
   .h2 { max-width: none; }
   .hero { min-height: auto; padding-top: 64px; }
-  .prism { width: 40px; }
+}
+/* phones: "Computing Built" no longer fits on one line, so let the headline
+   flow as one run of text ("Computing / Built for / Discovery.") instead of
+   breaking "Built" onto a line of its own */
+@media (max-width: 480px) {
+  .display .line { display: inline; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
