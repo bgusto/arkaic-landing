@@ -70,6 +70,14 @@ strong { font-weight: 500; }
   max-width: 16ch;
 }
 .body-lg { font-size: clamp(17px, 1.35vw, 20px); line-height: 1.4; max-width: 44ch; }
+.h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(26px, 2.6vw, 38px);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  margin-bottom: 24px;
+}
 .paper .body-lg { color: var(--ink-70); }
 .graphite .body-lg { color: var(--paper-70); }
 
@@ -187,16 +195,44 @@ strong { font-weight: 500; }
 
 /* evolve */
 .evolve { font-family: "Shrikhand", var(--font-display); font-style: normal; letter-spacing: -0.02em; color: var(--coral); }
-.status { display: inline-flex; align-items: center; gap: 10px; margin: 18px 0 20px; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; color: var(--ink-70); }
 .principles { list-style: none; border-top: 1px solid var(--ink); }
 .principles li { padding: 16px 0; border-bottom: 1px solid var(--ink-15); color: var(--ink); font-size: 16px; line-height: 1.4; }
 /* same list on a Graphite section: Paper rules and type */
 .graphite .principles { border-top-color: var(--paper); }
 .graphite .principles li { border-bottom-color: var(--paper-18); color: var(--paper); }
 
-/* comparison: the flyer's table, cut from the PDF, on a Paper card */
-.section > .compare { max-width: 760px; margin: clamp(64px, 9vh, 112px) auto 0; }
-.compare img { width: 100%; height: auto; }
+/* product section, top to bottom: full-width intro, waitlist band, features,
+   comparison. Text and headings share the content's left edge; the waitlist
+   card and the comparison table are centred. */
+.product-intro .h2,
+.product-intro .body-lg { max-width: none; }
+.product-intro .body-lg { margin-top: 24px; }
+.waitlist-band,
+.features,
+.section > .compare { margin-top: clamp(64px, 9vh, 112px); }
+.features .principles {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--col-gap);
+}
+
+/* waitlist: Eigenmode field (texture 04, cyan) behind a centred Paper card,
+   the same construction as the closing contact band (texture 06, coral) */
+.waitlist-band {
+  display: grid; place-items: center;
+  padding: clamp(56px, 10vh, 120px) clamp(16px, 4vw, 48px);
+  background: var(--cyan) url("assets/eigenmode-04-cyan.jpg") center / cover no-repeat;
+}
+.waitlist-card {
+  width: min(100%, 600px);
+  background: var(--paper); border: 1px solid var(--graphite);
+  padding: clamp(24px, 4vw, 48px) clamp(20px, 4vw, 56px);
+}
+.waitlist-card .waitlist { margin: 0 auto; }
+
+/* comparison: heading on the left margin like "What Evolve does."; the
+   flyer's table (cut from the PDF) centred, with its caption beneath it */
+.compare img { width: 100%; max-width: 760px; height: auto; margin: 0 auto; }
+.compare-note { margin: 16px auto 0; max-width: 74ch; text-align: center; font-size: 13px; line-height: 1.45; color: var(--ink-70); }
 
 /* team: two people, centred as a pair; the tag stays on the left margin like 01 */
 .team {
@@ -215,7 +251,7 @@ strong { font-weight: 500; }
 .contact {
   display: grid; place-items: center;
   padding: clamp(96px, 16vh, 200px) var(--gutter);
-  background: var(--coral) url("assets/eigenmode-coral.jpg") center / cover no-repeat;
+  background: var(--coral) url("assets/eigenmode-06-coral.jpg") center / cover no-repeat;
 }
 .contact-card {
   background: var(--paper); color: var(--ink); border: 1px solid var(--graphite);
@@ -246,6 +282,7 @@ strong { font-weight: 500; }
   .grid { grid-template-columns: minmax(0, 1fr); }
   .span-2 { grid-column: span 1; }
   .team { grid-template-columns: minmax(0, 1fr); }
+  .features .principles { grid-template-columns: minmax(0, 1fr); }
   .waitlist input[type="email"] { border-right: 1px solid var(--ink-45); flex-basis: 100%; }
   .waitlist .button { flex: 1 1 100%; margin-top: 10px; }
   .h2 { max-width: none; }

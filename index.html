@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Arkaic — Computing Built for Discovery</title>
-  <meta name="description" content="Arkaic is building Evolve: large-scale multi-fidelity optimization, surrogate modeling, and physics AI models for long-running simulations, with agentic workflow orchestration. Coming soon. Join the waitlist.">
+  <meta name="description" content="Arkaic is building Evolve: large-scale multi-fidelity optimization, surrogate modeling, and physics AI models for long-running simulations, with agentic workflow orchestration. Join the waitlist.">
   <meta name="theme-color" content="#1E1D1A">
   <link rel="icon" type="image/svg+xml" href="assets/logo-icon-graphite.svg">
   <link rel="canonical" href="https://arkaic.inc/">
@@ -12,7 +12,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Arkaic">
   <meta property="og:title" content="Arkaic — Computing Built for Discovery">
-  <meta property="og:description" content="Evolve: large-scale multi-fidelity optimization and surrogate modeling for long-running simulations. Coming soon.">
+  <meta property="og:description" content="Evolve: large-scale multi-fidelity optimization and surrogate modeling for long-running simulations.">
   <meta property="og:url" content="https://arkaic.inc/">
   <meta property="og:image" content="https://arkaic.inc/assets/og.jpg">
   <meta name="twitter:card" content="summary_large_image">
@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montagu+Slab:opsz,wght@16..144,400&family=Shrikhand&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=3">
+  <link rel="stylesheet" href="styles.css?v=8">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -56,17 +56,21 @@
       <div>
         <p class="tag"><span class="tag-num">01</span><span class="tag-label">Product</span></p>
       </div>
-      <div class="grid">
-        <div class="span-2">
-          <h2 id="product-title" class="h2">Don&rsquo;t just optimize, <em class="evolve">Evolve</em>.</h2>
-          <p class="status">Coming soon.</p>
-          <p class="body-lg">
-            Built to drive loops around long-running simulations, Evolve
-            specializes in large-scale multi-fidelity optimization, surrogate
-            modeling, and the construction and tuning of physics AI models.
-            Agents can help craft, scale, and mend your workflows, making Evolve
-            the most effective tool for getting your work done.
-          </p>
+      <!-- intro: headline and description run the full width -->
+      <div class="product-intro">
+        <h2 id="product-title" class="h2">Don&rsquo;t just optimize, <em class="evolve">Evolve</em>.</h2>
+        <p class="body-lg">
+          Built to drive loops around long-running simulations, Evolve
+          specializes in large-scale multi-fidelity optimization, surrogate
+          modeling, and the construction and tuning of physics AI models.
+          Agents can help craft, scale, and mend your workflows, making Evolve
+          the most effective tool for getting your work done.
+        </p>
+      </div>
+
+      <!-- waitlist: Eigenmode field (cyan) behind a centred Paper card -->
+      <div class="waitlist-band">
+        <div class="waitlist-card">
           <form class="waitlist" action="https://formspree.io/f/xnpnykan" method="POST">
             <label class="visually-hidden" for="waitlist-email">Email address</label>
             <input id="waitlist-email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
@@ -75,21 +79,30 @@
             <p class="waitlist-msg" role="status" aria-live="polite"></p>
           </form>
         </div>
-        <div class="span-2">
-          <ul class="principles" role="list">
-            <li>State-of-the-art multi-fidelity Bayesian optimization.</li>
-            <li>Agentic workflow orchestration and monitoring.</li>
-            <li>Meta-learning engine for turbocharged campaigns.</li>
-            <li>Multi-objective optimization using trained surrogates.</li>
-            <li>Distributed workflows on managed HPC.</li>
-            <li>Performance-portable GPU acceleration.</li>
-            <li>Free for non-commercial use.</li>
-          </ul>
-        </div>
       </div>
+
+      <div class="features">
+        <h3 class="h3">What Evolve does.</h3>
+        <ul class="principles" role="list">
+          <li>State-of-the-art multi-fidelity and high-dimensional Bayesian optimization.</li>
+          <li>Agentic workflow orchestration and monitoring.</li>
+          <li>Meta-learning engine for turbocharged campaigns.</li>
+          <li>Multi-objective optimization using trained surrogates.</li>
+          <li>Distributed workflows on managed HPC.</li>
+          <li>Performance-portable GPU acceleration.</li>
+          <li>Free for non-commercial use.</li>
+        </ul>
+      </div>
+
       <figure class="compare">
+        <h3 class="h3">How Evolve compares.</h3>
         <img src="assets/evolve-comparison.png" width="1128" height="776" loading="lazy"
              alt="Capability comparison. Evolve: all six capabilities. Optuna: vendor-neutral framework and free tier only. Ray on Anyscale: agentic workflow orchestration, managed HPC backend, vendor-neutral framework, free tier. modeFrontier: vendor-neutral framework only. OptiSLang and HEEDS: partial managed HPC backend and partial vendor neutrality. Capabilities compared: multi-fidelity surrogates, agentic workflow orchestration, meta-learning engine, managed HPC backend, vendor-neutral framework, free tier and transparent pricing.">
+        <figcaption class="compare-note">
+          Compared on published features as of October 2026. A partial mark
+          means the capability is available only through a separate product or
+          an integration the user must set up.
+        </figcaption>
       </figure>
     </section>
 
