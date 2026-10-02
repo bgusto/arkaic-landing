@@ -95,3 +95,32 @@
   }
   requestAnimationFrame(Tick);
 })();
+
+// Waitlist: submit to Formspree in place and report the result inline.
+// Without JS the form posts normally and Formspree shows its own thank-you page.
+(() => {
+  const form = document.querySelector(".waitlist");
+  if (!form) return;
+  const msg = form.querySelector(".waitlist-msg");
+  const button = form.querySelector("button");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    button.disabled = true;
+    msg.textContent = "";
+    try {
+      const res = await fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      });
+      if (!res.ok) throw new Error(res.status);
+      form.reset();
+      msg.textContent = "You're on the list. We'll be in touch.";
+    } catch {
+      msg.textContent = "Something went wrong. Email inquiries@arkaic.inc and we'll add you.";
+    } finally {
+      button.disabled = false;
+    }
+  });
+})();
