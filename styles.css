@@ -249,7 +249,7 @@ strong { font-weight: 500; }
   .waitlist input[type="email"] { border-right: 1px solid var(--ink-45); flex-basis: 100%; }
   .waitlist .button { flex: 1 1 100%; margin-top: 10px; }
   .h2 { max-width: none; }
-  .hero { min-height: auto; padding-top: 64px; }
+  .hero { min-height: auto; padding-top: 64px; padding-bottom: 48px; }   /* room under the strokes band */
 }
 /* phones: "Computing Built" no longer fits on one line, so let the headline
    flow as one run of text ("Computing / Built for / Discovery.") instead of
