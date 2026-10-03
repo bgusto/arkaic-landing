@@ -1,0 +1,35 @@
+name: Sync Proton busy times
+
+# Publishes meet/busy.json (busy intervals only) from the Proton Calendar share
+# link in the PROTON_ICS_URL secret, so arkaic.inc/meet hides taken slots.
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: proton-busy
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install icalendar recurring-ical-events
+      - run: python scripts/proton_busy.py
+        env:
+          PROTON_ICS_URL: ${{ secrets.PROTON_ICS_URL }}
+      - name: Commit if changed
+        run: |
+          git diff --quiet meet/busy.json && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git commit -m "meet: sync busy times" meet/busy.json
+          git push

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Meet Arkaic</title>
+  <meta name="description" content="Book a 30-minute meeting with Arkaic.">
+  <meta name="theme-color" content="#1E1D1A">
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="canonical" href="https://arkaic.inc/meet/">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montagu+Slab:opsz,wght@16..144,400&family=Shrikhand&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css?v=18">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Arkaic home">
+      <img src="/assets/logo-horizontal-paper.svg" alt="Arkaic" width="146" height="34">
+    </a>
+  </header>
+
+  <main id="main">
+    <section class="section paper meet" aria-labelledby="meet-title">
+      <div>
+        <p class="tag"><span class="tag-num">→</span><span class="tag-label">Meet</span></p>
+        <h1 id="meet-title" class="h2">Let&rsquo;s talk.</h1>
+        <p class="body-lg meet-lede">Pick a 30-minute slot with Brandon Gusto, founder of Arkaic. You&rsquo;ll get a confirmation by email.</p>
+        <div class="meet-card">
+          <!-- step 1: day and time -->
+          <div class="meet-pick">
+            <h2 class="meet-step">Choose a day</h2>
+            <div class="meet-days" role="listbox" aria-label="Day"></div>
+            <h2 class="meet-step">Choose a time</h2>
+            <p class="meet-tz"></p>
+            <div class="meet-slots" role="listbox" aria-label="Time"></div>
+            <p class="meet-empty" hidden>No open times this day.</p>
+          </div>
+  
+          <!-- step 2: details -->
+          <form class="meet-form" action="https://formspree.io/f/xnpnykan" method="POST" hidden>
+            <p class="meet-chosen"></p>
+            <button type="button" class="meet-back">Change time</button>
+            <label for="meet-name">Name</label>
+            <input id="meet-name" name="name" autocomplete="name" required>
+            <label for="meet-email">Email</label>
+            <input id="meet-email" type="email" name="email" autocomplete="email" required>
+            <label for="meet-org">Firm</label>
+            <input id="meet-org" name="firm" autocomplete="organization">
+            <label for="meet-note">Anything we should know? <span>(optional)</span></label>
+            <textarea id="meet-note" name="note" rows="3"></textarea>
+            <input type="hidden" name="_subject">
+            <input type="hidden" name="meeting_start_utc">
+            <input type="hidden" name="meeting_time_et">
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="visually-hidden" aria-hidden="true">
+            <button class="button button-graphite" type="submit">Request meeting</button>
+            <p class="meet-msg" role="status" aria-live="polite"></p>
+          </form>
+  
+          <!-- step 3: done -->
+          <div class="meet-done" hidden>
+            <h2 class="h3">Request sent.</h2>
+            <p class="meet-done-time"></p>
+            <p class="meet-done-note">Brandon will confirm by email shortly.</p>
+            <a class="button button-graphite meet-ics" download="arkaic-meeting.ics">Add to calendar</a>
+          </div>
+        </div>
+        </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <img src="/assets/logo-horizontal-paper.svg" alt="Arkaic" width="120" height="28">
+    <p class="fine">© 2026 Arkaic Inc.</p>
+  </footer>
+
+  <script src="/meet/meet.js?v=1" defer></script>
+</body>
+</html>
