@@ -466,3 +466,23 @@ strong { font-weight: 500; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+/* comparison tooltips: capability definitions on hover or keyboard focus.
+   The scroller clips overflow, so it reserves room below for the last row's
+   tooltip (negative margin keeps the layout unchanged). */
+.compare-scroll { padding-bottom: 110px; margin-bottom: -110px; }
+.matrix tbody th { position: relative; }
+.tip-label { cursor: help; text-decoration: underline dotted var(--ink-45); text-underline-offset: 4px; }
+.tip-label:focus-visible { outline-offset: 2px; }
+.tip {
+  position: absolute; left: 12px; top: calc(100% - 6px); z-index: 20;
+  width: min(320px, 70vw); padding: 10px 12px;
+  background: var(--graphite); color: var(--paper);
+  font-size: 13px; font-weight: 400; line-height: 1.4; letter-spacing: 0;
+  white-space: normal; text-align: left;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 0.12s ease;
+}
+.matrix tbody th:hover .tip,
+.matrix tbody th:focus-within .tip { opacity: 1; visibility: visible; }
+@media (max-width: 480px) { .tip { font-size: 12px; } }

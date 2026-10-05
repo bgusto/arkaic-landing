@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montagu+Slab:opsz,wght@16..144,400&family=Shrikhand&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=19">
+  <link rel="stylesheet" href="styles.css?v=20">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -126,67 +126,54 @@
         <h3 class="h3">How Evolve compares.</h3>
         <div class="compare-scroll">
           <table class="matrix">
-            <caption class="visually-hidden">Capabilities of Evolve compared with Optuna, Ray on Anyscale, modeFrontier, OptiSLang, and HEEDS</caption>
+            <caption class="visually-hidden">Capabilities of Evolve compared with Optuna, Ray on Anyscale, modeFRONTIER, optiSLang, HEEDS, and CONVERGE (Studio and Horizon)</caption>
             <thead>
               <tr>
                 <th scope="col" class="matrix-corner"><span>Capabilities</span></th>
                 <th scope="col" class="matrix-col is-evolve"><span class="matrix-tab" aria-hidden="true"></span><span class="matrix-name">Evolve</span></th>
                 <th scope="col" class="matrix-col"><span class="matrix-tab" aria-hidden="true"></span><span class="matrix-name">Optuna</span></th>
                 <th scope="col" class="matrix-col"><span class="matrix-tab" aria-hidden="true"></span><span class="matrix-name">Ray on Anyscale</span></th>
-                <th scope="col" class="matrix-col"><span class="matrix-tab" aria-hidden="true"></span><span class="matrix-name">modeFrontier</span></th>
-                <th scope="col" class="matrix-col"><span class="matrix-tab" aria-hidden="true"></span><span class="matrix-name">OptiSLang</span></th>
+                <th scope="col" class="matrix-col"><span class="matrix-tab" aria-hidden="true"></span><span class="matrix-name">modeFRONTIER</span></th>
+                <th scope="col" class="matrix-col"><span class="matrix-tab" aria-hidden="true"></span><span class="matrix-name">optiSLang</span></th>
                 <th scope="col" class="matrix-col"><span class="matrix-tab" aria-hidden="true"></span><span class="matrix-name">HEEDS</span></th>
+                <th scope="col" class="matrix-col"><span class="matrix-tab" aria-hidden="true"></span><span class="matrix-name">CONVERGE</span></th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <th scope="row">Scientific simulation software integration</th>
+                <th scope="row"><span class="tip-label" tabindex="0" aria-describedby="tip-1">Drives external solvers</span><span class="tip" id="tip-1" role="tooltip">Runs third-party or in-house simulation codes as the evaluation step in an optimization loop, through connectors or user wrappers, not just the vendor&rsquo;s own solver.</span></th>
                 <td class="is-evolve"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes-evolve"/></svg><span class="visually-hidden">Yes</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
                 <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes"/></svg><span class="visually-hidden">Yes</span></td>
                 <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes"/></svg><span class="visually-hidden">Yes</span></td>
                 <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes"/></svg><span class="visually-hidden">Yes</span></td>
+                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes"/></svg><span class="visually-hidden">Yes</span></td>
+                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes"/></svg><span class="visually-hidden">Yes</span></td>
+                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
               </tr>
               <tr>
-                <th scope="row">Managed HPC backend</th>
+                <th scope="row"><span class="tip-label" tabindex="0" aria-describedby="tip-2">Parallel trials on managed compute</span><span class="tip" id="tip-2" role="tooltip">Runs many trials concurrently on compute the vendor provisions and scales, without the user managing a cluster or writing the job-dispatch logic.</span></th>
                 <td class="is-evolve"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes-evolve"/></svg><span class="visually-hidden">Yes</span></td>
                 <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
                 <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes"/></svg><span class="visually-hidden">Yes</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
+                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
+                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
                 <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
                 <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
               </tr>
               <tr>
-                <th scope="row">Learns from past studies</th>
+                <th scope="row"><span class="tip-label" tabindex="0" aria-describedby="tip-3">Learns from past studies</span><span class="tip" id="tip-3" role="tooltip">Uses data or models from earlier studies to warm-start a new one, through transfer or meta-learning across campaigns, not just reusing a DoE within the same study.</span></th>
                 <td class="is-evolve"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes-evolve"/></svg><span class="visually-hidden">Yes</span></td>
+                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
+                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
+                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
                 <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
+                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes"/></svg><span class="visually-hidden">Yes</span></td>
                 <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
               </tr>
               <tr>
-                <th scope="row">Multi-fidelity surrogates</th>
+                <th scope="row"><span class="tip-label" tabindex="0" aria-describedby="tip-4">Multi-fidelity surrogates</span><span class="tip" id="tip-4" role="tooltip">Builds surrogates that fuse cheap low-fidelity and expensive high-fidelity results, such as co-kriging or multi-fidelity Gaussian processes, not just swapping one data source for another.</span></th>
                 <td class="is-evolve"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes-evolve"/></svg><span class="visually-hidden">Yes</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
                 <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
-              </tr>
-              <tr>
-                <th scope="row">High-dimensional Bayesian optimization</th>
-                <td class="is-evolve"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes-evolve"/></svg><span class="visually-hidden">Yes</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
-              </tr>
-              <tr>
-                <th scope="row">Agentic workflow orchestration</th>
-                <td class="is-evolve"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes-evolve"/></svg><span class="visually-hidden">Yes</span></td>
                 <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
                 <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes"/></svg><span class="visually-hidden">Yes</span></td>
                 <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
@@ -194,9 +181,30 @@
                 <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
               </tr>
               <tr>
-                <th scope="row">Free for non-commercial use</th>
+                <th scope="row"><span class="tip-label" tabindex="0" aria-describedby="tip-5">High-dimensional Bayesian optimization</span><span class="tip" id="tip-5" role="tooltip">Runs sequential Bayesian optimization with a probabilistic surrogate and an acquisition function, scaling to tens of variables or more, not just low-dimensional BO or a one-shot DoE.</span></th>
+                <td class="is-evolve"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes-evolve"/></svg><span class="visually-hidden">Yes</span></td>
+                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
+                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
+                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
+                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
+                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
+                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
+              </tr>
+              <tr>
+                <th scope="row"><span class="tip-label" tabindex="0" aria-describedby="tip-6">Agentic workflow orchestration</span><span class="tip" id="tip-6" role="tooltip">Lets AI agents monitor runs, stop failing ones, and propose changes to the study, directly or through an agent interface such as MCP, not just a help chatbot.</span></th>
                 <td class="is-evolve"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes-evolve"/></svg><span class="visually-hidden">Yes</span></td>
                 <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes"/></svg><span class="visually-hidden">Yes</span></td>
+                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
+                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
+                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
+                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
+                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
+              </tr>
+              <tr>
+                <th scope="row"><span class="tip-label" tabindex="0" aria-describedby="tip-7">Free for non-commercial use</span><span class="tip" id="tip-7" role="tooltip">Offers a free license for academic, research, or personal non-commercial use, not just discounted pricing or a time-limited trial.</span></th>
+                <td class="is-evolve"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes-evolve"/></svg><span class="visually-hidden">Yes</span></td>
+                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes"/></svg><span class="visually-hidden">Yes</span></td>
+                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
                 <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
                 <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
                 <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
@@ -211,9 +219,9 @@
           <li><svg class="mark" viewBox="0 0 24 24"><use href="#mark-no"/></svg>No</li>
         </ul>
         <figcaption class="compare-note">
-          Compared on published features as of October 2026. A partial mark
-          means the capability is limited, or available only through a separate
-          product or an integration the user must set up.
+          Published features as of October 2026. Partial: limited, or only
+          via a separate product or integration. CONVERGE covers Studio and
+          Horizon. Hover or focus a capability for its definition.
         </figcaption>
       </figure>
     </section>
