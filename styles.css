@@ -3,6 +3,56 @@
    Accents (cyan, gold, coral) enter only through the prisms.
    4-column grid, generous margins, flat and matte: no shadows, no gradients. */
 
+/* Fonts are self-hosted (SIL Open Font License) so no visitor data goes to Google. */
+@font-face {
+  font-family: "Montagu Slab";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/montagu-slab-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Montagu Slab";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/montagu-slab-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Shrikhand";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/shrikhand-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Shrikhand";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/shrikhand-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/assets/fonts/space-grotesk-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("/assets/fonts/space-grotesk-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
 :root {
   --paper: #F5F0E8;
   --graphite: #1E1D1A;
@@ -124,6 +174,9 @@ strong { font-weight: 500; }
 .waitlist .button:disabled { opacity: 0.6; cursor: default; }
 .waitlist-msg { flex-basis: 100%; margin-top: 14px; font-size: 14px; color: var(--ink-70); }
 .waitlist-msg:empty { display: none; }
+.consent { flex-basis: 100%; margin: 12px 0 0; font-size: 13px; color: var(--ink-70); }
+.consent a { color: inherit; }
+.meet-form .consent { margin-top: 20px; }
 
 /* ---- topbar ---- */
 .topbar {
@@ -213,9 +266,22 @@ strong { font-weight: 500; }
 /* two columns that read top to bottom, left column first */
 .features .principles { columns: 2; column-gap: var(--col-gap); }
 .features .principles li { break-inside: avoid; }
+.section > .study,
 .section > .result { margin-top: clamp(64px, 9vh, 112px); }
-/* the image sits square-cornered in a Graphite rule, like the waitlist card */
-.result img { display: block; width: 100%; height: auto; margin-top: 24px; border: 1px solid var(--graphite); }
+.study-frame {
+  width: min(100%, var(--figure-w)); margin: 24px auto 0; aspect-ratio: 950 / 594;
+  background: #fff; border: 1px solid var(--graphite);
+}
+.study-frame iframe { display: block; width: 100%; height: 100%; border: 0; }
+/* the study animation and the screenshot share one centred width, so they
+   read as a pair; both sit square-cornered in a Graphite rule like the
+   waitlist card. The animation is a fixed 950x594 stage that scales itself
+   to its frame, so the frame only needs the right proportions. */
+.study, .result { --figure-w: 1000px; }
+.result img {
+  display: block; width: min(100%, var(--figure-w)); height: auto;
+  margin: 24px auto 0; border: 1px solid var(--graphite);
+}
 
 /* waitlist: Eigenmode field (texture 04, cyan) behind a centred Paper card,
    the same construction as the closing contact band (texture 06, coral) */

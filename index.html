@@ -18,11 +18,7 @@
   <meta property="og:url" content="https://arkaic.inc/">
   <meta property="og:image" content="https://arkaic.inc/assets/og.jpg">
   <meta name="twitter:card" content="summary_large_image">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montagu+Slab:opsz,wght@16..144,400&family=Shrikhand&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20">
+  <link rel="stylesheet" href="styles.css?v=23">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -90,6 +86,7 @@
             <input id="waitlist-email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
             <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="visually-hidden" aria-hidden="true">
             <button class="button button-graphite" type="submit">Join the waitlist</button>
+            <p class="consent">We use your email only to tell you when Evolve is open. See our <a href="/privacy/">privacy page</a>.</p>
             <p class="waitlist-msg" role="status" aria-live="polite"></p>
           </form>
         </div>
@@ -109,6 +106,19 @@
           <li>Free for non-commercial use.</li>
         </ul>
       </div>
+
+      <figure class="study">
+        <h3 class="h3">How Evolve runs a study.</h3>
+        <div class="study-frame">
+          <iframe src="evolve-study-animation.html" title="Animation of three Evolve study workflows" loading="lazy" scrolling="no"></iframe>
+        </div>
+        <figcaption class="compare-note">
+          Three study patterns, looping. A sampled design feeds a surrogate
+          model that is verified at full fidelity. A batch Bayesian optimizer
+          refits after every six simulations. A multi-fidelity surrogate picks
+          its own samples, then hands off to a multi-objective search.
+        </figcaption>
+      </figure>
 
       <figure class="result">
         <h3 class="h3">Evolve at work.</h3>

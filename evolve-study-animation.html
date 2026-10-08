@@ -1,0 +1,112 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#fff}
+#st{position:absolute;left:0;top:0;width:950px;height:594px;transform-origin:0 0;overflow:hidden;background:#fff;background-image:radial-gradient(rgba(30,29,26,.11) 1.2px,transparent 1.2px);background-size:22px 22px;font-family:-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;color:#1E1D1A;transition:opacity .35s}
+#hd{position:absolute;left:24px;top:16px;font-size:24px;color:rgba(30,29,26,.62);background:rgba(255,255,255,.88);padding:2px 10px 2px 0;z-index:3}
+#hd b{color:#1E1D1A;font-weight:600}
+#wd{position:absolute;left:0;top:0;height:594px;transform-origin:0 0}
+svg.e{position:absolute;left:0;top:0;height:594px}
+svg.e path{fill:none;stroke-width:2.5;stroke-linecap:round}
+.p{position:absolute;box-sizing:border-box;display:flex;align-items:center;background:#fff;border:1px solid rgba(30,29,26,.18);box-shadow:0 1px 2px rgba(0,0,0,.05),0 6px 18px rgba(0,0,0,.06);opacity:0;transform:scale(.85);transition:opacity .35s,transform .35s,box-shadow .3s}
+.p.on{opacity:1;transform:none}
+.p.big{width:206px;height:68px;gap:12px;padding:8px 14px 8px 8px;border-radius:34px}
+.p.mini{width:150px;gap:10px;padding:6px 14px 6px 6px;border-radius:30px}
+.p.running{box-shadow:0 0 0 3px var(--c),0 8px 22px rgba(0,0,0,.10)}
+.w{position:relative;flex:none}.w svg{position:absolute;inset:0}
+.t{position:absolute;border-radius:50%;background:var(--c);color:var(--on,#fff);display:grid;place-items:center}
+.t svg{position:static;width:55%;height:55%}
+.tr{stroke:rgba(30,29,26,.09);fill:none}
+.pr{stroke:var(--c);fill:none;stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%}
+.id{font-size:24px;font-weight:600;line-height:1.1;white-space:nowrap}
+.ct{font:500 21px ui-monospace,Menlo,Consolas,monospace;color:rgba(30,29,26,.6);margin-top:2px;white-space:nowrap}
+.mini .id{font:500 22px ui-monospace,Menlo,Consolas,monospace}
+.running .ct{color:#46607a}.succeeded .ct{color:#4a5f42}
+.cap{position:absolute;font-size:22px;color:rgba(30,29,26,.6);opacity:0;transition:opacity .4s;white-space:nowrap}
+.cap.on{opacity:1}
+#ins{position:absolute;left:606px;top:40px;width:320px;height:178px;background:#fff;border:1px solid rgba(30,29,26,.2);border-radius:10px;box-shadow:0 6px 20px rgba(0,0,0,.08);opacity:0;transition:opacity .4s;z-index:2}
+#ins p{margin:8px 12px 0;font-size:20px;font-weight:600}
+#ins svg{position:absolute;left:0;top:34px}
+#ins text{font-size:15px;fill:rgba(30,29,26,.55);font-family:inherit}
+</style></head><body><div id="st"><div id="wd"></div><div id="hd"></div><div id="ins"><p></p><svg width="320" height="144"></svg></div></div>
+<script>
+const I={s:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="6" cy="7" r="2"/><circle cx="16" cy="5" r="2"/><circle cx="11" cy="13" r="2"/><circle cx="5" cy="18" r="2"/><circle cx="18" cy="17" r="2"/></svg>',
+o:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6c4 0 5 12 9 12s5-9 9-9"/><circle cx="12" cy="18" r="1.6" fill="currentColor"/></svg>',
+m:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4c1 9 7 15 16 16"/><circle cx="6" cy="11" r="1.4" fill="currentColor"/><circle cx="11" cy="16" r="1.4" fill="currentColor"/><circle cx="17" cy="19" r="1.4" fill="currentColor"/></svg>',
+g:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 17c3-8 6-10 9-6s6 2 9-6"/><path d="M3 20h18" opacity=".5"/></svg>',
+v:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></svg>',
+f:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16l-6 7v6l-4 2v-8z"/></svg>',
+q:'<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="3"/></svg>'};
+const SIM="#46607a",LO="#8FA3BA",GP="#2E8B82",BO="#2F4A7A",VER="#C4452D",DOE="#E0B33A",NS="#D96B56",AD="#5C6E3A";
+function scene(title,Y,mh){const N=[],E=[],o={title,Y,mh,N,E};
+o.n=p=>{p.h=p.big?68:mh;p.w=p.big?206:150;p.y=p.cy-p.h/2;N.push(p);return N.length-1};
+o.big=(k,i,c,x,s,a,b,x2)=>o.n(Object.assign({big:1,k,i,c,x,cy:Y,s,a,b},x2||{}));
+o.fan=(src,x,labs,cols,t,durs,sp,ev)=>{const ids=[],ends=[];labs.forEach((l,j)=>{const e0=t+.08*j,st=e0+.45,id=o.n({k:l,i:ev?"q":"q",c:cols[j]||cols[0],x,cy:Y+(j-(labs.length-1)/2)*sp,s:st,a:st,b:st+durs[j],ev});E.push([src,id,e0,st]);ids.push(id);ends.push(st+durs[j])});return[ids,ends]};
+o.join=(ids,ends,dst)=>ids.forEach((s,j)=>E.push([s,dst,ends[j],ends[j]+.45]));
+o.link=(a,b,t)=>E.push([a,b,t,t+.5]);return o}
+const D1=[1.8,2.6,2.1,3,2.3,2.8],DQ=[1.2,1.6,1.4,1.9,1.3,1.7];
+// scene 1
+function s1(){const o=scene("Distributed sampling → surrogate → verify",297,50);
+const d=o.big("doe","s",DOE,40,0,.2,1.2,{n:6,on:"#1A1A1A",cap:"Latin hypercube"});
+const[a,ea]=o.fan(d,470,[1,2,3,4,5,6].map(i=>"sim "+i),[SIM],1.2,D1,78);
+const g=o.big("surrogate","g",GP,760,3.6,5.7,6.9,{run:"fitting",done:"trained",cap:"Gaussian process"});o.join(a,ea,g);
+const v=o.big("verify","v",VER,1060,7.4,8.1,10.4,{n:4,cap:"full fidelity"});o.link(g,v,6.9);
+o.fan(v,1400,[1,2,3,4].map(i=>"eval "+i),[VER],7.6,[1.2,1.6,1.4,1.9],90,1);
+o.T=16;o.W=1600;o.K=[[0,[0,0,1]],[2,[0,0,1]],[3.2,[-180,0,1]],[5.8,[-180,0,1]],[7,[-420,0,1]],[8.2,[-650,0,1]],[10.8,[-650,0,1]],[12,[15,126,.575]],[16,[15,126,.575]]];return o}
+// scene 2
+function s2(){const o=scene("Batch Bayesian optimization · q = 6",370,42);
+const d=o.big("doe","s",DOE,40,0,.2,1,{n:6,on:"#1A1A1A",cap:"initial design"});
+const L=k=>[1,2,3,4,5,6].map(i=>"x"+(i+k));
+const[a,ea]=o.fan(d,470,L(0),[SIM],1,DQ,52);
+const b1=o.big("bo","o",BO,760,2.6,3.7,4.5,{run:"refit 1",done:"batch 1",cap:"GP + q-EI"});o.join(a,ea,b1);
+const[b,eb]=o.fan(b1,1190,L(6),[SIM],4.5,DQ,52);
+const b2=o.big("bo","o",BO,1480,6,7.2,8,{run:"refit 2",done:"batch 2",cap:"GP + q-EI"});o.join(b,eb,b2);
+const[c,ec]=o.fan(b2,1910,L(12),[SIM],8,DQ,52);
+const best=o.big("best","v",VER,2200,10.4,10.7,11.4,{run:"selecting",done:"−11% drag",cap:"best design"});o.join(c,ec,best);
+const v=[.92,.85,.97,.88,.80,.90,.78,.83,.74,.79,.71,.76,.69,.72,.66,.70,.64,.67],e=[...ea,...eb,...ec];
+o.pts=e.map((t,i)=>({t,v:v[i]})).sort((p,q)=>p.t-q.t);o.ins={type:"min",s:1.4,title:"Best drag so far"};
+o.T=20;o.W=2450;o.K=[[0,[0,0,1]],[1,[0,0,1]],[2.2,[-180,0,1]],[3.6,[-180,0,1]],[4.8,[-650,0,1]],[7.1,[-650,0,1]],[8.4,[-1150,0,1]],[10.5,[-1150,0,1]],[11.3,[-1496,0,1]],[13,[-1496,0,1]],[14.2,[15,190,.375]],[20,[15,190,.375]]];return o}
+// scene 3
+function s3(){const o=scene("Multi-fidelity GP → adaptive sampling → NSGA-II",370,42);
+const d=o.big("doe","s",DOE,40,0,.2,1,{n:6,on:"#1A1A1A",cap:"initial design"});
+const[a,ea]=o.fan(d,470,["lo 1","lo 2","lo 3","lo 4","hi 1","hi 2"],[LO,LO,LO,LO,SIM,SIM],1,[.8,1,.9,1.1,2.4,2.8],52);
+const g=o.big("mf-gp","g",GP,760,2.4,4.6,5.4,{run:"fitting",done:"fit",cap:"multi-fidelity GP"});o.join(a,ea,g);
+const ad=o.big("adaptive","f",AD,1060,5.6,6,6.6,{run:"scoring",done:"4 picked",cap:"max entropy"});o.link(g,ad,5.4);
+const[b,eb]=o.fan(ad,1400,["lo 5","lo 6","hi 3","lo 7"],[LO,LO,SIM,LO],6.6,[.9,1,2.2,.8],60);
+const g2=o.big("mf-gp","g",GP,1690,7.6,9.6,10.3,{run:"refitting",done:"refit",cap:"lower uncertainty"});o.join(b,eb,g2);
+o.big("nsga-ii","m",NS,1990,10.6,11,15,{n:40,cap:"Pareto search"});o.link(g2,o.N.length-1,10.3);
+o.ins={type:"pareto",s:10.8,a:11,b:15,title:"Pareto front · drag vs lift"};
+o.T=21;o.W=2240;o.K=[[0,[0,0,1]],[1,[0,0,1]],[2.2,[-180,0,1]],[4.4,[-180,0,1]],[5.6,[-420,0,1]],[6.6,[-650,0,1]],[9.4,[-650,0,1]],[10.4,[-1100,0,1]],[11.2,[-1290,0,1]],[15.6,[-1290,0,1]],[16.8,[15,190,.41]],[21,[15,190,.41]]];return o}
+const SC=[s1,s2,s3],wd=document.getElementById("wd"),stg=document.getElementById("st"),hd=document.getElementById("hd"),ins=document.getElementById("ins"),isv=ins.querySelector("svg");
+const RM=matchMedia("(prefers-reduced-motion: reduce)").matches,fit=()=>{stg.style.transform=`scale(${innerWidth/950})`};fit();addEventListener("resize",fit);
+let S,P,si=0,ss;
+function build(k){S=SC[k]();hd.innerHTML=`<b>${k+1}/3</b> · ${S.title}`;wd.style.width=S.W+"px";wd.innerHTML=`<svg class="e" width="${S.W}" height="594"></svg>`;
+S.N.forEach(n=>{const d=document.createElement("div");d.className="p "+(n.big?"big":"mini");d.style.cssText=`left:${n.x}px;top:${n.y}px;height:${n.h}px;--c:${n.c};${n.on?"--on:"+n.on:""}`;
+const Z=n.h-12,w=n.big?4:3.5,R=(Z-w)/2,ins_=n.big?7:5;n.C=2*Math.PI*R;
+d.innerHTML=`<span class="w" style="width:${Z}px;height:${Z}px"><svg viewBox="0 0 ${Z} ${Z}" width="${Z}" height="${Z}"><circle class="tr" cx="${Z/2}" cy="${Z/2}" r="${R}" stroke-width="${w}"/><circle class="pr" cx="${Z/2}" cy="${Z/2}" r="${R}" stroke-width="${w}" stroke-dasharray="${n.C}" stroke-dashoffset="${n.C}"/></svg><span class="t" style="inset:${ins_}px">${I[n.i]}</span></span><span><div class="id">${n.k}</div>${n.big?'<div class="ct">waiting</div>':""}</span>`;
+wd.appendChild(d);n.el=d;n.pr=d.querySelector(".pr");n.ct=d.querySelector(".ct");n.tl=d.querySelector(".t");
+if(n.cap){const c=document.createElement("div");c.className="cap";c.style.cssText=`left:${n.x+16}px;top:${n.y+n.h+10}px`;c.textContent=n.cap;wd.appendChild(c);n.cp=c}});
+const es=wd.querySelector("svg");es.innerHTML=S.E.map(([a,b])=>{const s=S.N[a],t=S.N[b],x1=s.x+s.w,y1=s.cy,x2=t.x,y2=t.cy,m=(x1+x2)/2;return`<path pathLength="1" stroke-dasharray="1 1" stroke-dashoffset="1" stroke="${t.c}" d="M${x1},${y1} C${m},${y1} ${m},${y2} ${x2},${y2}"/>`}).join("");
+P=[...es.querySelectorAll("path")];ins.querySelector("p").textContent=S.ins?S.ins.title:"";isv.innerHTML="";
+if(S.ins&&S.ins.type=="pareto"){let r=7;const rnd=()=>(r=(r*9301+49297)%233280)/233280;S.pp=[...Array(28)].map((_,k)=>{const x=.06+.88*k/27;return{x0:.3+.65*rnd(),y0:.35+.6*rnd(),x1:x,y1:.06+.82*Math.pow(1-x,2.2)}})}}
+const sm=x=>x<=0?0:x>=1?1:x*x*(3-2*x),cl=(t,a,b)=>Math.max(0,Math.min(1,(t-a)/(b-a)));
+function cam(t){const K=S.K;for(let i=1;i<K.length;i++)if(t<=K[i][0]){const[a,A]=K[i-1],[b,B]=K[i],u=sm((t-a)/(b-a));return A.map((v,k)=>v+(B[k]-v)*u)}return K[K.length-1][1]}
+const X0=44,X1=304,Y0=118,Y1=12;
+function inset(t){const o=S.ins;if(!o){ins.style.opacity=0;return}ins.style.opacity=t>=o.s?1:0;
+if(o.type=="min"){const v=S.pts.filter(p=>p.t<=t),n=S.pts.length,px=i=>X0+(X1-X0)*i/(n-1),py=y=>Y0-(Y0-Y1)*((y-.58)/.45);let b=9,st="";
+const dots=v.map((p,i)=>{b=Math.min(b,p.v);st+=(i?"L":"M")+px(i)+","+py(b)+" ";return`<circle cx="${px(i)}" cy="${py(p.v)}" r="4" fill="#46607a" opacity=".55"/>`}).join("");
+isv.innerHTML=`<path d="M${X0},${Y1}V${Y0}H${X1}" stroke="rgba(30,29,26,.3)" fill="none"/>${dots}<path d="${st}" stroke="${VER}" stroke-width="3" fill="none"/><text x="${X1}" y="${Y0+20}" text-anchor="end">evaluations</text><text x="${X0-8}" y="${Y1+10}" text-anchor="end">drag</text>`}
+else{const q=sm(cl(t,o.a,o.b)),px=x=>X0+(X1-X0)*x,py=y=>Y0-(Y0-Y1)*y;
+const dots=S.pp.map(p=>`<circle cx="${px(p.x0+(p.x1-p.x0)*q)}" cy="${py(p.y0+(p.y1-p.y0)*q)}" r="4.5" fill="${NS}" opacity=".8"/>`).join("");
+const fr=S.pp.map((p,i)=>(i?"L":"M")+px(p.x1)+","+py(p.y1)).join(" ");
+isv.innerHTML=`<path d="M${X0},${Y1}V${Y0}H${X1}" stroke="rgba(30,29,26,.3)" fill="none"/><path d="${fr}" stroke="${NS}" stroke-width="2" fill="none" opacity="${Math.max(0,(q-.8)*5)}"/>${dots}<text x="${X1}" y="${Y0+20}" text-anchor="end">drag</text><text x="${X0-8}" y="${Y1+10}" text-anchor="end">−lift</text>`}}
+build(0);ss=performance.now()-4000;
+function f(now){let t=RM?S.T-1:(now-ss)/1000;if(t>=S.T){si=(si+1)%3;build(si);ss=now;t=0}
+const[x,y,s]=cam(t);wd.style.transform=`translate(${x}px,${y}px) scale(${s})`;
+S.N.forEach(n=>{const q=cl(t,n.a,n.b),st=t<n.a?"waiting":t<n.b?"running":"succeeded";
+n.el.className="p "+(n.big?"big ":"mini ")+st+(t>=n.s?" on":"");if(n.cp)n.cp.className="cap"+(t>=n.s?" on":"");
+n.pr.setAttribute("stroke-dashoffset",n.C*(1-q));
+if(n.ct)n.ct.textContent=st=="waiting"?"waiting":n.run?(st=="running"?n.run:n.done):`${Math.floor(q*n.n)}/${n.n}`;
+if(n.ev){const d=st=="succeeded";if(n.d!==d){n.d=d;n.tl.innerHTML=d?I.v:I.q;n.tl.style.background=d?"#4a5f42":n.c}}});
+S.E.forEach(([a,b,c,d],i)=>P[i].setAttribute("stroke-dashoffset",1-sm(cl(t,c,d))));
+inset(t);stg.style.opacity=t>S.T-.4||t<.25?0:1;if(!RM)requestAnimationFrame(f)}
+requestAnimationFrame(f);
+</script></body></html>
