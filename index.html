@@ -121,6 +121,7 @@
           <ul class="principles" role="list">
             <li>Every prediction comes with its uncertainty, so you can see where the model is confident and where it is guessing.</li>
             <li>Leave-one-out fit reports show how the model holds up on data it hasn&rsquo;t seen.</li>
+            <li>Adaptive sampling spends new runs where the uncertainty is highest.</li>
             <li>The finished model downloads as a single <code>.surrogate.h5</code> file.</li>
           </ul>
         </div>
@@ -164,13 +165,13 @@
         <p class="body-lg">
           Every model Evolve trains is saved in one self-describing format that
           records its inputs and bounds, its outputs, its training data, and
-          the fit. Models move between steps, and from the cloud to your
+          the fit. Models move between steps, and between the cloud and your
           workstation, without conversion.
         </p>
         <ol class="steps" role="list">
           <li><span class="step-num">1</span><h4>Train in the cloud</h4><p>Run sampling and training campaigns across many machines at once.</p></li>
           <li><span class="step-num">2</span><h4>Download</h4><p>Take the model with you as a <code>.surrogate.h5</code> file, and its data as CSV.</p></li>
-          <li><span class="step-num">3</span><h4>Share it</h4><p>Publish the workflow to Evolve&rsquo;s community with the paper it supports, so others can copy it and run it again.</p></li>
+          <li><span class="step-num">3</span><h4>Refine locally</h4><p>Query and refine it with Python wrappers, then send it back to the cloud to scale up.</p></li>
         </ol>
       </div>
 
