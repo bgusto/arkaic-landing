@@ -1,7 +1,7 @@
 // Arkaic meeting booker: 30-minute slots on weekdays, 08:00-12:00 and
 // 13:00-17:00 Eastern, minus busy times synced from Proton Calendar
 // (busy.json, refreshed by .github/workflows/proton-busy.yml).
-// A request goes to Formspree; Brandon confirms by email.
+// A request goes to Formspree; the Arkaic team confirms by email.
 (() => {
   const ZONE = "America/New_York";
   const WINDOWS = [[8, 12], [13, 17]];   // hours, local to ZONE
@@ -151,7 +151,7 @@
       `DTSTART:${stamp(start)}`,
       `DTEND:${stamp(start + SLOT_MIN * 60e3)}`,
       `SUMMARY:Arkaic × ${(firm || name).replace(/[,;\\]/g, " ")}`,
-      "DESCRIPTION:Meeting with Brandon Gusto (Arkaic). Pending confirmation by email.",
+      "DESCRIPTION:Meeting with the Arkaic team. Pending confirmation by email.",
       "END:VEVENT", "END:VCALENDAR",
     ];
     return "data:text/calendar;charset=utf-8," + encodeURIComponent(lines.join("\r\n"));
