@@ -318,8 +318,11 @@ strong { font-weight: 500; }
 .study, .result { --figure-w: 1000px; }
 .section > .study { margin-top: clamp(40px, 6vh, 72px); }
 .study + .pain { margin-top: clamp(80px, 12vh, 144px); }
+/* a quiet label over the animation, on its left edge, so it does not
+   compete with the line above or the headline below */
+.study-label { width: min(100%, var(--figure-w)); margin: 0 auto; }
 .study-frame {
-  width: min(100%, var(--figure-w)); margin: 24px auto 0; aspect-ratio: 950 / 594;
+  width: min(100%, var(--figure-w)); margin: 12px auto 0; aspect-ratio: 950 / 594;
   background: #fff; border: 1px solid var(--graphite);
 }
 .study-frame iframe { display: block; width: 100%; height: 100%; border: 0; }
