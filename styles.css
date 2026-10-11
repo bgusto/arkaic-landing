@@ -277,8 +277,9 @@ strong { font-weight: 500; }
 .pain-head .line { display: block; }
 .pain .body-lg { max-width: 60ch; margin-top: 24px; }
 .pain-how { margin-top: 40px; }
-.pain-how .principles { columns: 2; column-gap: var(--col-gap); }
-.pain-how .principles li { break-inside: avoid; }
+/* a grid, two to a row: each row is as tall as its taller item, so the
+   rules under the items line up across the row whatever their length */
+.pain-how .principles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--col-gap); }
 .how {
   font-weight: 500; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
   color: var(--ink-70); margin-bottom: 12px;
@@ -480,7 +481,7 @@ strong { font-weight: 500; }
   .span-2 { grid-column: span 1; }
   .team { grid-template-columns: minmax(0, 1fr); }
   .steps { grid-template-columns: minmax(0, 1fr); }
-  .pain-how .principles { columns: 1; }
+  .pain-how .principles { grid-template-columns: minmax(0, 1fr); }
   .waitlist input[type="email"] { border-right: 1px solid var(--ink-45); flex-basis: 100%; }
   .waitlist .button { flex: 1 1 100%; margin-top: 10px; }
   .h2 { max-width: none; }
