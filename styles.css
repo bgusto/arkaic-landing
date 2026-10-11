@@ -76,6 +76,9 @@
   --col-gap: clamp(20px, 2.5vw, 40px);
   --section-y: clamp(72px, 11vh, 150px);
   --max: 1440px;
+  /* one measure for every section's paragraphs and every figure's
+     caption: a fixed width, so text of different sizes lines up */
+  --measure: 46rem;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -119,7 +122,7 @@ strong { font-weight: 500; }
   letter-spacing: -0.05em;
   max-width: 16ch;
 }
-.body-lg { font-size: clamp(17px, 1.35vw, 20px); line-height: 1.4; max-width: 44ch; }
+.body-lg { font-size: clamp(17px, 1.35vw, 20px); line-height: 1.4; max-width: var(--measure); }
 .h3 {
   font-family: var(--font-display);
   font-weight: 400;
@@ -262,8 +265,7 @@ strong { font-weight: 500; }
 /* product section, top to bottom: full-width intro, waitlist band, then each
    pain point (problem, how Evolve treats it, proof) and the pipeline. Text
    and headings share the content's left edge; the waitlist card is centred. */
-.product-intro .h2,
-.product-intro .body-lg { max-width: none; }
+.product-intro .h2 { max-width: none; }
 .product-intro .body-lg { margin-top: 24px; }
 .waitlist-band { margin-top: clamp(64px, 9vh, 112px); scroll-margin-top: 78px; }   /* clear the sticky topbar */
 .section > .result { margin-top: clamp(40px, 6vh, 72px); }
@@ -275,7 +277,7 @@ strong { font-weight: 500; }
    read top to bottom; .line keeps each sentence on a line of its own */
 .pain-head { max-width: none; }
 .pain-head .line { display: block; }
-.pain .body-lg { max-width: 60ch; margin-top: 24px; }
+.pain .body-lg { margin-top: 24px; }
 .pain-how { margin-top: 40px; }
 /* a grid, two to a row: each row is as tall as its taller item, so the
    rules under the items line up across the row whatever their length */
@@ -306,7 +308,7 @@ strong { font-weight: 500; }
 .paper .result .demo { border-color: var(--graphite); }
 
 /* pipeline: three steps across, numbered */
-.pipeline .body-lg { max-width: 60ch; color: var(--ink-70); }
+.pipeline .body-lg { color: var(--ink-70); }
 .steps {
   list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
   column-gap: var(--col-gap); row-gap: 32px; margin-top: 40px;
@@ -357,7 +359,7 @@ strong { font-weight: 500; }
 }
 .waitlist-card .waitlist { margin: 0 auto; }
 
-.compare-note { margin: 16px auto 0; max-width: 74ch; text-align: center; font-size: 13px; line-height: 1.45; color: var(--ink-70); }
+.compare-note { margin: 16px auto 0; max-width: min(100%, var(--measure)); text-align: center; font-size: 13px; line-height: 1.45; color: var(--ink-70); }
 
 /* team: two people, centred as a pair; the tag stays on the left margin like 01 */
 .team {
