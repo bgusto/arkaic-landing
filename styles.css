@@ -300,6 +300,9 @@ strong { font-weight: 500; }
 .graphite .how { color: var(--paper-70); }
 .graphite .placeholder { border-color: var(--paper-45); color: var(--paper-45); }
 .graphite .compare-note { color: var(--paper-70); }
+/* proofs keep a rule that shows on their section's ground */
+.graphite .result img { border-color: var(--paper-45); }
+.paper .result .demo { border-color: var(--graphite); }
 
 /* pipeline: three steps across, numbered */
 .pipeline .body-lg { max-width: 60ch; color: var(--ink-70); }
