@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montagu+Slab:opsz,wght@16..144,400&family=Shrikhand&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20">
+  <link rel="stylesheet" href="styles.css?v=27">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -31,6 +31,7 @@
     <a class="brand" href="/" aria-label="Arkaic home">
       <img src="assets/logo-horizontal-paper.svg" alt="Arkaic" width="146" height="34">
     </a>
+    <a class="topbar-cta" href="#waitlist">Join the waitlist</a>
   </header>
 
   <main id="main">
@@ -53,37 +54,119 @@
       <div class="strokes-band" aria-hidden="true"></div>
     </section>
 
-    <!-- comparison marks, defined once and reused by the table -->
-    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-      <defs>
-        <symbol id="mark-yes" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6" fill="#1E1D1A"/></symbol>
-        <symbol id="mark-yes-evolve" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6" fill="#F27649"/></symbol>
-        <symbol id="mark-partial" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.2" fill="none" stroke="#1E1D1A" stroke-width="1.2" stroke-dasharray="2.1 2.4" stroke-linecap="round"/></symbol>
-        <symbol id="mark-no" viewBox="0 0 24 24"><path d="M5 12 H19" fill="none" stroke="#1E1D1A" stroke-width="2.3" stroke-linecap="round"/></symbol>
-      </defs>
-    </svg>
 
-    <!-- 01 · Product -->
-    <section class="section paper" id="product" aria-labelledby="product-title">
+    <!-- 01 · Cost: high-fidelity runs are expensive -->
+    <section class="section paper" id="cost" aria-labelledby="cost-title">
       <div>
-        <p class="tag"><span class="tag-num">01</span><span class="tag-label">Product</span></p>
+        <p class="tag"><span class="tag-num">01</span><span class="tag-label">Cost</span></p>
       </div>
-      <!-- intro: headline and description run the full width -->
-      <div class="product-intro">
-        <h2 id="product-title" class="h2">Don&rsquo;t just optimize, <em class="evolve">Evolve</em>.</h2>
+      <p class="meet body-lg">
+        Meet <em class="evolve">Evolve</em>, our platform for optimization and
+        surrogate modeling around long-running simulations.
+      </p>
+      <div class="pain">
+        <h2 id="cost-title" class="h2 pain-head"><span class="line">High-fidelity results.</span> <span class="line">Low-fidelity bill.</span></h2>
         <p class="body-lg">
-          Built to drive loops around long-running simulations, Evolve
-          specializes in large-scale multi-fidelity optimization, surrogate
-          modeling, and the construction and tuning of physics AI models.
-          Its unique meta-learning engine uses a corpus of prior campaign
-          data to turbocharge new campaigns. Agents can help craft, scale, and mend your
-          workflows, making Evolve
-          the most effective tool for getting your work done.
+          Optimizing on high-fidelity CFD or FEA can take hundreds of runs
+          that each cost hours, while the coarse-grid and low-order results
+          you already have go unused. Evolve spends cheap runs to find the
+          designs worth an expensive one.
+        </p>
+        <div class="pain-how">
+          <p class="how">How Evolve does it</p>
+          <ul class="principles" role="list">
+            <li>Multi-fidelity Gaussian processes (recursive co-kriging) learn how your coarse and fine solvers relate.</li>
+            <li>Bayesian optimization chooses the next design, and the fidelity worth paying for.</li>
+            <li>Each round runs in parallel on cloud machines Evolve starts and stops for you.</li>
+            <li>Constraints and multiple objectives, with CMA-ES, NSGA-III, and BOHB alongside.</li>
+          </ul>
+        </div>
+      </div>
+
+      <figure class="result">
+        <img src="assets/evolve-plots.jpg" width="1600" height="1000" loading="lazy"
+             alt="Evolve's Plots tab: the waves behind a ship hull before and after optimization, where the hull changed, and the best drag found so far">
+        <figcaption class="compare-note">
+          A destroyer hull from the L2-Sea benchmark, reshaped by Evolve over 14
+          shape variables on a coarse and a fine flow simulation. The design it
+          found has 11% less drag than the original: 36.8 N against 41.5 N.
+          The agent panel is a preview.
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- 02 · Confidence: design databases with uncertainty -->
+    <section class="section graphite" id="confidence" aria-labelledby="confidence-title">
+      <div>
+        <p class="tag paper-tag"><span class="tag-num">02</span><span class="tag-label">Confidence</span></p>
+      </div>
+      <div class="pain">
+        <h2 id="confidence-title" class="h2 pain-head">Build design databases you can trust.</h2>
+        <p class="body-lg">
+          A design database has to cover the whole design space, which can
+          mean thousands of evaluations. And a lookup table can&rsquo;t tell
+          you where it&rsquo;s wrong.
+        </p>
+        <div class="pain-how">
+          <p class="how">How Evolve does it</p>
+          <ul class="principles" role="list">
+            <li>Every prediction comes with its uncertainty, so you can see where the model is confident and where it is guessing.</li>
+            <li>Leave-one-out fit reports show how the model holds up on data it hasn&rsquo;t seen.</li>
+            <li>The finished model downloads as a single <code>.surrogate.h5</code> file.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- the RD-107 nozzle demo (examples/rd107 in Evolve) -->
+      <figure class="result">
+        <video class="demo" src="assets/rd107-nozzle.mp4" autoplay muted loop playsinline preload="metadata"
+               aria-label="The simulated flow through the RD-107 rocket nozzle and its exhaust, in OpenFOAM"></video>
+        <figcaption class="compare-note">
+          The RD-107 engine&rsquo;s nozzle in OpenFOAM, over six design
+          variables: expansion ratio, two divergent half-angles, throat
+          curvature, and chamber pressure and temperature. Evolve ran 32
+          designs on a coarse mesh (about 6 minutes each on 8 cores) and 8 on
+          a finer one (about 25), then trained a multi-fidelity Gaussian
+          process on both: thrust, thrust coefficient, mass flow, and exit
+          Mach anywhere in the design space, each with its uncertainty. The
+          whole run takes about an hour on 8 machines.
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- 03 · Evolve: the reveal, the pipeline, and the waitlist -->
+    <section class="section paper" id="evolve" aria-labelledby="evolve-title">
+      <div>
+        <p class="tag"><span class="tag-num">03</span><span class="tag-label">Evolve</span></p>
+      </div>
+      <div class="product-intro">
+        <h2 id="evolve-title" class="h2">Don&rsquo;t just optimize, <em class="evolve">Evolve</em>.</h2>
+        <p class="body-lg">
+          Evolve drives the loop around your long-running simulations. It
+          decides which design to run next, and at which fidelity, so the
+          expensive runs go where they matter. What it learns, it keeps: a
+          surrogate model with honest error bars that you can query,
+          download, and build on.
         </p>
       </div>
 
+      <div class="pipeline">
+        <h3 class="h3">One file, in the cloud or on your machine.</h3>
+        <p class="body-lg">
+          Every model Evolve trains is saved in one self-describing format that
+          records its inputs and bounds, its outputs, its training data, and
+          the fit. Models move between steps, and from the cloud to your
+          workstation, without conversion.
+        </p>
+        <ol class="steps" role="list">
+          <li><span class="step-num">1</span><h4>Train in the cloud</h4><p>Run sampling and training campaigns across many machines at once.</p></li>
+          <li><span class="step-num">2</span><h4>Download</h4><p>Take the model with you as a <code>.surrogate.h5</code> file, and its data as CSV.</p></li>
+          <li><span class="step-num">3</span><h4>Share it</h4><p>Publish the workflow to Evolve&rsquo;s community with the paper it supports, so others can copy it and run it again.</p></li>
+        </ol>
+      </div>
+
       <!-- waitlist: Eigenmode field (cyan) behind a centred Paper card -->
-      <div class="waitlist-band">
+      <div class="waitlist-band" id="waitlist">
         <div class="waitlist-card">
           <form class="waitlist" action="https://formspree.io/f/xnpnykan" method="POST">
             <label class="visually-hidden" for="waitlist-email">Email address</label>
@@ -94,146 +177,35 @@
           </form>
         </div>
       </div>
-
-      <div class="features">
-        <h3 class="h3">What Evolve does.</h3>
-        <ul class="principles" role="list">
-          <li>Scientific simulation software integration.</li>
-          <li>Distributed workflows on managed HPC.</li>
-          <li>Meta-learning engine for turbocharged campaigns.</li>
-          <li>Multi-fidelity surrogate modeling.</li>
-          <li>State-of-the-art multi-fidelity and high-dimensional Bayesian optimization.</li>
-          <li>Agentic workflow orchestration and monitoring.</li>
-          <li>Multi-objective optimization using trained surrogates.</li>
-          <li>Performance-portable GPU acceleration.</li>
-          <li>Free for non-commercial use.</li>
-        </ul>
-      </div>
-
-      <figure class="result">
-        <h3 class="h3">Evolve at work.</h3>
-        <img src="assets/evolve-plots.jpg" width="1600" height="1000" loading="lazy"
-             alt="Evolve's Plots tab: the waves behind a ship hull before and after optimization, where the hull changed, and the best drag found so far">
-        <figcaption class="compare-note">
-          A destroyer hull from the L2-Sea benchmark, reshaped by Evolve over 14
-          shape variables on a coarse and a fine flow simulation. The design it
-          found has 11% less drag than the original: 36.8 N against 41.5 N.
-          The agent panel is a preview.
-        </figcaption>
-      </figure>
-
-      <figure class="compare">
-        <h3 class="h3">How Evolve compares.</h3>
-        <div class="compare-scroll">
-          <table class="matrix">
-            <caption class="visually-hidden">Capabilities of Evolve compared with Optuna, Ray on Anyscale, modeFRONTIER, optiSLang, HEEDS, and CONVERGE (Studio and Horizon)</caption>
-            <thead>
-              <tr>
-                <th scope="col" class="matrix-corner"><span>Capabilities</span></th>
-                <th scope="col" class="matrix-col is-evolve"><span class="matrix-tab" aria-hidden="true"></span><span class="matrix-name">Evolve</span></th>
-                <th scope="col" class="matrix-col"><span class="matrix-tab" aria-hidden="true"></span><span class="matrix-name">Optuna</span></th>
-                <th scope="col" class="matrix-col"><span class="matrix-tab" aria-hidden="true"></span><span class="matrix-name">Ray on Anyscale</span></th>
-                <th scope="col" class="matrix-col"><span class="matrix-tab" aria-hidden="true"></span><span class="matrix-name">modeFRONTIER</span></th>
-                <th scope="col" class="matrix-col"><span class="matrix-tab" aria-hidden="true"></span><span class="matrix-name">optiSLang</span></th>
-                <th scope="col" class="matrix-col"><span class="matrix-tab" aria-hidden="true"></span><span class="matrix-name">HEEDS</span></th>
-                <th scope="col" class="matrix-col"><span class="matrix-tab" aria-hidden="true"></span><span class="matrix-name">CONVERGE</span></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row"><span class="tip-label" tabindex="0" aria-describedby="tip-1">Drives external solvers</span><span class="tip" id="tip-1" role="tooltip">Runs third-party or in-house simulation codes as the evaluation step in an optimization loop, through connectors or user wrappers, not just the vendor&rsquo;s own solver.</span></th>
-                <td class="is-evolve"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes-evolve"/></svg><span class="visually-hidden">Yes</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes"/></svg><span class="visually-hidden">Yes</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes"/></svg><span class="visually-hidden">Yes</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes"/></svg><span class="visually-hidden">Yes</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes"/></svg><span class="visually-hidden">Yes</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes"/></svg><span class="visually-hidden">Yes</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
-              </tr>
-              <tr>
-                <th scope="row"><span class="tip-label" tabindex="0" aria-describedby="tip-2">Parallel trials on managed compute</span><span class="tip" id="tip-2" role="tooltip">Runs many trials concurrently on compute the vendor provisions and scales, without the user managing a cluster or writing the job-dispatch logic.</span></th>
-                <td class="is-evolve"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes-evolve"/></svg><span class="visually-hidden">Yes</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes"/></svg><span class="visually-hidden">Yes</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
-              </tr>
-              <tr>
-                <th scope="row"><span class="tip-label" tabindex="0" aria-describedby="tip-3">Learns from past studies</span><span class="tip" id="tip-3" role="tooltip">Uses data or models from earlier studies to warm-start a new one, through transfer or meta-learning across campaigns, not just reusing a DoE within the same study.</span></th>
-                <td class="is-evolve"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes-evolve"/></svg><span class="visually-hidden">Yes</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes"/></svg><span class="visually-hidden">Yes</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
-              </tr>
-              <tr>
-                <th scope="row"><span class="tip-label" tabindex="0" aria-describedby="tip-4">Multi-fidelity surrogates</span><span class="tip" id="tip-4" role="tooltip">Builds surrogates that fuse cheap low-fidelity and expensive high-fidelity results, such as co-kriging or multi-fidelity Gaussian processes, not just swapping one data source for another.</span></th>
-                <td class="is-evolve"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes-evolve"/></svg><span class="visually-hidden">Yes</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes"/></svg><span class="visually-hidden">Yes</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
-              </tr>
-              <tr>
-                <th scope="row"><span class="tip-label" tabindex="0" aria-describedby="tip-5">High-dimensional Bayesian optimization</span><span class="tip" id="tip-5" role="tooltip">Runs sequential Bayesian optimization with a probabilistic surrogate and an acquisition function, scaling to tens of variables or more, not just low-dimensional BO or a one-shot DoE.</span></th>
-                <td class="is-evolve"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes-evolve"/></svg><span class="visually-hidden">Yes</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
-              </tr>
-              <tr>
-                <th scope="row"><span class="tip-label" tabindex="0" aria-describedby="tip-6">Agentic workflow orchestration</span><span class="tip" id="tip-6" role="tooltip">Lets AI agents monitor runs, stop failing ones, and propose changes to the study, directly or through an agent interface such as MCP, not just a help chatbot.</span></th>
-                <td class="is-evolve"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes-evolve"/></svg><span class="visually-hidden">Yes</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes"/></svg><span class="visually-hidden">Yes</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-no"/></svg><span class="visually-hidden">No</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
-              </tr>
-              <tr>
-                <th scope="row"><span class="tip-label" tabindex="0" aria-describedby="tip-7">Free for non-commercial use</span><span class="tip" id="tip-7" role="tooltip">Offers a free license for academic, research, or personal non-commercial use, not just discounted pricing or a time-limited trial.</span></th>
-                <td class="is-evolve"><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes-evolve"/></svg><span class="visually-hidden">Yes</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-yes"/></svg><span class="visually-hidden">Yes</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
-                <td><svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><use href="#mark-partial"/></svg><span class="visually-hidden">Partial</span></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <ul class="matrix-key" aria-hidden="true">
-          <li><svg class="mark" viewBox="0 0 24 24"><use href="#mark-yes"/></svg>Yes</li>
-          <li><svg class="mark" viewBox="0 0 24 24"><use href="#mark-partial"/></svg>Partial</li>
-          <li><svg class="mark" viewBox="0 0 24 24"><use href="#mark-no"/></svg>No</li>
-        </ul>
-        <figcaption class="compare-note">
-          Published features as of October 2026. Partial: limited, or only
-          via a separate product or integration. CONVERGE covers Studio and
-          Horizon. Hover or focus a capability for its definition.
-        </figcaption>
-      </figure>
     </section>
 
-    <!-- 02 · Team -->
-    <section class="section graphite" id="team" aria-labelledby="team-title">
+    <!-- 04 · Research -->
+    <section class="section graphite" id="research" aria-labelledby="research-title">
       <div>
-        <p class="tag paper-tag"><span class="tag-num">02</span><span class="tag-label" id="team-title">Team</span></p>
+        <p class="tag paper-tag"><span class="tag-num">04</span><span class="tag-label">Research</span></p>
+      </div>
+      <div class="product-intro">
+        <h2 id="research-title" class="h2">Optimizers that remember.</h2>
+        <p class="body-lg">
+          The most expensive optimization problems repeat within a domain: a
+          new airfoil is not unlike the last hundred. We are researching
+          meta-learning that turns past campaigns into a head start on the
+          next, beginning with geometry-conditioned priors for sparse (SAAS)
+          Bayesian optimization of airfoil families. The goal is fewer
+          high-fidelity runs on every new design.
+        </p>
+      </div>
+    </section>
+
+    <!-- 05 · Team -->
+    <section class="section paper" id="team" aria-labelledby="team-title">
+      <div>
+        <p class="tag"><span class="tag-num">05</span><span class="tag-label">Team</span></p>
+        <h2 id="team-title" class="visually-hidden">Team</h2>
         <ul class="team" role="list">
         <li>
           <h3 class="person-name">Brandon Gusto, PhD</h3>
-          <p>Brandon is a former Navy civilian scientist at NUWC Newport and DoW SMART Scholar. He led projects in multi-fidelity Bayesian optimization and GPU-accelerated adaptive beamforming for sonar. An FSU-trained mechanical engineer, applied mathematician, and computational scientist, his doctoral work advanced wavelet-based adaptive mesh refinement approaches in the context of compressible and reacting flows, as well as ML sub-grid scale modeling.</p>
+          <p>Brandon is a former Navy civilian scientist at NUWC Newport and DoW SMART Scholar. He led projects in multi-fidelity Bayesian optimization and GPU-accelerated adaptive beamforming for sonar. He trained at FSU as a mechanical engineer, applied mathematician, and computational scientist, and his doctoral work advanced wavelet-based adaptive mesh refinement approaches in the context of compressible and reacting flows, as well as ML sub-grid scale modeling.</p>
         </li>
         <li>
           <h3 class="person-name">Toan Tran</h3>
@@ -258,6 +230,6 @@
     <p class="fine">© 2026 Arkaic Inc. · <a href="/privacy/">Privacy</a></p>
   </footer>
 
-  <script src="main.js?v=2" defer></script>
+  <script src="main.js?v=3" defer></script>
 </body>
 </html>
