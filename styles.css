@@ -270,7 +270,7 @@ strong { font-weight: 500; }
 
 /* pain points: the problem on the left, how Evolve treats it on the right */
 .section > .pipeline { margin-top: clamp(80px, 12vh, 144px); }
-.intro-line { max-width: none; margin-bottom: clamp(40px, 6vh, 72px); }
+.section > .pipeline.first { margin-top: 0; }
 /* headline, then the pain, then how Evolve treats it in two columns that
    read top to bottom; .line keeps each sentence on a line of its own */
 .pain-head { max-width: none; }
