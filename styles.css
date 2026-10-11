@@ -289,6 +289,7 @@ strong { font-weight: 500; }
 /* a grid, two to a row: each row is as tall as its taller item, so the
    rules under the items line up across the row whatever their length */
 .pain-how .principles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--col-gap); }
+.pain-how .principles li { padding: 24px 0; }
 .how {
   font-weight: 500; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
   color: var(--ink-70); margin-bottom: 12px;
