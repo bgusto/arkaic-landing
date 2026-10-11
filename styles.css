@@ -199,7 +199,6 @@ strong { font-weight: 500; }
   margin-left: 24px; padding: 9px 16px;
   font-weight: 500; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
   background: var(--paper); color: var(--graphite); border: 1px solid var(--paper);
-  transition: background 0.15s ease, border-color 0.15s ease;
 }
 .topbar-meet:hover { background: var(--cyan-light); border-color: var(--cyan-light); }
 
