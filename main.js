@@ -125,9 +125,9 @@
       });
       if (!res.ok) throw new Error(res.status);
       form.reset();
-      msg.textContent = "You're on the list. We'll be in touch.";
+      msg.textContent = "Thanks. We'll let you know when Evolve opens.";
     } catch {
-      msg.textContent = "Something went wrong. Email inquiries@arkaic.inc and we'll add you.";
+      msg.textContent = "Something went wrong. Email inquiries@arkaic.inc and we'll take it from there.";
     } finally {
       button.disabled = false;
     }
