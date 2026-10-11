@@ -353,11 +353,17 @@ strong { font-weight: 500; }
   background: var(--cyan) url("assets/eigenmode-04-cyan.jpg") center / cover no-repeat;
 }
 .waitlist-card {
-  width: min(100%, 600px);
+  width: min(100%, 640px);
   background: var(--paper); border: 1px solid var(--graphite);
   padding: clamp(24px, 4vw, 48px) clamp(20px, 4vw, 56px);
 }
-.waitlist-card .waitlist { margin: 0 auto; }
+.waitlist-card .waitlist { margin: 28px 0 0; max-width: none; }
+/* the pitch to pilots, above the form */
+.cta-title {
+  font-family: var(--font-display); font-weight: 400; font-size: clamp(28px, 3vw, 40px);
+  line-height: 1.05; letter-spacing: -0.05em; color: var(--ink);
+}
+.cta-text { margin-top: 16px; font-size: clamp(16px, 1.2vw, 18px); line-height: 1.45; color: var(--ink-70); }
 
 .compare-note { margin: 16px auto 0; max-width: min(100%, var(--measure)); text-align: center; font-size: 13px; line-height: 1.45; color: var(--ink-70); }
 
