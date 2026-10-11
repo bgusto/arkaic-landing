@@ -18,11 +18,7 @@
   <meta property="og:url" content="https://arkaic.inc/">
   <meta property="og:image" content="https://arkaic.inc/assets/og.jpg">
   <meta name="twitter:card" content="summary_large_image">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montagu+Slab:opsz,wght@16..144,400&family=Shrikhand&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=27">
+  <link rel="stylesheet" href="styles.css?v=28">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -64,6 +60,19 @@
         Meet <em class="evolve">Evolve</em>, our platform for optimization and
         surrogate modeling around long-running simulations.
       </p>
+      <figure class="study">
+        <h3 class="h3">How Evolve runs a study.</h3>
+        <div class="study-frame">
+          <iframe src="evolve-study-animation.html" title="Animation of three Evolve study workflows" scrolling="no"></iframe>
+        </div>
+        <figcaption class="compare-note">
+          Three study patterns, looping. A sampled design feeds a surrogate
+          model that is verified at full fidelity. A batch Bayesian optimizer
+          refits after every six simulations. A multi-fidelity surrogate picks
+          its own samples, then hands off to a multi-objective search.
+        </figcaption>
+      </figure>
+
       <div class="pain">
         <h2 id="cost-title" class="h2 pain-head"><span class="line">High-fidelity results.</span> <span class="line">Low-fidelity bill.</span></h2>
         <p class="body-lg">
@@ -173,6 +182,7 @@
             <input id="waitlist-email" type="email" name="email" placeholder="you@example.com" autocomplete="email" required>
             <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="visually-hidden" aria-hidden="true">
             <button class="button button-graphite" type="submit">Join the waitlist</button>
+            <p class="consent">We use your email only to tell you when Evolve is open. See our <a href="/privacy/">privacy page</a>.</p>
             <p class="waitlist-msg" role="status" aria-live="polite"></p>
           </form>
         </div>
@@ -189,10 +199,10 @@
         <p class="body-lg">
           The most expensive optimization problems repeat within a domain: a
           new airfoil is not unlike the last hundred. We are researching
-          meta-learning that turns past campaigns into a head start on the
-          next, beginning with geometry-conditioned priors for sparse (SAAS)
-          Bayesian optimization of airfoil families. The goal is fewer
-          high-fidelity runs on every new design.
+          cognitive Bayesian optimization, which turns past campaigns into a
+          head start on the next, beginning with geometry-conditioned priors
+          for families of airfoils. The goal is fewer high-fidelity runs on
+          every new design.
         </p>
       </div>
     </section>
