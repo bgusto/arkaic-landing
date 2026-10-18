@@ -125,11 +125,22 @@
       });
       if (!res.ok) throw new Error(res.status);
       form.reset();
-      msg.textContent = "You're on the list. We'll be in touch.";
+      msg.textContent = "Thanks. We'll let you know when Evolve opens.";
     } catch {
-      msg.textContent = "Something went wrong. Email inquiries@arkaic.inc and we'll add you.";
+      msg.textContent = "Something went wrong. Email inquiries@arkaic.inc and we'll take it from there.";
     } finally {
       button.disabled = false;
     }
   });
+})();
+
+// Demo videos play on their own, muted and looping, unless the visitor
+// asks for less motion: then they wait, with controls, for a click.
+(() => {
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  for (const v of document.querySelectorAll("video.demo")) {
+    v.removeAttribute("autoplay");
+    v.pause();
+    v.controls = true;
+  }
 })();

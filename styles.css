@@ -76,6 +76,9 @@
   --col-gap: clamp(20px, 2.5vw, 40px);
   --section-y: clamp(72px, 11vh, 150px);
   --max: 1440px;
+  /* one measure for every section's paragraphs and every figure's
+     caption: a fixed width, so text of different sizes lines up */
+  --measure: 46rem;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -119,7 +122,7 @@ strong { font-weight: 500; }
   letter-spacing: -0.05em;
   max-width: 16ch;
 }
-.body-lg { font-size: clamp(17px, 1.35vw, 20px); line-height: 1.4; max-width: 44ch; }
+.body-lg { font-size: clamp(17px, 1.35vw, 20px); line-height: 1.4; max-width: var(--measure); }
 .h3 {
   font-family: var(--font-display);
   font-weight: 400;
@@ -186,6 +189,18 @@ strong { font-weight: 500; }
   background: var(--graphite);
 }
 .brand img { height: 30px; width: auto; }
+.topbar-cta {
+  margin-left: auto; font-weight: 500; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+  text-decoration: none; color: var(--paper); border-bottom: 1px solid var(--paper-45); padding-bottom: 2px;
+}
+.topbar-cta:hover { border-color: var(--coral); }
+/* the way to a meeting: a solid Paper button at the far right */
+.topbar-meet {
+  margin-left: 24px; padding: 9px 16px;
+  font-weight: 500; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
+  background: var(--paper); color: var(--graphite); border: 1px solid var(--paper);
+}
+.topbar-meet:hover { background: var(--cyan-light); border-color: var(--cyan-light); }
 
 /* ---- hero ---- */
 .hero {
@@ -254,30 +269,81 @@ strong { font-weight: 500; }
 .graphite .principles { border-top-color: var(--paper); }
 .graphite .principles li { border-bottom-color: var(--paper-18); color: var(--paper); }
 
-/* product section, top to bottom: full-width intro, waitlist band, features,
-   comparison. Text and headings share the content's left edge; the waitlist
-   card and the comparison table are centred. */
-.product-intro .h2,
-.product-intro .body-lg { max-width: none; }
+/* product section, top to bottom: full-width intro, waitlist band, then each
+   pain point (problem, how Evolve treats it, proof) and the pipeline. Text
+   and headings share the content's left edge; the waitlist card is centred. */
+.product-intro .h2 { max-width: none; }
 .product-intro .body-lg { margin-top: 24px; }
-.waitlist-band,
-.features,
-.section > .compare { margin-top: clamp(64px, 9vh, 112px); }
-/* two columns that read top to bottom, left column first */
-.features .principles { columns: 2; column-gap: var(--col-gap); }
-.features .principles li { break-inside: avoid; }
-.section > .study,
-.section > .result { margin-top: clamp(64px, 9vh, 112px); }
-.study-frame {
-  width: min(100%, var(--figure-w)); margin: 24px auto 0; aspect-ratio: 950 / 594;
-  background: #fff; border: 1px solid var(--graphite);
+.waitlist-band { margin-top: clamp(64px, 9vh, 112px); scroll-margin-top: 78px; }   /* clear the sticky topbar */
+.section > .result { margin-top: clamp(40px, 6vh, 72px); }
+
+/* pain points: the problem on the left, how Evolve treats it on the right */
+.section > .pipeline { margin-top: clamp(80px, 12vh, 144px); }
+.section > .pipeline.first { margin-top: 0; }
+/* headline, then the pain, then how Evolve treats it in two columns that
+   read top to bottom; .line keeps each sentence on a line of its own */
+.pain-head { max-width: none; }
+.pain-head .line { display: block; }
+.pain .body-lg { margin-top: 24px; }
+.pain-how { margin-top: 40px; }
+/* a grid, two to a row: each row is as tall as its taller item, so the
+   rules under the items line up across the row whatever their length */
+.pain-how .principles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--col-gap); }
+.pain-how .principles li { padding: 24px 0; }
+.how {
+  font-weight: 500; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink-70); margin-bottom: 12px;
 }
-.study-frame iframe { display: block; width: 100%; height: 100%; border: 0; }
-/* the study animation and the screenshot share one centred width, so they
-   read as a pair; both sit square-cornered in a Graphite rule like the
+.principles code, .steps code { font-family: ui-monospace, Menlo, monospace; font-size: 0.9em; letter-spacing: 0; }
+/* a demo video, framed like the screenshots; dark until it loads */
+.result .demo {
+  display: block; width: min(100%, var(--figure-w)); height: auto; aspect-ratio: 16 / 9; margin: 24px auto 0;
+  object-fit: contain; background: #000; border: 1px solid var(--paper-45);
+}
+/* MOCKUP: stands in for a visual not made yet */
+.placeholder {
+  display: grid; place-items: center; aspect-ratio: 16 / 10;
+  border: 1px dashed var(--ink-45); color: var(--ink-45);
+  font-family: var(--font-display); font-size: clamp(20px, 2.4vw, 32px); letter-spacing: -0.04em;
+}
+
+/* the same pieces on a Graphite section */
+.graphite .how { color: var(--paper-70); }
+.graphite .placeholder { border-color: var(--paper-45); color: var(--paper-45); }
+.graphite .compare-note { color: var(--paper-70); }
+/* proofs keep a rule that shows on their section's ground */
+.graphite .result img { border-color: var(--paper-45); }
+.paper .result .demo { border-color: var(--graphite); }
+
+/* pipeline: three steps across, numbered */
+.pipeline .body-lg { color: var(--ink-70); }
+.steps {
+  list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: var(--col-gap); row-gap: 32px; margin-top: 40px;
+}
+.steps li { border-top: 1px solid var(--ink); padding-top: 16px; }
+.step-num { font-family: var(--font-display); font-size: 34px; letter-spacing: -0.04em; line-height: 1; color: var(--ink-45); }
+.steps h4 { margin: 12px 0 8px; font-size: 18px; font-weight: 500; letter-spacing: -0.02em; }
+.steps p { color: var(--ink-70); font-size: 16px; line-height: 1.45; }
+.graphite .pipeline .body-lg { color: var(--paper-70); }
+.graphite .steps li { border-top-color: var(--paper); }
+.graphite .step-num { color: var(--paper-45); }
+.graphite .steps p { color: var(--paper-70); }
+/* the study animation and the proofs share one centred width, so they
+   read as a set; each sits square-cornered in a Graphite rule like the
    waitlist card. The animation is a fixed 950x594 stage that scales itself
    to its frame, so the frame only needs the right proportions. */
 .study, .result { --figure-w: 1000px; }
+.section > .study { margin-top: clamp(40px, 6vh, 72px); }
+.study + .pain { margin-top: clamp(80px, 12vh, 144px); }
+/* a quiet label over the animation, on its left edge, so it does not
+   compete with the line above or the headline below */
+.study-label { width: min(100%, var(--figure-w)); margin: 0 auto; }
+.study-frame {
+  width: min(100%, var(--figure-w)); margin: 12px auto 0; aspect-ratio: 950 / 594;
+  background: #fff; border: 1px solid var(--graphite);
+}
+.study-frame iframe { display: block; width: 100%; height: 100%; border: 0; }
 .result img {
   display: block; width: min(100%, var(--figure-w)); height: auto;
   margin: 24px auto 0; border: 1px solid var(--graphite);
@@ -295,108 +361,19 @@ strong { font-weight: 500; }
   background: var(--cyan) url("assets/eigenmode-04-cyan.jpg") center / cover no-repeat;
 }
 .waitlist-card {
-  width: min(100%, 600px);
+  width: min(100%, 640px);
   background: var(--paper); border: 1px solid var(--graphite);
   padding: clamp(24px, 4vw, 48px) clamp(20px, 4vw, 56px);
 }
-.waitlist-card .waitlist { margin: 0 auto; }
+.waitlist-card .waitlist { margin: 28px 0 0; max-width: none; }
+/* the pitch to pilots, above the form */
+.cta-title {
+  font-family: var(--font-display); font-weight: 400; font-size: clamp(28px, 3vw, 40px);
+  line-height: 1.05; letter-spacing: -0.05em; color: var(--ink);
+}
+.cta-text { margin-top: 16px; font-size: clamp(16px, 1.2vw, 18px); line-height: 1.45; color: var(--ink-70); }
 
-/* comparison: heading on the left margin like "What Evolve does."; the
-   matrix centred, with its key and caption beneath it.
-   The matrix follows the flyer: a Graphite "Capabilities" bar, light column
-   strips whose tops bend up and to the right into rounded tabs carrying the
-   names, and a coral-tinted Evolve strip. Each tab is a parallelogram skewed
-   30°, so its sides run at 60° and the name, rotated -60°, runs along it. */
-.compare {
-  --strip: rgba(30, 29, 26, 0.04);
-  --strip-evolve: rgba(242, 118, 73, 0.14);
-  --col-w: 46px;
-  --col-gap: 24px;
-  --head-h: 150px;
-  --row-h: 52px;
-  --skew: 30deg;               /* tab lean; names are rotated to match */
-  --label-w: auto;
-}
-/* the tabs lean past the last column, so reserve that overhang on the right
-   and centre the table and its tabs together */
-.compare-scroll { display: flex; justify-content: center; overflow-x: auto; padding-top: 8px; }
-.matrix {
-  flex: none;
-  margin-right: calc(var(--head-h) * tan(var(--skew)));
-  border-collapse: separate; border-spacing: var(--col-gap) 0;
-  font-family: var(--font-text); color: var(--ink);
-}
-.matrix th, .matrix td { padding: 0; font-weight: 500; }
-
-/* header row */
-.matrix thead th { height: var(--head-h); vertical-align: bottom; }
-.matrix-corner span {
-  display: block; padding: 16px 18px;
-  background: var(--graphite); color: var(--paper);
-  font-size: 22px; letter-spacing: -0.01em; text-align: left;
-}
-.matrix-col { position: relative; width: var(--col-w); min-width: var(--col-w); }
-.matrix-tab {
-  position: absolute; left: 0; right: 0; bottom: 0; height: 100%;
-  background: var(--strip);
-  border-radius: calc(var(--col-w) / 2) calc(var(--col-w) / 2) 0 0;
-  transform: skewX(calc(-1 * var(--skew))); transform-origin: bottom left;
-}
-/* each name's midpoint sits at the middle of its tab: halfway up, and
-   shifted right by the lean at that height */
-.matrix-name {
-  position: absolute;
-  left: calc(var(--col-w) / 2 + var(--head-h) / 2 * tan(var(--skew)));
-  bottom: calc(var(--head-h) / 2);
-  transform: translate(-50%, 50%) rotate(calc(var(--skew) - 90deg));
-  white-space: nowrap; font-size: 17px; font-weight: 700; letter-spacing: -0.01em;
-}
-.matrix-col.is-evolve .matrix-tab { background: var(--strip-evolve); }
-.matrix-col.is-evolve .matrix-name {
-  font-family: "Shrikhand", var(--font-display); font-weight: 400;
-  font-size: 19px; color: var(--coral); letter-spacing: 0;
-}
-
-/* body rows: the label column and each tool's column are continuous strips */
-.matrix tbody th {
-  width: var(--label-w); height: var(--row-h); padding: 0 24px 0 18px;
-  background: var(--strip); text-align: left; white-space: nowrap;
-  font-size: 17px; letter-spacing: -0.01em;
-}
-.matrix tbody td { background: var(--strip); text-align: center; vertical-align: middle; }
-.matrix tbody td.is-evolve { background: var(--strip-evolve); }
-.matrix tbody tr:last-child > * { padding-bottom: 6px; }
-.matrix .mark { display: inline-block; width: 22px; height: 22px; vertical-align: middle; }
-
-/* key */
-.matrix-key {
-  list-style: none; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 32px;
-  margin-top: 22px; font-size: 15px;
-}
-.matrix-key li { display: inline-flex; align-items: center; gap: 8px; }
-.matrix-key .mark { width: 18px; height: 18px; }
-
-/* tablets and small laptops: narrower strips, and capability names wrap */
-@media (max-width: 1060px) {
-  .compare { --col-w: 38px; --col-gap: 14px; --head-h: 130px; --row-h: 50px; --label-w: 220px; }
-  .matrix tbody th { white-space: normal; padding: 8px 14px; font-size: 15px; line-height: 1.25; }
-  .matrix-corner span { font-size: 18px; padding: 12px 14px; }
-  .matrix-name { font-size: 15px; }
-  .matrix-col.is-evolve .matrix-name { font-size: 16px; }
-  .matrix .mark { width: 18px; height: 18px; }
-}
-/* phones: tighter still, with a shallower lean so the tabs stay on screen */
-@media (max-width: 480px) {
-  .compare { --col-w: 26px; --col-gap: 4px; --head-h: 92px; --row-h: 46px; --skew: 15deg; --label-w: 96px; }
-  .matrix tbody th { padding: 6px 8px; font-size: 12px; }
-  .matrix-corner span { font-size: 14px; padding: 9px 8px; }
-  .matrix-name { font-size: 11px; }
-  .matrix-col.is-evolve .matrix-name { font-size: 13px; }
-  .matrix .mark { width: 15px; height: 15px; }
-  .matrix-key { gap: 10px 22px; font-size: 14px; }
-}
-
-.compare-note { margin: 16px auto 0; max-width: 74ch; text-align: center; font-size: 13px; line-height: 1.45; color: var(--ink-70); }
+.compare-note { margin: 16px auto 0; max-width: min(100%, var(--measure)); text-align: center; font-size: 13px; line-height: 1.45; color: var(--ink-70); }
 
 /* team: two people, centred as a pair; the tag stays on the left margin like 01 */
 .team {
@@ -410,6 +387,8 @@ strong { font-weight: 500; }
   letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 16px;
 }
 .team p { color: var(--paper-70); font-size: clamp(16px, 1.15vw, 18px); line-height: 1.5; }
+.paper .team li { border-top-color: var(--ink); }
+.paper .team p { color: var(--ink-70); }
 
 /* contact: Eigenmode field (coral) behind a centred Paper card */
 .contact {
@@ -517,7 +496,8 @@ strong { font-weight: 500; }
   .grid { grid-template-columns: minmax(0, 1fr); }
   .span-2 { grid-column: span 1; }
   .team { grid-template-columns: minmax(0, 1fr); }
-  .features .principles { columns: 1; }
+  .steps { grid-template-columns: minmax(0, 1fr); }
+  .pain-how .principles { grid-template-columns: minmax(0, 1fr); }
   .waitlist input[type="email"] { border-right: 1px solid var(--ink-45); flex-basis: 100%; }
   .waitlist .button { flex: 1 1 100%; margin-top: 10px; }
   .h2 { max-width: none; }
@@ -528,27 +508,8 @@ strong { font-weight: 500; }
    breaking "Built" onto a line of its own */
 @media (max-width: 480px) {
   .display .line { display: inline; }
+  .topbar-meet { margin-left: 16px; padding: 8px 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
-
-/* comparison tooltips: capability definitions on hover or keyboard focus.
-   The scroller clips overflow, so it reserves room below for the last row's
-   tooltip (negative margin keeps the layout unchanged). */
-.compare-scroll { padding-bottom: 110px; margin-bottom: -110px; }
-.matrix tbody th { position: relative; }
-.tip-label { cursor: help; text-decoration: underline dotted var(--ink-45); text-underline-offset: 4px; }
-.tip-label:focus-visible { outline-offset: 2px; }
-.tip {
-  position: absolute; left: 12px; top: calc(100% - 6px); z-index: 20;
-  width: min(320px, 70vw); padding: 10px 12px;
-  background: var(--graphite); color: var(--paper);
-  font-size: 13px; font-weight: 400; line-height: 1.4; letter-spacing: 0;
-  white-space: normal; text-align: left;
-  opacity: 0; visibility: hidden; pointer-events: none;
-  transition: opacity 0.12s ease;
-}
-.matrix tbody th:hover .tip,
-.matrix tbody th:focus-within .tip { opacity: 1; visibility: visible; }
-@media (max-width: 480px) { .tip { font-size: 12px; } }

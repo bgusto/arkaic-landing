@@ -20,7 +20,7 @@ Then open http://localhost:8000. Any static server works. Verify changes in a br
 
 ## Architecture
 
-**Brand system.** `styles.css` opens with the rules: Graphite and Paper foundation, Montagu Slab for display, Space Grotesk for text, flat and matte with no shadows or gradients. Accent colors (cyan, gold, coral) appear only through the prisms, the eigenmode texture bands, and the coral "Evolve" wordmark. All colors and spacing are CSS variables in `:root`. Note that the comparison marks in the inline SVG `<symbol>` defs in `index.html` hardcode hex values (`#1E1D1A`, `#F27649`), so a palette change must touch both files.
+**Brand system.** `styles.css` opens with the rules: Graphite and Paper foundation, Montagu Slab for display, Space Grotesk for text, flat and matte with no shadows or gradients. Accent colors (cyan, gold, coral) appear only through the prisms, the eigenmode texture bands, and the coral "Evolve" wordmark. All colors and spacing are CSS variables in `:root`.
 
 **Page structure.** Sections alternate backgrounds: dark hero, paper "01 Product", graphite "02 Team", then a coral contact band and the footer. `.section > *` is capped at `--max` and centered, while `.waitlist-band` breaks out to full bleed using negative margins equal to `--gutter`. Keep that coupling if you change section padding.
 
@@ -34,8 +34,6 @@ Then open http://localhost:8000. Any static server works. Verify changes in a br
 
 The `translate(-50%, -50%)` in the JS-written transform must match the CSS, since `left`/`top` mark the form's centre.
 
-**Comparison table.** A real `<table class="matrix">` styled with CSS only. Header tabs are skewed parallelograms, and the column names are rotated to match, both driven by `--skew`, `--head-h`, and `--col-w` through `tan()`. Phone and tablet breakpoints (480px and 1060px) override those variables rather than the rules. Each cell is an SVG `<use>` of a shared mark plus a visually hidden Yes/Partial/No label for screen readers. Keep the label in sync with the mark when editing cells. Row labels carry a CSS-only tooltip (`.tip`, shown on hover or focus) holding the capability definition, and the scroller reserves bottom padding so the last row's tooltip is not clipped. The footnote states the "as of" date for the competitor claims, so update it when the data changes.
-
 **Waitlist form.** Posts to Formspree (`action` URL in `index.html`). `main.js` intercepts submit and uses `fetch`, reporting the result in `.waitlist-msg`. Without JS the form posts normally. The `_gotcha` input is a honeypot, so leave it hidden.
 
-**Responsive breakpoints.** 1060px (comparison table), 820px (single-column layouts, hero height), 480px (headline lines go inline so it wraps as one run of text, and the table shrinks further).
+**Responsive breakpoints.** 820px (single-column layouts, hero height), 480px (headline lines go inline so it wraps as one run of text).
