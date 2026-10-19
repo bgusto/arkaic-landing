@@ -6,7 +6,7 @@
   const ZONE = "America/New_York";
   const WINDOWS = [[8, 12], [13, 17]];   // hours, local to ZONE
   const SLOT_MIN = 30;
-  const DAYS_AHEAD = 21;                 // calendar days shown
+  const DAYS_AHEAD = 21;                 // calendar days ahead to cover; whole Mon-Fri weeks are shown
   const NOTICE_H = 12;                   // earliest bookable start, from now
 
   const root = document.querySelector(".meet-card");
@@ -49,8 +49,15 @@
     const now = Date.now();
     const earliest = now + NOTICE_H * 3600e3;
     const today = new Date(now + Offset(now));   // ZONE's calendar date, read via UTC getters
+    // whole weeks, Monday to Friday: from this week's Monday (next Monday on a weekend) through the
+    // Friday of the week DAYS_AHEAD reaches; days already past have no slots and show disabled
+    const dow0 = today.getUTCDay();
+    const first = dow0 === 0 ? 1 : dow0 === 6 ? 2 : 1 - dow0;
+    const lastDay = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() + DAYS_AHEAD - 1));
+    const lastDow = lastDay.getUTCDay();
+    const last = DAYS_AHEAD - 1 + (lastDow === 0 ? -2 : 5 - lastDow);
     const days = [];
-    for (let i = 0; i < DAYS_AHEAD; i++) {
+    for (let i = first; i <= last; i++) {
       const date = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate() + i));
       const dow = date.getUTCDay();
       if (dow === 0 || dow === 6) continue;
@@ -67,6 +74,8 @@
       }
       days.push({ noon: ZonedToUtc(y, m, d, 12, 0), slots });
     }
+    // a week whose Friday close (17:00) is already within the notice period is all past: drop it
+    if (days.length > 5 && days[4].noon + 5 * 3600e3 <= earliest) days.splice(0, 5);
     return days;
   }
 

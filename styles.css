@@ -212,7 +212,7 @@ strong { font-weight: 500; }
 }
 .hero-inner { position: relative; max-width: var(--max); margin: 0 auto; width: 100%; }
 .display .line { display: block; }
-.lede { margin-top: 32px; max-width: 46ch; color: var(--paper-70); font-size: clamp(17px, 1.35vw, 20px); }
+.lede { margin-top: 32px; max-width: 62ch; color: var(--paper-70); font-size: clamp(17px, 1.35vw, 20px); }
 
 /* prisms wander around their own centroids (main.js) and thread through the
    type: the headline creates no stacking context, so a letter wrapped in
@@ -252,6 +252,9 @@ strong { font-weight: 500; }
 .section > * { max-width: var(--max); margin-left: auto; margin-right: auto; }
 .paper { background: var(--paper); color: var(--ink); }
 .graphite { background: var(--graphite); color: var(--paper); }
+/* grounds follow the story, not a strict alternation: the product proofs run
+   on one Paper ground, so a rule across the content width marks each section */
+.paper + .paper > :first-child { border-top: 1px solid var(--ink-15); padding-top: clamp(28px, 4vh, 48px); }
 .grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -275,6 +278,8 @@ strong { font-weight: 500; }
 .product-intro .h2 { max-width: none; }
 .product-intro .body-lg { margin-top: 24px; }
 .waitlist-band { margin-top: clamp(64px, 9vh, 112px); scroll-margin-top: 78px; }   /* clear the sticky topbar */
+/* the band closes its section: no Paper strip between it and the next one */
+.section:has(> .waitlist-band:last-child) { padding-bottom: 0; }
 .section > .result { margin-top: clamp(40px, 6vh, 72px); }
 
 /* pain points: the problem on the left, how Evolve treats it on the right */
@@ -295,10 +300,21 @@ strong { font-weight: 500; }
   color: var(--ink-70); margin-bottom: 12px;
 }
 .principles code, .steps code { font-family: ui-monospace, Menlo, monospace; font-size: 0.9em; letter-spacing: 0; }
-/* a demo video, framed like the screenshots; dark until it loads */
+/* a demo video, framed like the screenshots; dark until it loads. It takes the
+   full content width, so its edges line up with the section rules and the hero's
+   strokes band, and it outweighs the 1000px figures around it */
 .result .demo {
+  --figure-w: var(--max);
   display: block; width: min(100%, var(--figure-w)); height: auto; aspect-ratio: 16 / 9; margin: 24px auto 0;
-  object-fit: contain; background: #000; border: 1px solid var(--paper-45);
+  object-fit: contain; background: var(--paper); border: 1px solid var(--paper-45);
+}
+/* the clips are rendered on Paper, so on a Paper section they sit flush, with no frame.
+   Their content spans x = 90..1860 of the 1920 px frame: scale so that span meets the
+   text edges, and let the blank margins run into the gutter */
+.paper .result .demo {
+  border: 0;
+  width: calc(100% * 1920 / 1770); max-width: none;
+  margin-left: calc(-100% * 90 / 1770);
 }
 /* MOCKUP: stands in for a visual not made yet */
 .placeholder {
@@ -313,10 +329,9 @@ strong { font-weight: 500; }
 .graphite .compare-note { color: var(--paper-70); }
 /* proofs keep a rule that shows on their section's ground */
 .graphite .result img { border-color: var(--paper-45); }
-.paper .result .demo { border-color: var(--graphite); }
 
 /* pipeline: three steps across, numbered */
-.pipeline .body-lg { color: var(--ink-70); }
+.pipeline .body-lg { color: var(--ink-70); margin-top: 24px; }   /* the same gap under the headline as .pain */
 .steps {
   list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
   column-gap: var(--col-gap); row-gap: 32px; margin-top: 40px;
@@ -335,6 +350,12 @@ strong { font-weight: 500; }
    to its frame, so the frame only needs the right proportions. */
 .study, .result { --figure-w: 1000px; }
 .section > .study { margin-top: clamp(40px, 6vh, 72px); }
+/* intro text on the left, the engine drawing on the right; stacked on narrow screens */
+.lead-row { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6.5fr); gap: clamp(32px, 4vw, 64px); align-items: start; margin-top: 40px; }
+.lead-row > .study { margin: 0; }
+/* the tagline stays on one line, running past the text column over the empty corner of the
+   drawing frame, so the columns (and the drawing) do not move with it */
+@media (min-width: 1100px) { .product-intro .h2 { white-space: nowrap; } }
 .study + .pain { margin-top: clamp(80px, 12vh, 144px); }
 /* a quiet label over the animation, on its left edge, so it does not
    compete with the line above or the headline below */
@@ -343,6 +364,9 @@ strong { font-weight: 500; }
   width: min(100%, var(--figure-w)); margin: 12px auto 0; aspect-ratio: 950 / 594;
   background: #fff; border: 1px solid var(--graphite);
 }
+/* the drawings canvas: line art straight on the section, in the section's ink */
+.trace-frame { aspect-ratio: 8 / 5; background: none; border: 0; }
+.trace-canvas { display: block; width: 100%; height: 100%; }
 .study-frame iframe { display: block; width: 100%; height: 100%; border: 0; }
 .result img {
   display: block; width: min(100%, var(--figure-w)); height: auto;
@@ -449,7 +473,7 @@ strong { font-weight: 500; }
 .meet-step + .meet-days { margin-bottom: 32px; }
 .meet-tz { font-size: 14px; color: var(--ink-70); margin: -4px 0 14px; }
 .meet-days, .meet-slots { display: grid; gap: 8px; }
-.meet-days { grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); }
+.meet-days { grid-template-columns: repeat(5, minmax(0, 1fr)); max-width: 520px; }   /* Mon-Fri: one row per week (meet.js shows whole weeks) */
 .meet-slots { grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); }
 .meet-days button, .meet-slots button {
   font: inherit; font-size: 15px; letter-spacing: -0.01em; color: var(--ink);
@@ -464,6 +488,13 @@ strong { font-weight: 500; }
 .meet-days button:hover:not(:disabled), .meet-slots button:hover { border-color: var(--graphite); background: var(--cyan-light); }
 .meet-days button[aria-selected="true"] { background: var(--graphite); border-color: var(--graphite); color: var(--paper); }
 .meet-days button:disabled { opacity: 0.35; cursor: default; }
+.meet-days button { white-space: nowrap; }
+/* five days across a phone: tighter type so a date stays on one line */
+@media (max-width: 480px) {
+  .meet-days { gap: 6px; }
+  .meet-days button { font-size: 13px; padding: 8px 2px; letter-spacing: -0.02em; }
+  .meet-days button span { font-size: 10px; }
+}
 .meet-empty { font-size: 15px; color: var(--ink-70); }
 
 .meet-form { display: flex; flex-direction: column; max-width: 480px; }
@@ -501,6 +532,8 @@ strong { font-weight: 500; }
   .waitlist input[type="email"] { border-right: 1px solid var(--ink-45); flex-basis: 100%; }
   .waitlist .button { flex: 1 1 100%; margin-top: 10px; }
   .h2 { max-width: none; }
+  .lead-row { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .lead-row > .study { margin-top: clamp(40px, 6vh, 72px); }
   .hero { min-height: auto; padding-top: 64px; padding-bottom: 48px; }   /* room under the strokes band */
 }
 /* phones: "Computing Built" no longer fits on one line, so let the headline

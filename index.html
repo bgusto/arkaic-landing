@@ -22,7 +22,7 @@
   <meta property="og:image" content="https://arkaic.inc/assets/og.jpg">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="stylesheet" href="styles.css?v=41">
+  <link rel="stylesheet" href="styles.css?v=67">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -59,9 +59,9 @@
               width="268" height="293"></span><span class="lt-front">v</span>ery.</span>
         </h1>
         <p class="lede">
-          Arkaic is building an open platform to advance discovery science and
-          engineering with advanced algorithms, distributed workflows, and
-          trustworthy agentic orchestration.
+          The future of high-performance computing software is here.  Arkaic is
+          building a next-generation, open platform for discovery science and
+          engineering.
         </p>
       </div>
       <div class="strokes-band" aria-hidden="true"></div>
@@ -75,42 +75,37 @@
         <p class="tag"><span class="tag-num">01</span><span class="tag-label">Evolve</span></p>
       </div>
 
-      <div class="product-intro">
-        <h2 id="product-title" class="h2">Don&rsquo;t just optimize, <em class="evolve">Evolve</em>.</h2>
-        <p class="body-lg">
-          Evolve drives long-running simulations.  It compresses design
-          cycles by an order of magnitude.  It removes computational barriers
-          to discovery.  Run parameter exploration and sensitivity analysis at
-          scale.  Perform model verification and validation.  Build
-          multi-fidelity surrogates and find optimal designs using
-          Bayesian optimization.  Create loops for cyclical workflows.  Use
-          agents to help craft, scale, and mend your workflows.
-        </p>
-      </div>
-
-      <figure class="study">
-        <p class="how study-label">How Evolve runs a study</p>
-        <div class="study-frame">
-          <iframe
-            src="evolve-study-animation.html"
-            title="Animation of three Evolve study workflows"
-            scrolling="no"></iframe>
+      <div class="lead-row">
+        <div class="product-intro">
+          <h2 id="product-title" class="h2">Don&rsquo;t just optimize, <em class="evolve">Evolve</em>.</h2>
+          <p class="body-lg">
+            Evolve drives long-running simulations.  It compresses design
+            cycles by an order of magnitude and removes computational barriers
+            to discovery.  Run parameter exploration and sensitivity analysis at
+            scale.  Perform model verification and validation.  Build
+            multi-fidelity surrogates and find optimal designs using
+            Bayesian optimization.  Create loops for cyclical workflows.  Use
+            agents to help craft, scale, and mend your workflows.  Evolve turns computing into discovery.
+          </p>
         </div>
-        <figcaption class="compare-note">
-          Three study patterns, looping. A sampled design feeds a surrogate
-          model that is verified at full fidelity. A batch Bayesian optimizer
-          refits after every six simulations. A multi-fidelity surrogate picks
-          its own samples, then hands off to a multi-objective search.
-        </figcaption>
-      </figure>
+
+        <!-- the drawings on rotation, drawn live (trace-loop.js): a rocket engine, a transport wing, a ship propeller, a NIF fusion shot, then a rotating detonation engine. The old label and caption described the
+             three-pattern animation, so they are gone: add yours here if wanted. -->
+        <figure class="study">
+          <div class="study-frame trace-frame">
+            <canvas class="trace-canvas" role="img"
+              aria-label="Line drawings, drawn live: a rocket engine, a transport wing, a ship propeller, a laser fusion target with its beams, then a rotating detonation engine"></canvas>
+          </div>
+        </figure>
+      </div>
     </section>
 
     <!-- ============================================================ -->
-    <!-- 02 · Design databases: the RD-107 nozzle                      -->
+    <!-- 02 · Design databases: the RAE 2822 airfoil                   -->
     <!-- ============================================================ -->
-    <section class="section graphite" id="confidence" aria-labelledby="confidence-title">
+    <section class="section paper" id="confidence" aria-labelledby="confidence-title">
       <div>
-        <p class="tag paper-tag"><span class="tag-num">02</span><span class="tag-label">Design Databases</span></p>
+        <p class="tag"><span class="tag-num">02</span><span class="tag-label">Design Databases</span></p>
       </div>
 
       <div class="pain">
@@ -134,22 +129,19 @@
         </div>
       </div>
 
-      <!-- the RD-107 nozzle demo: examples/rd107 in Evolve -->
+      <!-- the RAE 2822 aero database: 02-design-database/aerodb.html in evolve-clips -->
       <figure class="result">
         <video
           class="demo"
-          src="assets/rd107-nozzle.mp4"
+          src="assets/aerodb.mp4"
           autoplay muted loop playsinline preload="metadata"
-          aria-label="The simulated flow through the RD-107 rocket nozzle and its exhaust, in OpenFOAM"></video>
+          aria-label="A Gaussian process surrogate of the RAE 2822 airfoil's drag, built automatically from 100 RANS simulations"></video>
         <figcaption class="compare-note">
-          The RD-107 engine&rsquo;s nozzle in OpenFOAM, over six design
-          variables: expansion ratio, two divergent half-angles, throat
-          curvature, and chamber pressure and temperature. Evolve ran 32
-          designs on a coarse mesh (about 6 minutes each on 8 cores) and 8 on
-          a finer one (about 25), then trained a multi-fidelity Gaussian
-          process on both: thrust, thrust coefficient, mass flow, and exit
-          Mach anywhere in the design space, each with its uncertainty. The
-          whole run takes about an hour on 8 machines.
+          RAE 2822 airfoil simulated using SU2, over Mach number from 0.65 to
+          0.78, across the drag rise, and angle of attack from 0 to 3.5
+          degrees. Evolve ran 100 RANS simulations, 97 of which converged, and
+          fit a Gaussian process surrogate of drag to them automatically: a
+          prediction anywhere in the space, with its uncertainty.
         </figcaption>
       </figure>
     </section>
@@ -184,25 +176,124 @@
         </div>
       </div>
 
+      <!-- L2-Sea hull, multi-fidelity BO on the Evolve platform: 03-optimization/multifidelity.html in evolve-clips -->
       <figure class="result">
-        <img
-          src="assets/evolve-plots.jpg" width="1600" height="1000" loading="lazy"
-          alt="Evolve's Plots tab: the waves behind a ship hull before and after optimization, where the hull changed, and the best drag found so far">
+        <video
+          class="demo"
+          src="assets/multifidelity.mp4"
+          autoplay muted loop playsinline preload="metadata"
+          aria-label="Multi-fidelity optimization of a destroyer hull: drag falling with cost as coarse and fine flow simulations run, then the waves and hull shape of the best design"></video>
         <figcaption class="compare-note">
           A destroyer hull from the L2-Sea benchmark, reshaped by Evolve over
           14 shape variables on a coarse and a fine flow simulation. The
           design it found has 11% less drag than the original: 36.8 N against
-          41.5 N. The agent panel is a preview.
+          41.5 N.
         </figcaption>
       </figure>
     </section>
 
     <!-- ============================================================ -->
-    <!-- 04 · Portable Workflows, and the interest form                -->
+    <!-- 04 · Cycles: Hurricane Matthew, forecast every 6 hours        -->
     <!-- ============================================================ -->
-    <section class="section graphite" id="evolve" aria-labelledby="evolve-title">
+    <section class="section paper" id="cycles" aria-labelledby="cycles-title">
       <div>
-        <p class="tag paper-tag"><span class="tag-num">04</span><span class="tag-label">Portable Workflows</span></p>
+        <p class="tag"><span class="tag-num">04</span><span class="tag-label">Cycles</span></p>
+      </div>
+
+      <div class="pain">
+        <h2 id="cycles-title" class="h2 pain-head">
+          <span class="line">New data arrives.</span>
+          <span class="line">The workflow runs again.</span>
+        </h2>
+        <p class="body-lg">
+          Some workflows are never finished: a forecast runs again with every
+          new analysis, a digital twin recalibrates as sensors report. A
+          cycle repeats a graph of tasks at each step in time, each from fresh
+          initial conditions. Describe the tasks once, and Evolve runs the
+          sequence.
+        </p>
+        <div class="pain-how">
+          <ul class="principles" role="list">
+            <li>Each cycle runs the same tasks on the newest data.</li>
+            <li>A task starts when its conditions are met: after another task, or after it fails.</li>
+            <li>Failed tasks retry after a delay, or a backup task takes over.</li>
+            <li>Every cycle keeps its own files and logs.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Hurricane Matthew, five WRF cycles: 04-cycles/cycling.html in evolve-clips -->
+      <figure class="result">
+        <video
+          class="demo"
+          src="assets/cycling.mp4"
+          autoplay muted loop playsinline preload="metadata"
+          aria-label="Hurricane Matthew forecast every six hours: five cycles, each a new 24-hour forecast from its own weather analysis, with the storm track and central pressure updating"></video>
+        <figcaption class="compare-note">
+          Hurricane Matthew, forecast with WRF on a 27 km grid. Five cycles,
+          six hours apart, from 00Z on October 6 to 00Z on October 7. Each
+          cycle starts from its own NCEP FNL analysis (archived data, played
+          back, which also supplies the boundary conditions) and runs a
+          24-hour forecast in about five minutes. The
+          track and the central pressure update with every cycle.
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 05 · Community: publish a study, fork it, reproduce it        -->
+    <!-- ============================================================ -->
+    <section class="section paper" id="community" aria-labelledby="community-title">
+      <div>
+        <p class="tag"><span class="tag-num">05</span><span class="tag-label">Community</span></p>
+      </div>
+
+      <div class="pain">
+        <h2 id="community-title" class="h2 pain-head">
+          <span class="line">Don&rsquo;t work in a vacuum.</span>
+          <span class="line">Publish the whole study.</span>
+        </h2>
+        <p class="body-lg">
+          With Evolve, your published article gets a digital companion.
+          Publish the data, the pipeline, and the trained models all in one
+          place.  Evolve's community page showcases your work and allows
+          community members to fork the study and run it again: check your
+          results, extend them, or start from them.  It's also great for small
+          teams working together in private on big problems.
+        </p>
+        <div class="pain-how">
+          <ul class="principles" role="list">
+            <li>Data, pipeline and trained models publish as one study.</li>
+            <li>Anyone can fork a published study and run it again.</li>
+            <li>A fork reads the published data in place: no download.</li>
+            <li>Every fork and reproduction is counted on the study.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- the CALEBO L2-Sea benchmark, published and reproduced: 05-community/community.html in evolve-clips -->
+      <figure class="result">
+        <video
+          class="demo"
+          src="assets/community.mp4"
+          autoplay muted loop playsinline preload="metadata"
+          aria-label="The CALEBO benchmark study published to the Evolve community, then forked: its results are rebuilt from the published runs and match the paper"></video>
+        <figcaption class="compare-note">
+          The L2-Sea benchmark from our CALEBO paper: 15 trials of each of
+          nine optimizers, 7.5 MB of runs. Published as one study, forked,
+          and rebuilt from the published runs in seconds; the results table
+          comes out identical, with CALEBO at &minus;10.8% drag against
+          &minus;9.8% for the best competing method.
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 06 · Portable Workflows, and the interest form                -->
+    <!-- ============================================================ -->
+    <section class="section paper" id="evolve" aria-labelledby="evolve-title">
+      <div>
+        <p class="tag"><span class="tag-num">06</span><span class="tag-label">Portable Workflows</span></p>
       </div>
 
       <div class="pipeline first">
@@ -263,11 +354,11 @@
     </section>
 
     <!-- ============================================================ -->
-    <!-- 05 · Research                                                 -->
+    <!-- 07 · Research                                                 -->
     <!-- ============================================================ -->
-    <section class="section paper" id="research" aria-labelledby="research-title">
+    <section class="section graphite" id="research" aria-labelledby="research-title">
       <div>
-        <p class="tag"><span class="tag-num">05</span><span class="tag-label">Research</span></p>
+        <p class="tag paper-tag"><span class="tag-num">07</span><span class="tag-label">Research</span></p>
       </div>
 
       <div class="product-intro">
@@ -282,11 +373,11 @@
     </section>
 
     <!-- ============================================================ -->
-    <!-- 06 · Team                                                     -->
+    <!-- 08 · Team                                                     -->
     <!-- ============================================================ -->
     <section class="section graphite" id="team" aria-labelledby="team-title">
       <div>
-        <p class="tag paper-tag"><span class="tag-num">06</span><span class="tag-label">Team</span></p>
+        <p class="tag paper-tag"><span class="tag-num">08</span><span class="tag-label">Team</span></p>
         <h2 id="team-title" class="visually-hidden">Team</h2>
 
         <ul class="team" role="list">
@@ -341,5 +432,11 @@
   </footer>
 
   <script src="main.js?v=4" defer></script>
+  <script src="engine3d-data.js?v=3" defer></script>
+  <script src="wing-trace-data.js?v=1" defer></script>
+  <script src="prop-trace-data.js?v=2" defer></script>
+  <script src="nif3d-data.js?v=1" defer></script>
+  <script src="rde3d-data.js?v=2" defer></script>
+  <script src="trace-loop.js?v=22" defer></script>
 </body>
 </html>
