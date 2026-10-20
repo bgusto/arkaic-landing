@@ -541,7 +541,11 @@ strong { font-weight: 500; }
    breaking "Built" onto a line of its own */
 @media (max-width: 480px) {
   .display .line { display: inline; }
-  .topbar-meet { margin-left: 16px; padding: 8px 12px; }
+  /* the bar: a smaller mark, tighter type and a fixed gap, so the three items fit a 360px phone */
+  .topbar { padding: 16px 20px; gap: 14px; }
+  .brand img { height: 24px; }
+  .topbar-cta, .topbar-meet { font-size: 11px; letter-spacing: 0.06em; white-space: nowrap; }
+  .topbar-meet { margin-left: 0; padding: 8px 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

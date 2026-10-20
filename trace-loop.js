@@ -14,7 +14,7 @@
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   const TAU = Math.PI * 2;
-  const FADE_OUT = 1.4;
+  const FADE_OUT = 1.0;
   const SPEED = 2;         // how much faster than the base timings below the drawings are drawn
   const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
   const ease = (x) => (x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2);
@@ -103,7 +103,7 @@
       spin: 0.14, yaw0: -0.935, hide: solidsOfEngine(ENGINE.occ),    // ends with the turbopump at the left, a little in front
       corners: null, bound: [700, 1130],
       order: (mx, my, mz) => clamp((mz + 1000) / 2000),             // from the exit lip up to the powerhead
-      build: 9, dur: 14, speed: 1300, maxDur: 2.4, tip: 300,
+      build: 9, dur: 10, speed: 1300, maxDur: 2.4, tip: 300,
       callouts: [
         { text: "Mixture ratio", a3: ENGINE.anchors.mix },
         { text: "Pump speed", a3: ENGINE.anchors.pump },
@@ -119,7 +119,7 @@
       spin: 0.12, yaw0: -0.48, late: WING.late,
       corners: null, bound: [1150, 900],
       order: (mx, my) => Math.min(1, Math.abs(mx) / 950),          // fuselage first, then out to the tips
-      build: 9, dur: 14, speed: 1300, maxDur: 2.4, tip: 300,
+      build: 9, dur: 10, speed: 1300, maxDur: 2.4, tip: 300,
       callouts: [
         { text: "Sweep", a3: WING.anchors.sweep },
         { text: "Taper ratio", a3: WING.anchors.taper },
@@ -135,7 +135,7 @@
       spin: 0.14, yaw0: 0.365,
       corners: null, bound: [1000, 930],
       order: (mx, my) => Math.min(1, Math.hypot(mx, my) / 800),    // hub first, then out along the blades
-      build: 9, dur: 14, speed: 1300, maxDur: 2.4, tip: 300,
+      build: 9, dur: 10, speed: 1300, maxDur: 2.4, tip: 300,
       callouts: [
         { text: "Blade count", a3: PROP.anchors.blades },
         { text: "Pitch distribution", a3: PROP.anchors.pitch },
@@ -151,7 +151,7 @@
       spin: 0.14, yaw0: 0.3,
       corners: null, bound: [820, 1180],
       order: (mx, my, mz) => Math.min(1, Math.hypot(mx, my, mz) / 900),   // capsule, then the hohlraum, then the beams
-      build: 9, dur: 14, speed: 1300, maxDur: 2.4, tip: 300,
+      build: 9, dur: 10, speed: 1300, maxDur: 2.4, tip: 300,
       callouts: [
         { text: "Laser pulse shape", a3: NIF.anchors.pulse },
         { text: "Cone fraction", a3: NIF.anchors.cone },
@@ -167,7 +167,7 @@
       spin: 0.14, yaw0: 0.24, hide: solidsOfDrone(DRONE.occ),          // ends nose-on from the front left, a little above
       corners: null, bound: [880, 520],
       order: (mx, my) => Math.min(1, Math.hypot(mx, my) / 800),    // frame first, then out to the props
-      build: 9, dur: 14, speed: 1300, maxDur: 2.4, tip: 300,
+      build: 9, dur: 10, speed: 1300, maxDur: 2.4, tip: 300,
       callouts: [
         { text: "Propeller diameter", a3: DRONE.anchors.prop },
         { text: "Blade pitch", a3: DRONE.anchors.pitch },
@@ -189,7 +189,7 @@
       const len = cum[n - 1], jitter = ((k * 2654435761) % 1000) / 1000;
       return { f, n, cum, len, t0: (0.2 + (sc.late && k >= sc.late ? 1 : sc.order(mx, my, mz)) * sc.build * 0.92 + jitter * 0.5) / SPEED, dur: clamp(len / sc.speed, 0.2, sc.maxDur) / SPEED };
     });
-    sc.callouts.forEach((c, i) => (c.t0 = (sc.build + 1.5 + i * 0.6) / SPEED));
+    sc.callouts.forEach((c, i) => (c.t0 = (sc.build + 1.5 + i * 0.45) / SPEED));
     if (sc.corners) {   // half extents of the content once turned
       const rc = Math.cos(sc.rot), rs = Math.sin(sc.rot);
       sc.bound = [0, 0];
@@ -349,6 +349,8 @@
       if (clearBox(g, Math.min(x, e) - PAD, Math.max(x, e) + PAD, ay - hh, ay + hh)) break;
     }
     x = clamp(x + dir * PAD * 0.5, -W / 2 + (dir < 0 ? w : 0) + 2, W / 2 - (dir > 0 ? w : 0) - 2);
+    ctx.fillStyle = `rgba(${bg}, ${0.85 * u})`;   // knock the lines out behind the name where it has to sit over the drawing
+    ctx.fillRect(dir > 0 ? x - 4 : x - w - 2, ay - hh * 0.8, w + 6, hh * 1.6);
     ctx.fillStyle = col(0.92 * u);
     ctx.fillText(label, x, ay);
     ctx.letterSpacing = "0px";
@@ -361,27 +363,26 @@
     ctx.setTransform(dpr, 0, 0, dpr, (W * dpr) / 2, (H * dpr) / 2);
     ctx.lineCap = ctx.lineJoin = "round";
     ctx.globalAlpha = reduce.matches ? 1 : 1 - ease(clamp((t - (sc.dur - FADE_OUT)) / FADE_OUT));
-    const f = sc.callouts.length ? 0.62 : 0.92;   // leave room at the sides for the names
+    const narrow = W < 520;   // phones: the names sit over the edges of the drawing, knocked out
+    const f = !sc.callouts.length ? 0.92 : narrow ? 0.8 : 0.62;   // leave room at the sides for the names
     S = Math.min((W * 0.5 * f) / sc.bound[0], (H * 0.5 * 0.94) / sc.bound[1]);
     if (sc.three) drawStrokes3d(sc, t);
     else drawStrokes(sc, mapper(sc, t), t);
-    if (W >= 520) {
-      const P = sc.three ? projector(sc, t) : mapper(sc, t, false);
-      if (sc.callouts.length && t >= sc.callouts[0].t0) {
-        const key = `${W},${H},${S}`;
-        if (sc.gkey !== key) { sc.grid = occupancy(sc, P, visibility(sc, t)); sc.gkey = key; }
-        // anchors on screen; names on one side are pushed apart so they never touch
-        for (const c of sc.callouts) {
-          const [x, y] = c.a3 ? P(...c.a3) : P(c.ax, c.ay);
-          c.sx = x; c.sy = y; if (c.dir === undefined) c.dir = (c.a3 ? x >= 0 : c.side === "r") ? 1 : -1;   // fixed once placed, so a name never jumps sides
-        }
-        const GAP = 22, lanes = [1, -1].map((d) => sc.callouts.filter((c) => c.dir === d).sort((a, b) => a.sy - b.sy));
-        for (const lane of lanes) {
-          lane.forEach((c) => (c.y = c.sy));
-          for (let k = 1; k < lane.length; k++) lane[k].y = Math.max(lane[k].y, lane[k - 1].y + GAP);
-        }
-        for (const c of sc.callouts) drawCallout(c, P, t, sc.grid, c.y);
+    const P = sc.three ? projector(sc, t) : mapper(sc, t, false);
+    if (sc.callouts.length && t >= sc.callouts[0].t0) {
+      const key = `${W},${H},${S}`;
+      if (sc.gkey !== key) { sc.grid = occupancy(sc, P, visibility(sc, t)); sc.gkey = key; }
+      // anchors on screen; names on one side are pushed apart so they never touch
+      for (const c of sc.callouts) {
+        const [x, y] = c.a3 ? P(...c.a3) : P(c.ax, c.ay);
+        c.sx = x; c.sy = y; if (c.dir === undefined) c.dir = (c.a3 ? x >= 0 : c.side === "r") ? 1 : -1;   // fixed once placed, so a name never jumps sides
       }
+      const GAP = narrow ? 18 : 22, lanes = [1, -1].map((d) => sc.callouts.filter((c) => c.dir === d).sort((a, b) => a.sy - b.sy));
+      for (const lane of lanes) {
+        lane.forEach((c) => (c.y = c.sy));
+        for (let k = 1; k < lane.length; k++) lane[k].y = Math.max(lane[k].y, lane[k - 1].y + GAP);
+      }
+      for (const c of sc.callouts) drawCallout(c, P, t, sc.grid, c.y);
     }
   }
 
@@ -392,7 +393,7 @@
     W = box.width; H = box.height;
     canvas.width = Math.round(W * dpr);
     canvas.height = Math.round(H * dpr);
-    render(scenes[idx], reduce.matches ? scenes[0].dur - 3 : elapsed);
+    render(scenes[idx], reduce.matches ? scenes[0].dur - FADE_OUT - 0.5 : elapsed);
   }
 
   if (reduce.matches) {
