@@ -332,27 +332,47 @@
   }
 
   // a name, no marker: beside the part it names, moved outward along its row until it clears the drawing
-  function drawCallout(c, P, t, g, ay) {
+  const PAD = 16, LINE = 1.3;   // clearance around a name; line height in ems
+  const namePx = () => Math.max(9, Math.min(11, W * 0.0135));
+  function setFont(px) { ctx.font = `500 ${px}px "Space Grotesk", sans-serif`; ctx.letterSpacing = "0.1em"; }
+  const measure = (lines) => Math.max(...lines.map((l) => ctx.measureText(l).width)) + 2;
+  // where a box w wide and h tall beside ax (going dir) first clears the drawing, or null if nowhere on this row
+  function findSpot(g, ax, dir, w, h, ay) {
+    for (let x = ax + dir * 12; Math.abs(x) < W / 2 - w; x += dir * CELL) {
+      const e = x + dir * w;
+      if (clearBox(g, Math.min(x, e) - PAD, Math.max(x, e) + PAD, ay - h / 2, ay + h / 2)) return x;
+    }
+    return null;
+  }
+  // two lines, broken at the space nearest the middle
+  function splitName(label) {
+    let best = -1;
+    for (let i = label.indexOf(" "); i >= 0; i = label.indexOf(" ", i + 1)) if (best < 0 || Math.abs(i - label.length / 2) < Math.abs(best - label.length / 2)) best = i;
+    return best < 0 ? [label] : [label.slice(0, best), label.slice(best + 1)];
+  }
+  // how a name is set: one line where it fits beside its part, else two (so it need not sit over the drawing)
+  function layoutName(c, g, px) {
+    const label = c.text.toUpperCase();
+    c.lines = [label]; c.w = measure(c.lines); c.h = px * LINE;
+    if (findSpot(g, c.sx, c.dir, c.w, c.h, c.sy) === null && label.includes(" ")) {
+      const two = splitName(label), w2 = measure(two);
+      if (findSpot(g, c.sx, c.dir, w2, 2 * px * LINE, c.sy) !== null || w2 < c.w * 0.7) { c.lines = two; c.w = w2; c.h = 2 * px * LINE; }
+    }
+  }
+  function drawCallout(c, t, g, ay, px) {
     const u = ease(clamp((t - c.t0) / (1.0 / SPEED)));
     if (u <= 0) return;
-    const dir = c.dir;
-    const ax = c.sx;
-    const px = Math.max(9, Math.min(11, W * 0.0135)), label = c.text.toUpperCase();
-    ctx.font = `500 ${px}px "Space Grotesk", sans-serif`;
-    ctx.letterSpacing = "0.1em";
+    const dir = c.dir, w = c.w, h = c.h;
+    setFont(px);
     ctx.textAlign = dir > 0 ? "left" : "right";
     ctx.textBaseline = "middle";
-    const w = ctx.measureText(label).width + 2, PAD = 16, hh = px;
-    let x = ax + dir * 12;
-    for (; Math.abs(x) < W / 2 - w; x += dir * CELL) {
-      const e = x + dir * w;
-      if (clearBox(g, Math.min(x, e) - PAD, Math.max(x, e) + PAD, ay - hh, ay + hh)) break;
-    }
+    let x = findSpot(g, c.sx, dir, w, h, ay);
+    if (x === null) x = dir * (W / 2);   // nowhere clear: against the edge, over the drawing
     x = clamp(x + dir * PAD * 0.5, -W / 2 + (dir < 0 ? w : 0) + 2, W / 2 - (dir > 0 ? w : 0) - 2);
     ctx.fillStyle = `rgba(${bg}, ${0.85 * u})`;   // knock the lines out behind the name where it has to sit over the drawing
-    ctx.fillRect(dir > 0 ? x - 4 : x - w - 2, ay - hh * 0.8, w + 6, hh * 1.6);
+    ctx.fillRect(dir > 0 ? x - 4 : x - w - 2, ay - h / 2 - 1, w + 6, h + 2);
     ctx.fillStyle = col(0.92 * u);
-    ctx.fillText(label, x, ay);
+    c.lines.forEach((l, i) => ctx.fillText(l, x, ay + (i - (c.lines.length - 1) / 2) * px * LINE));
     ctx.letterSpacing = "0px";
     ctx.textBaseline = "alphabetic";
   }
@@ -364,7 +384,7 @@
     ctx.lineCap = ctx.lineJoin = "round";
     ctx.globalAlpha = reduce.matches ? 1 : 1 - ease(clamp((t - (sc.dur - FADE_OUT)) / FADE_OUT));
     const narrow = W < 520;   // phones: the names sit over the edges of the drawing, knocked out
-    const f = !sc.callouts.length ? 0.92 : narrow ? 0.8 : 0.62;   // leave room at the sides for the names
+    const f = !sc.callouts.length ? 0.92 : narrow ? 0.68 : 0.62;   // leave room at the sides for the names
     S = Math.min((W * 0.5 * f) / sc.bound[0], (H * 0.5 * 0.94) / sc.bound[1]);
     if (sc.three) drawStrokes3d(sc, t);
     else drawStrokes(sc, mapper(sc, t), t);
@@ -373,16 +393,24 @@
       const key = `${W},${H},${S}`;
       if (sc.gkey !== key) { sc.grid = occupancy(sc, P, visibility(sc, t)); sc.gkey = key; }
       // anchors on screen; names on one side are pushed apart so they never touch
+      const px = namePx();
+      setFont(px);
       for (const c of sc.callouts) {
         const [x, y] = c.a3 ? P(...c.a3) : P(c.ax, c.ay);
-        c.sx = x; c.sy = y; if (c.dir === undefined) c.dir = (c.a3 ? x >= 0 : c.side === "r") ? 1 : -1;   // fixed once placed, so a name never jumps sides
+        c.sx = x; c.sy = y;
+        if (c.dir === undefined) { c.dir = (c.a3 ? x >= 0 : c.side === "r") ? 1 : -1; c.lines = null; }   // fixed once placed, so a name never jumps sides
+        if (!c.lines || c.lkey !== sc.gkey) { layoutName(c, sc.grid, px); c.lkey = sc.gkey; }
       }
-      const GAP = narrow ? 18 : 22, lanes = [1, -1].map((d) => sc.callouts.filter((c) => c.dir === d).sort((a, b) => a.sy - b.sy));
+      const GAP = narrow ? 7 : 8, lanes = [1, -1].map((d) => sc.callouts.filter((c) => c.dir === d).sort((a, b) => a.sy - b.sy));
       for (const lane of lanes) {
         lane.forEach((c) => (c.y = c.sy));
-        for (let k = 1; k < lane.length; k++) lane[k].y = Math.max(lane[k].y, lane[k - 1].y + GAP);
+        for (let k = 1; k < lane.length; k++) lane[k].y = Math.max(lane[k].y, lane[k - 1].y + (lane[k - 1].h + lane[k].h) / 2 + GAP);
+        if (lane.length) {   // a stack pushed past the bottom edge moves up as one
+          const over = lane[lane.length - 1].y + lane[lane.length - 1].h / 2 - (H / 2 - 2);
+          if (over > 0) lane.forEach((c) => (c.y -= over));
+        }
       }
-      for (const c of sc.callouts) drawCallout(c, P, t, sc.grid, c.y);
+      for (const c of sc.callouts) drawCallout(c, t, sc.grid, c.y, px);
     }
   }
 
