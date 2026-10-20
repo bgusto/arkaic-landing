@@ -1,14 +1,15 @@
 // Section 01's drawings, on rotation in one canvas: a rocket engine, a transport wing, a ship
-// propeller, a NIF fusion shot, then a rotating detonation engine (3D wireframes that turn in
-// space; the rocket engine, the shot and the RDE are built by scripts/engine3d.py, nif3d.py and
-// rde3d.py). Each is a set of vector strokes drawn on live like a plotter, held, then faded before
-// the next, with callouts naming what you would optimize over.
+// propeller, a NIF fusion shot, then an FPV quadcopter (3D wireframes that turn in space; the
+// rocket engine, the shot and the quadcopter are built by scripts/engine3d.py, nif3d.py and
+// drone3d.py). Each is a set of vector strokes drawn on live like a plotter, held, then faded before
+// the next, with callouts naming what you would optimize over. The engine and the quadcopter are
+// drawn with the lines behind their solids hidden.
 // Line colour follows the section: Graphite on Paper, Paper on Graphite.
 // Honors prefers-reduced-motion (the engine, finished, as one still) and pauses off screen.
 (() => {
   const canvas = document.querySelector(".trace-canvas");
-  const ENGINE = window.ENGINE3D, WING = window.WING_TRACE, PROP = window.PROP_TRACE, NIF = window.NIF3D, RDE = window.RDE3D;
-  if (!canvas || !canvas.getContext || !ENGINE || !WING || !PROP || !NIF || !RDE) return;
+  const ENGINE = window.ENGINE3D, WING = window.WING_TRACE, PROP = window.PROP_TRACE, NIF = window.NIF3D, DRONE = window.DRONE3D;
+  if (!canvas || !canvas.getContext || !ENGINE || !WING || !PROP || !NIF || !DRONE) return;
   const ctx = canvas.getContext("2d");
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -22,6 +23,75 @@
   const col = (a) => `rgba(${ink}, ${a})`;
   const bg = canvas.closest(".paper") ? "245, 240, 232" : "30, 29, 26";   // knocks lines out behind a name
 
+  // Hidden lines. A scene's `hide(x, y, z, v)` says whether the ray from a point toward the viewer
+  // (v, unit, in the scene's coordinates) passes through one of its solids. A point on a solid's
+  // own surface is hidden only when the ray goes on into it, so the far side of a ring drops out.
+  const EPS = 3;
+  const rayCyl = (p, v, cx, cy, R) => {   // where the ray crosses the cylinder r = R about (cx, cy)
+    const px = p[0] - cx, py = p[1] - cy;
+    const a = v[0] * v[0] + v[1] * v[1], b = 2 * (px * v[0] + py * v[1]), c = px * px + py * py - R * R, D = b * b - 4 * a * c;
+    if (D <= 0) return null;
+    const s = Math.sqrt(D);
+    return [(-b - s) / (2 * a), (-b + s) / (2 * a)];
+  };
+  const inside = (ti, p, v, z0, z1) =>   // the ray runs inside a solid for a while past the point
+    !!ti && Math.min(ti[1], (z1 - p[2]) / v[2]) - Math.max(ti[0], (z0 - p[2]) / v[2], EPS) > EPS;
+  const inCyls = (p, v, cyls) => cyls.some(([cx, cy, R, z0, z1]) => inside(rayCyl(p, v, cx, cy, R), p, v, z0, z1));
+
+  // the quadcopter: plates, arms and battery as boxes (centre, half sizes, turn about z), the
+  // motors as cylinders, the payload as a solid of revolution along x given as r every dx
+  function solidsOfDrone(o) {
+    const n = o.xrev.r.length, x1 = o.xrev.x0 + (n - 1) * o.xrev.dx, rMax = Math.max(...o.xrev.r), STEP = 16;
+    const rAt = (x) => {
+      const u = (x - o.xrev.x0) / o.xrev.dx, i = Math.floor(u);
+      return i < 0 || i >= n - 1 ? 0 : lerp(o.xrev.r[i], o.xrev.r[i + 1], u - i);
+    };
+    return (x, y, z, v) => {
+      const p = [x, y, z];
+      if (inCyls(p, v, o.cyls)) return true;
+      for (const [cx, cy, cz, hx, hy, hz, ang] of o.boxes) {   // a slab test in the box's own frame
+        const c = Math.cos(ang), s = Math.sin(ang);
+        const q = [(x - cx) * c + (y - cy) * s, -(x - cx) * s + (y - cy) * c, z - cz], w = [v[0] * c + v[1] * s, -v[0] * s + v[1] * c, v[2]], h = [hx, hy, hz];
+        let ta = EPS, tb = Infinity;
+        for (let d = 0; d < 3 && tb > ta; d++) {
+          if (Math.abs(w[d]) < 1e-9) { if (Math.abs(q[d]) > h[d]) tb = -Infinity; continue; }
+          const t1 = (-h[d] - q[d]) / w[d], t2 = (h[d] - q[d]) / w[d];
+          ta = Math.max(ta, Math.min(t1, t2)); tb = Math.min(tb, Math.max(t1, t2));
+        }
+        if (tb - ta > EPS) return true;
+      }
+      // the payload: walk the ray through the x range where it is within rMax of the axis
+      const py = y - o.xrev.cy, pz = z - o.xrev.cz, a = v[1] * v[1] + v[2] * v[2], b = 2 * (py * v[1] + pz * v[2]), c = py * py + pz * pz - rMax * rMax, D = b * b - 4 * a * c;
+      if (D <= 0) return false;
+      const sq = Math.sqrt(D), xa = (o.xrev.x0 - x) / v[0], xb = (x1 - x) / v[0];
+      const ta = Math.max(EPS, (-b - sq) / (2 * a), Math.min(xa, xb)), tb = Math.min((-b + sq) / (2 * a), Math.max(xa, xb));
+      for (let t = ta + STEP / 2; t < tb; t += STEP) {
+        if (Math.hypot(py + t * v[1], pz + t * v[2]) < rAt(x + t * v[0]) - 2) return true;
+      }
+      return false;
+    };
+  }
+  // the rocket engine: the thrust chamber and dome, a solid of revolution given as r every dz in z
+  // (the ray is walked through it), and the pump, turbine, gas generator and gimbal as cylinders
+  function solidsOfEngine(o) {
+    const n = o.r.length, z1 = o.z0 + (n - 1) * o.dz, rMax = Math.max(...o.r), STEP = 16;
+    const rAt = (z) => {
+      const u = (z - o.z0) / o.dz, i = Math.floor(u);
+      return i < 0 || i >= n - 1 ? 0 : lerp(o.r[i], o.r[i + 1], u - i);
+    };
+    return (x, y, z, v) => {
+      const p = [x, y, z];
+      if (inCyls(p, v, o.cyls)) return true;
+      const ci = rayCyl(p, v, 0, 0, rMax);
+      if (!ci) return false;
+      const ta = Math.max(EPS, (o.z0 - z) / v[2], ci[0]), tb = Math.min((z1 - z) / v[2], ci[1]);
+      for (let t = ta + STEP / 2; t < tb; t += STEP) {
+        if (Math.hypot(x + t * v[0], y + t * v[1]) < rAt(z + t * v[2]) - 2) return true;
+      }
+      return false;
+    };
+  }
+
   // ---- the scenes ----
   // rot: turn (radians, clockwise); squash: foreshortens y after the turn and spin (a tilted view);
   // spin: radians per second about the vertical axis (three) ; three: strokes are x, y, z triples seen from
@@ -30,9 +100,9 @@
   const scenes = [
     {
       p: ENGINE.p, three: true, elev: 0.5, cx: 0, cy: 0, rot: 0, squash: 1,
-      spin: 0.14, yaw0: 0.2,
-      corners: null, bound: [800, 1160],
-      order: (mx, my, mz) => clamp((mz + 1100) / 2200),             // from the exit lip up to the powerhead
+      spin: 0.14, yaw0: -0.935, hide: solidsOfEngine(ENGINE.occ),    // ends with the turbopump at the left, a little in front
+      corners: null, bound: [700, 1130],
+      order: (mx, my, mz) => clamp((mz + 1000) / 2000),             // from the exit lip up to the powerhead
       build: 9, dur: 14, speed: 1300, maxDur: 2.4, tip: 300,
       callouts: [
         { text: "Mixture ratio", a3: ENGINE.anchors.mix },
@@ -93,19 +163,19 @@
       ],
     },
     {
-      p: RDE.p, three: true, elev: 0.62, cx: 0, cy: 0, rot: 0, squash: 1,
-      spin: 0.14, yaw0: 0.2, late: RDE.late,
-      corners: null, bound: [700, 900],
-      order: (mx, my, mz) => clamp((330 - mz) / 970),               // from the injector face down; the wave last
+      p: DRONE.p, three: true, elev: 0.55, cx: 0, cy: 0, rot: 0, squash: 1,
+      spin: 0.14, yaw0: 0.24, hide: solidsOfDrone(DRONE.occ),          // ends nose-on from the front left, a little above
+      corners: null, bound: [880, 520],
+      order: (mx, my) => Math.min(1, Math.hypot(mx, my) / 800),    // frame first, then out to the props
       build: 9, dur: 14, speed: 1300, maxDur: 2.4, tip: 300,
       callouts: [
-        { text: "Outer diameter", a3: RDE.anchors.diameter },
-        { text: "Mass flow rate", a3: RDE.anchors.flow },
-        { text: "Annulus gap", a3: RDE.anchors.gap },
-        { text: "Injector area ratio", a3: RDE.anchors.injector },
-        { text: "Combustor length", a3: RDE.anchors.length },
-        { text: "Equivalence ratio", a3: RDE.anchors.phi },
-        { text: "Plug nozzle contour", a3: RDE.anchors.plug },
+        { text: "Propeller diameter", a3: DRONE.anchors.prop },
+        { text: "Blade pitch", a3: DRONE.anchors.pitch },
+        { text: "Motor KV", a3: DRONE.anchors.motor },
+        { text: "Arm length", a3: DRONE.anchors.arm },
+        { text: "Battery capacity", a3: DRONE.anchors.battery },
+        { text: "Payload mass", a3: DRONE.anchors.payload },
+        { text: "Camera tilt", a3: DRONE.anchors.camera },
       ],
     },
   ];
@@ -171,40 +241,56 @@
 
   // the 3D scene: turn about the vertical axis, tip toward the viewer, a little perspective;
   // segments are batched by depth so the near side is stronger
+  const yawAt = (sc, t) => (sc.yaw0 ?? 0.6) + sc.spin * Math.min(t, (sc.build + 1.5) / SPEED);   // it turns while drawn, then holds so the names stay put
   function projector(sc, t) {
-    const yaw = (sc.yaw0 ?? 0.6) + sc.spin * Math.min(t, (sc.build + 1.5) / SPEED),   // it turns while drawn, then holds so the names stay put
-       cw = Math.cos(yaw), sw = Math.sin(yaw), ce = Math.cos(sc.elev), se = Math.sin(sc.elev);
+    const yaw = yawAt(sc, t), cw = Math.cos(yaw), sw = Math.sin(yaw), ce = Math.cos(sc.elev), se = Math.sin(sc.elev);
     return (x, y, z) => {
       const x1 = x * cw - y * sw, y1 = x * sw + y * cw, d = (y1 * ce + z * se) / 1000, k = 1 / (1 - 0.28 * d);
       return [x1 * k * S, (-z * ce + y1 * se) * k * S, d];
     };
   }
+  // for a scene with solids, which points can be seen at time t: a flag per point of each stroke,
+  // worked out again only when the view has turned a little (null: everything can be seen)
+  function visibility(sc, t) {
+    if (!sc.hide) return null;
+    const yaw = yawAt(sc, t), key = Math.round(yaw / 0.008);
+    if (sc.visKey !== key) {
+      const ce = Math.cos(sc.elev), v = [Math.sin(yaw) * ce, Math.cos(yaw) * ce, Math.sin(sc.elev)];
+      sc.vis = sc.strokes.map((s) => {
+        const a = new Uint8Array(s.n);
+        for (let i = 0; i < s.n; i++) a[i] = sc.hide(s.f[3 * i], s.f[3 * i + 1], s.f[3 * i + 2], v) ? 0 : 1;
+        return a;
+      });
+      sc.visKey = key;
+    }
+    return sc.vis;
+  }
   function drawStrokes3d(sc, t) {
     const NB = 6, bins = [], tips = [];
-    const proj = projector(sc, t);
+    const proj = projector(sc, t), vis = visibility(sc, t);
     const seg = (a, b) => {
       const lv = Math.max(1, Math.round((0.3 + 0.7 * clamp(((a[2] + b[2]) / 2 + 1.1) / 2.2)) * NB));
       const p = bins[lv] || (bins[lv] = new Path2D());
       p.moveTo(a[0], a[1]);
       p.lineTo(b[0], b[1]);
     };
-    for (const s of sc.strokes) {
+    sc.strokes.forEach((s, k) => {
       const u = clamp((t - s.t0) / s.dur);
-      if (u <= 0) continue;
-      const lim = u * s.len, f = s.f;
-      let prev = proj(f[0], f[1], f[2]), i = 1;
+      if (u <= 0) return;
+      const lim = u * s.len, f = s.f, vs = vis && vis[k];
+      let prev = proj(f[0], f[1], f[2]), pv = !vs || vs[0], i = 1;
       while (i < s.n && s.cum[i] <= lim) {
-        const cur = proj(f[3 * i], f[3 * i + 1], f[3 * i + 2]);
-        seg(prev, cur);
-        prev = cur; i++;
+        const cur = proj(f[3 * i], f[3 * i + 1], f[3 * i + 2]), cv = !vs || vs[i];
+        if (pv && cv) seg(prev, cur);
+        prev = cur; pv = cv; i++;
       }
       if (i < s.n) {
         const r = (lim - s.cum[i - 1]) / (s.cum[i] - s.cum[i - 1]);
-        const q = proj(lerp(f[3 * i - 3], f[3 * i], r), lerp(f[3 * i - 2], f[3 * i + 1], r), lerp(f[3 * i - 1], f[3 * i + 2], r));
-        seg(prev, q);
-        if (s.len > sc.tip) tips.push(q);
+        const q = proj(lerp(f[3 * i - 3], f[3 * i], r), lerp(f[3 * i - 2], f[3 * i + 1], r), lerp(f[3 * i - 1], f[3 * i + 2], r)), qv = !vs || vs[i];
+        if (pv && qv) seg(prev, q);
+        if (qv && s.len > sc.tip) tips.push(q);
       }
-    }
+    });
     ctx.lineWidth = 0.9;
     bins.forEach((p, lv) => {
       ctx.strokeStyle = col(0.9 * lv / NB);
@@ -220,20 +306,21 @@
 
   // where the finished drawing has ink, as a coarse grid, so a name can sit in the nearest clear spot beside its part
   const CELL = 5;
-  function occupancy(sc, P) {
+  function occupancy(sc, P, vis) {
     const nx = Math.ceil(W / CELL) + 2, ny = Math.ceil(H / CELL) + 2, a = new Uint8Array(nx * ny);
     const st = sc.three ? 3 : 2, mark = (x, y) => {
       const i = Math.floor((x + W / 2) / CELL) + 1, j = Math.floor((y + H / 2) / CELL) + 1;
       if (i >= 0 && i < nx && j >= 0 && j < ny) a[j * nx + i] = 1;
     };
-    for (const sk of sc.strokes) {
-      let prev = P(...sk.f.slice(0, st));
+    sc.strokes.forEach((sk, n) => {
+      const vs = vis && vis[n];
+      let prev = P(...sk.f.slice(0, st)), pv = !vs || vs[0];
       for (let i = 1; i < sk.n; i++) {
-        const cur = P(...sk.f.slice(st * i, st * i + st)), k = Math.max(1, Math.ceil(Math.hypot(cur[0] - prev[0], cur[1] - prev[1]) / CELL));
-        for (let m = 0; m <= k; m++) mark(lerp(prev[0], cur[0], m / k), lerp(prev[1], cur[1], m / k));
-        prev = cur;
+        const cur = P(...sk.f.slice(st * i, st * i + st)), cv = !vs || vs[i], k = Math.max(1, Math.ceil(Math.hypot(cur[0] - prev[0], cur[1] - prev[1]) / CELL));
+        if (pv && cv) for (let m = 0; m <= k; m++) mark(lerp(prev[0], cur[0], m / k), lerp(prev[1], cur[1], m / k));
+        prev = cur; pv = cv;
       }
-    }
+    });
     return { a, nx, ny };
   }
   function clearBox(g, x1, x2, y1, y2) {
@@ -282,7 +369,7 @@
       const P = sc.three ? projector(sc, t) : mapper(sc, t, false);
       if (sc.callouts.length && t >= sc.callouts[0].t0) {
         const key = `${W},${H},${S}`;
-        if (sc.gkey !== key) { sc.grid = occupancy(sc, P); sc.gkey = key; }
+        if (sc.gkey !== key) { sc.grid = occupancy(sc, P, visibility(sc, t)); sc.gkey = key; }
         // anchors on screen; names on one side are pushed apart so they never touch
         for (const c of sc.callouts) {
           const [x, y] = c.a3 ? P(...c.a3) : P(c.ax, c.ay);
