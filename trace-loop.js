@@ -244,10 +244,27 @@
   const yawAt = (sc, t) => (sc.yaw0 ?? 0.6) + sc.spin * Math.min(t, (sc.build + 1.5) / SPEED);   // it turns while drawn, then holds so the names stay put
   function projector(sc, t) {
     const yaw = yawAt(sc, t), cw = Math.cos(yaw), sw = Math.sin(yaw), ce = Math.cos(sc.elev), se = Math.sin(sc.elev);
+    const ox = sc.ext ? sc.ext.cx * S : 0, oy = sc.ext ? sc.ext.cy * S : 0;   // the drawing centred on the canvas
     return (x, y, z) => {
       const x1 = x * cw - y * sw, y1 = x * sw + y * cw, d = (y1 * ce + z * se) / 1000, k = 1 / (1 - 0.28 * d);
-      return [x1 * k * S, (-z * ce + y1 * se) * k * S, d];
+      return [x1 * k * S - ox, (-z * ce + y1 * se) * k * S - oy, d];
     };
+  }
+  // the drawing's centre and half extents on screen at unit scale, over the turn it makes while drawn
+  function extent(sc) {
+    if (sc.ext) return sc.ext;
+    const keep = S; S = 1;
+    let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+    const tEnd = (sc.build + 1.5) / SPEED;
+    for (let k = 0; k <= 4; k++) {
+      const P = projector(sc, (tEnd * k) / 4);
+      for (const s of sc.strokes) for (let i = 0; i < s.n; i++) {
+        const [x, y] = P(s.f[3 * i], s.f[3 * i + 1], s.f[3 * i + 2]);
+        x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y);
+      }
+    }
+    S = keep;
+    return (sc.ext = { cx: (x0 + x1) / 2, cy: (y0 + y1) / 2, hx: (x1 - x0) / 2, hy: (y1 - y0) / 2 });
   }
   // for a scene with solids, which points can be seen at time t: a flag per point of each stroke,
   // worked out again only when the view has turned a little (null: everything can be seen)
@@ -385,7 +402,8 @@
     ctx.globalAlpha = reduce.matches ? 1 : 1 - ease(clamp((t - (sc.dur - FADE_OUT)) / FADE_OUT));
     const narrow = W < 520;   // phones: the names sit over the edges of the drawing, knocked out
     const f = !sc.callouts.length ? 0.92 : narrow ? 0.68 : 0.62;   // leave room at the sides for the names
-    S = Math.min((W * 0.5 * f) / sc.bound[0], (H * 0.5 * 0.94) / sc.bound[1]);
+    const e = sc.three ? extent(sc) : { hx: sc.bound[0], hy: sc.bound[1] };
+    S = Math.min((W * 0.5 * f) / e.hx, (H * 0.5 * 0.94) / e.hy);
     if (sc.three) drawStrokes3d(sc, t);
     else drawStrokes(sc, mapper(sc, t), t);
     const P = sc.three ? projector(sc, t) : mapper(sc, t, false);
