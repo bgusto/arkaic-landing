@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /meet/
+
+Sitemap: https://arkaic.inc/sitemap.xml

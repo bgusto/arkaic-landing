@@ -189,18 +189,15 @@ strong { font-weight: 500; }
   background: var(--graphite);
 }
 .brand img { height: 30px; width: auto; }
-.topbar-cta {
-  margin-left: auto; font-weight: 500; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
-  text-decoration: none; color: var(--paper); border-bottom: 1px solid var(--paper-45); padding-bottom: 2px;
-}
-.topbar-cta:hover { border-color: var(--coral); }
-/* the way to a meeting: a solid Paper button at the far right */
-.topbar-meet {
-  margin-left: 24px; padding: 9px 16px;
+/* the site links: at the right on wide screens; on phones a panel under the bar, opened by
+   the Menu button (nav.js) */
+.topnav { display: flex; gap: 28px; margin-left: auto; }
+.topnav a {
   font-weight: 500; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
-  background: var(--paper); color: var(--graphite); border: 1px solid var(--paper);
+  color: var(--paper-70); padding-bottom: 2px; border-bottom: 1px solid transparent;
 }
-.topbar-meet:hover { background: var(--cyan-light); border-color: var(--cyan-light); }
+.topnav a:hover, .topnav a[aria-current] { color: var(--paper); border-color: var(--coral); }
+.nav-toggle { display: none; }
 
 /* ---- hero ---- */
 .hero {
@@ -316,6 +313,10 @@ strong { font-weight: 500; }
   width: calc(100% * 1920 / 1770); max-width: none;
   margin-left: calc(-100% * 90 / 1770);
 }
+/* a loop of Evolve's own UI, captured at 2x and shown at its 1x width, with a hairline so its
+   white ground reads as a frame on Paper; phones get the main column alone */
+.ui-loop img { display: block; width: min(100%, 1150px); height: auto; margin: 0 auto; border: 1px solid var(--ink-15); }
+
 /* MOCKUP: stands in for a visual not made yet */
 .placeholder {
   display: grid; place-items: center; aspect-ratio: 16 / 10;
@@ -432,6 +433,18 @@ strong { font-weight: 500; }
 }
 .mail:hover { border-color: var(--coral); color: var(--coral-dark); }
 
+/* ---- /work/: the projects page ---- */
+/* an offer's facts: three short rows under its paragraph, the labels set like .how */
+.offer-facts { margin: 16px 0 0; display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 6px 14px; font-size: 15px; line-height: 1.4; }
+.offer-facts dt { font-weight: 500; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-70); padding-top: 3px; }
+.offer-facts dd { margin: 0; color: var(--ink); }
+.offer-facts code { font-family: ui-monospace, Menlo, monospace; font-size: 0.9em; letter-spacing: 0; }
+.steps p a { color: inherit; }
+.work .pipeline + .pipeline { margin-top: clamp(64px, 9vh, 112px); }
+/* the contact band's button sits between the line and the address */
+.contact-card .button { margin: 20px auto 18px; display: inline-block; }
+.contact-card .mail { display: block; }
+
 /* footer */
 .footer {
   display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px 40px;
@@ -535,17 +548,26 @@ strong { font-weight: 500; }
   .lead-row { grid-template-columns: minmax(0, 1fr); gap: 0; }
   .lead-row > .study { margin-top: clamp(40px, 6vh, 72px); }
   .hero { min-height: auto; padding-top: 64px; padding-bottom: 48px; }   /* room under the strokes band */
+  .topnav {
+    display: none; position: absolute; left: 0; right: 0; top: 100%;
+    flex-direction: column; gap: 0; margin: 0; padding: 4px var(--gutter) 16px;
+    background: var(--graphite); border-top: 1px solid var(--paper-45);
+  }
+  .topbar.open .topnav { display: flex; }
+  .topnav a { display: block; padding: 15px 0; font-size: 13px; border-bottom: 1px solid var(--paper-45); color: var(--paper); }
+  .topnav a:hover, .topnav a[aria-current] { border-color: var(--paper-45); color: var(--coral); }
+  .nav-toggle {
+    display: inline-block; margin-left: auto; padding: 0; background: none; border: 0; cursor: pointer;
+    font: inherit; font-weight: 500; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper);
+  }
 }
 /* phones: "Computing Built" no longer fits on one line, so let the headline
    flow as one run of text ("Computing / Built for / Discovery.") instead of
    breaking "Built" onto a line of its own */
 @media (max-width: 480px) {
   .display .line { display: inline; }
-  /* the bar: a smaller mark, tighter type and a fixed gap, so the three items fit a 360px phone */
-  .topbar { padding: 16px 20px; gap: 14px; }
+  .topbar { padding: 16px 20px; }
   .brand img { height: 24px; }
-  .topbar-cta, .topbar-meet { font-size: 11px; letter-spacing: 0.06em; white-space: nowrap; }
-  .topbar-meet { margin-left: 0; padding: 8px 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

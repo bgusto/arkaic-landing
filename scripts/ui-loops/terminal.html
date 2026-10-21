@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Terminal</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; background: #F5F0E8; }
+  .ground { width: 1150px; height: 833px; display: grid; place-items: center; }
+  .win { width: 860px; height: 600px; box-sizing: border-box; background: #1E1D1A; border-radius: 10px; overflow: hidden;
+         box-shadow: 0 18px 50px rgba(30, 29, 26, 0.22), 0 0 0 1px rgba(30, 29, 26, 0.25); }
+  .bar { height: 36px; display: flex; align-items: center; gap: 8px; padding: 0 14px; background: #2A2926; color: rgba(245, 240, 232, 0.55); font: 500 12px "IBM Plex Mono", Menlo, monospace; }
+  .bar i { width: 12px; height: 12px; border-radius: 50%; background: #4A4844; display: inline-block; }
+  .bar span { margin-left: auto; margin-right: auto; }
+  .term { padding: 22px 26px; color: #F5F0E8; font: 500 15px/1.6 "IBM Plex Mono", Menlo, monospace; white-space: pre; overflow: hidden; }
+  .dim { color: rgba(245, 240, 232, 0.55); }
+  .key { color: #F27649; }
+  .caret { display: inline-block; width: 8px; height: 16px; background: #F5F0E8; vertical-align: -3px; }
+</style></head><body><div class="ground" id="g"><div class="win"><div class="bar"><i></i><i></i><i></i><span>wing — zsh</span></div><div class="term" id="t"></div></div></div>
+<script>
+  const q = new URLSearchParams(location.search), n = +(q.get("n") ?? 99), lines = +(q.get("lines") ?? 99);
+  const w = +(q.get("w") ?? 1150);
+  document.getElementById("g").style.width = w + "px";
+  if (w < 1000) document.querySelector(".win").style.width = "820px";
+  const cmd = "evolve inspect wing.surrogate.h5";
+  const out = [
+    '<span class="key">wing.surrogate.h5</span>   evolve-surrogate 1.0 · 2.4 MB',
+    '',
+    '<span class="dim">Inputs</span>                 kind    range            scale',
+    '  sweep                real    20 .. 40 deg     linear',
+    '  taper                real    0.2 .. 0.6       linear',
+    '  twist                real    -6 .. 0 deg      linear',
+    '  span                 real    28 .. 40 m       linear',
+    '',
+    '<span class="dim">Outputs</span>                role         sense',
+    '  lift_to_drag         objective    maximize',
+    '  wing_mass            constraint   &lt;= 9400 kg',
+    '',
+    '<span class="dim">Training</span>               120 points at level 0',
+    '',
+    '<span class="dim">Surrogates</span>             kind    predicts     fit (leave one out)',
+    '  lift_to_drag         gp/1    mean, std    rmse 0.184   r² 0.962',
+    '  wing_mass            gp/1    mean, std    rmse 61.2    r² 0.988',
+    '',
+    '<span class="dim">Provenance</span>             evolve-lib 0.9 · 2026-10-14 · campaign 7b3e, stage bo',
+    '                       sha256:3f9a2c0e…c71e',
+  ];
+  let s = '<span class="dim">$</span> ' + cmd.slice(0, n) + (n < cmd.length ? '<span class="caret"></span>' : '');
+  if (n >= cmd.length) {
+    const shown = out.slice(0, lines);
+    s += "\n" + shown.join("\n") + (lines >= out.length ? '\n<span class="dim">$</span> <span class="caret"></span>' : "");
+  }
+  document.getElementById("t").innerHTML = s;
+</script></body></html>

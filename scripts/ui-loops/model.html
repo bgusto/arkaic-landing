@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Evolve</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Shrikhand&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="evolve.css">  <!-- a copy of evolve/clients/ui/app/styles.css, made by render.sh -->
+<style>html, body { margin: 0; } .app { width: 1150px; height: 833px; overflow: hidden; }</style>
+</head><body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="sidebar-header"><h1 class="logo">Evolve</h1></div>
+    <div class="sidebar-section sidebar-box"><button class="sidebar-heading">Shells</button>
+      <div class="model-item"><div class="model-item-top"><span class="model-status-dot running"></span><span class="model-name">Shell</span></div><div class="model-meta">running</div></div>
+    </div>
+    <div class="sidebar-section sidebar-box"><button class="sidebar-heading">Workflows</button>
+      <div class="model-item"><div class="model-item-top"><span class="model-name">Transport wing</span></div><div class="model-meta">version 3 · succeeded</div></div>
+      <div class="model-item"><div class="model-item-top"><span class="model-name">L2-Sea hull drag</span></div><div class="model-meta">version 5 · succeeded</div></div>
+      <div class="model-item"><div class="model-item-top"><span class="model-name">Combustor liner</span></div><div class="model-meta">version 2 · running</div></div>
+    </div>
+    <div class="sidebar-section sidebar-box active"><button class="sidebar-heading active" aria-current="page">Models</button>
+      <div class="model-item active"><div class="model-item-top"><span class="model-name">Transport wing · bo</span></div><div class="model-meta">120 points</div></div>
+      <div class="model-item"><div class="model-item-top"><span class="model-name">L2-Sea hull drag · gpr</span></div><div class="model-meta">64 points</div></div>
+    </div>
+    <div class="sidebar-section sidebar-box"><button class="sidebar-heading">Datasets</button>
+      <div class="model-item"><div class="model-item-top"><span class="model-name">Transport wing · 2026-10-14 09:32</span></div><div class="model-meta">128 rows</div></div>
+      <div class="model-item"><div class="model-item-top"><span class="model-name">L2-Sea hull drag · 2026-10-11 16:05</span></div><div class="model-meta">70 rows</div></div>
+    </div>
+  </aside>
+  <div class="workspace">
+    <nav class="view-tabs topbar"><span class="topbar-section">Models</span><div class="topbar-right"></div></nav>
+    <div class="app-body"><main class="center"><div class="view-content">
+      <div class="results-page">
+        <div class="config-toolbar">
+          <span class="config-toolbar-title">Transport wing · bo</span>
+          <span class="model-actions">
+            <button class="source-toggle" id="download">Download</button>
+            <button class="source-toggle">New study from this model</button>
+          </span>
+        </div>
+        <div class="config-cards">
+          <section class="cfg-card">
+            <div class="model-facts model-card-body">
+              <span><span class="label">Kind</span>Gaussian process</span>
+              <span><span class="label">Predicts</span>lift_to_drag, wing_mass</span>
+              <span><span class="label">Inputs</span>sweep, taper, twist, span</span>
+              <span><span class="label">Trained on</span>120 at level 0 (120 points)</span>
+              <span><span class="label">From</span><button class="model-link">Transport wing</button>, version 3, stage bo</span>
+            </div>
+          </section>
+          <section class="cfg-card">
+            <div class="cfg-card-header"><span class="cfg-card-title">Fit</span>
+              <select class="cfg-cell-input model-output"><option>lift_to_drag</option><option>wing_mass</option></select></div>
+            <div class="model-body">
+              <div class="chart fit-chart"><svg viewBox="0 0 320 320" class="chart-svg">
+<line class="chart-axis" x1="64" y1="288" x2="308" y2="288"/>
+<line class="chart-axis" x1="64" y1="12" x2="64" y2="288"/>
+<line class="fit-diagonal" x1="64.0" y1="288.0" x2="308.0" y2="12.0"/>
+<text class="chart-label" x="58" y="16.0" text-anchor="end">20.85</text>
+<text class="chart-label" x="58" y="292.0" text-anchor="end">14.26</text>
+<text class="chart-label" x="308" y="312" text-anchor="end">observed lift_to_drag</text>
+<text class="chart-label" x="64" y="312">14.26</text>
+<circle class="chart-dot fit-level-0" cx="138.5" cy="196.9" r="3"/><circle class="chart-dot fit-level-0" cx="78.9" cy="261.7" r="3"/><circle class="chart-dot fit-level-0" cx="188.8" cy="148.6" r="3"/><circle class="chart-dot fit-level-0" cx="182.1" cy="152.4" r="3"/><circle class="chart-dot fit-level-0" cx="70.6" cy="283.3" r="3"/><circle class="chart-dot fit-level-0" cx="83.3" cy="265.0" r="3"/><circle class="chart-dot fit-level-0" cx="162.4" cy="174.8" r="3"/><circle class="chart-dot fit-level-0" cx="114.7" cy="234.3" r="3"/><circle class="chart-dot fit-level-0" cx="210.5" cy="112.3" r="3"/><circle class="chart-dot fit-level-0" cx="155.8" cy="187.5" r="3"/><circle class="chart-dot fit-level-0" cx="293.3" cy="13.6" r="3"/><circle class="chart-dot fit-level-0" cx="130.4" cy="208.3" r="3"/><circle class="chart-dot fit-level-0" cx="96.0" cy="246.8" r="3"/><circle class="chart-dot fit-level-0" cx="255.3" cy="67.0" r="3"/><circle class="chart-dot fit-level-0" cx="104.6" cy="252.0" r="3"/><circle class="chart-dot fit-level-0" cx="150.1" cy="196.2" r="3"/><circle class="chart-dot fit-level-0" cx="191.6" cy="141.0" r="3"/><circle class="chart-dot fit-level-0" cx="110.6" cy="234.2" r="3"/><circle class="chart-dot fit-level-0" cx="223.1" cy="114.2" r="3"/><circle class="chart-dot fit-level-0" cx="200.6" cy="130.4" r="3"/><circle class="chart-dot fit-level-0" cx="169.2" cy="173.3" r="3"/><circle class="chart-dot fit-level-0" cx="227.5" cy="89.6" r="3"/><circle class="chart-dot fit-level-0" cx="119.6" cy="233.7" r="3"/><circle class="chart-dot fit-level-0" cx="269.3" cy="60.2" r="3"/><circle class="chart-dot fit-level-0" cx="234.7" cy="100.1" r="3"/><circle class="chart-dot fit-level-0" cx="89.7" cy="237.2" r="3"/><circle class="chart-dot fit-level-0" cx="160.9" cy="178.2" r="3"/><circle class="chart-dot fit-level-0" cx="177.7" cy="164.0" r="3"/><circle class="chart-dot fit-level-0" cx="71.0" cy="286.7" r="3"/><circle class="chart-dot fit-level-0" cx="197.6" cy="148.6" r="3"/><circle class="chart-dot fit-level-0" cx="269.4" cy="60.5" r="3"/><circle class="chart-dot fit-level-0" cx="202.7" cy="119.8" r="3"/><circle class="chart-dot fit-level-0" cx="199.3" cy="149.7" r="3"/><circle class="chart-dot fit-level-0" cx="285.8" cy="33.0" r="3"/><circle class="chart-dot fit-level-0" cx="174.2" cy="164.8" r="3"/><circle class="chart-dot fit-level-0" cx="228.1" cy="104.8" r="3"/><circle class="chart-dot fit-level-0" cx="215.2" cy="102.2" r="3"/><circle class="chart-dot fit-level-0" cx="129.2" cy="214.8" r="3"/><circle class="chart-dot fit-level-0" cx="153.2" cy="187.9" r="3"/><circle class="chart-dot fit-level-0" cx="171.2" cy="168.2" r="3"/><circle class="chart-dot fit-level-0" cx="101.6" cy="243.4" r="3"/><circle class="chart-dot fit-level-0" cx="243.9" cy="82.6" r="3"/><circle class="chart-dot fit-level-0" cx="92.4" cy="255.7" r="3"/><circle class="chart-dot fit-level-0" cx="268.4" cy="48.9" r="3"/><circle class="chart-dot fit-level-0" cx="80.9" cy="278.5" r="3"/><circle class="chart-dot fit-level-0" cx="271.2" cy="50.4" r="3"/><circle class="chart-dot fit-level-0" cx="256.0" cy="66.6" r="3"/><circle class="chart-dot fit-level-0" cx="160.2" cy="184.0" r="3"/><circle class="chart-dot fit-level-0" cx="146.8" cy="179.3" r="3"/><circle class="chart-dot fit-level-0" cx="97.5" cy="263.4" r="3"/><circle class="chart-dot fit-level-0" cx="103.5" cy="242.6" r="3"/><circle class="chart-dot fit-level-0" cx="176.8" cy="154.7" r="3"/><circle class="chart-dot fit-level-0" cx="201.5" cy="132.6" r="3"/><circle class="chart-dot fit-level-0" cx="161.1" cy="177.4" r="3"/><circle class="chart-dot fit-level-0" cx="149.3" cy="209.5" r="3"/><circle class="chart-dot fit-level-0" cx="225.5" cy="113.3" r="3"/><circle class="chart-dot fit-level-0" cx="184.0" cy="161.1" r="3"/><circle class="chart-dot fit-level-0" cx="74.5" cy="284.1" r="3"/><circle class="chart-dot fit-level-0" cx="275.1" cy="46.2" r="3"/><circle class="chart-dot fit-level-0" cx="251.0" cy="92.5" r="3"/><circle class="chart-dot fit-level-0" cx="154.8" cy="188.3" r="3"/><circle class="chart-dot fit-level-0" cx="212.2" cy="118.2" r="3"/><circle class="chart-dot fit-level-0" cx="76.5" cy="268.9" r="3"/><circle class="chart-dot fit-level-0" cx="100.2" cy="244.8" r="3"/><circle class="chart-dot fit-level-0" cx="142.4" cy="199.2" r="3"/><circle class="chart-dot fit-level-0" cx="97.6" cy="249.9" r="3"/><circle class="chart-dot fit-level-0" cx="85.8" cy="264.5" r="3"/><circle class="chart-dot fit-level-0" cx="269.1" cy="54.6" r="3"/><circle class="chart-dot fit-level-0" cx="207.4" cy="122.2" r="3"/><circle class="chart-dot fit-level-0" cx="144.1" cy="192.5" r="3"/><circle class="chart-dot fit-level-0" cx="148.1" cy="181.8" r="3"/><circle class="chart-dot fit-level-0" cx="297.3" cy="13.3" r="3"/><circle class="chart-dot fit-level-0" cx="172.3" cy="168.9" r="3"/><circle class="chart-dot fit-level-0" cx="86.0" cy="262.8" r="3"/><circle class="chart-dot fit-level-0" cx="143.0" cy="200.0" r="3"/><circle class="chart-dot fit-level-0" cx="100.0" cy="232.3" r="3"/><circle class="chart-dot fit-level-0" cx="67.2" cy="275.1" r="3"/><circle class="chart-dot fit-level-0" cx="96.5" cy="254.2" r="3"/><circle class="chart-dot fit-level-0" cx="190.6" cy="135.2" r="3"/><circle class="chart-dot fit-level-0" cx="293.8" cy="26.4" r="3"/><circle class="chart-dot fit-level-0" cx="266.5" cy="61.0" r="3"/><circle class="chart-dot fit-level-0" cx="148.7" cy="198.0" r="3"/><circle class="chart-dot fit-level-0" cx="101.4" cy="244.4" r="3"/><circle class="chart-dot fit-level-0" cx="246.5" cy="91.3" r="3"/><circle class="chart-dot fit-level-0" cx="139.9" cy="199.7" r="3"/><circle class="chart-dot fit-level-0" cx="295.3" cy="12.0" r="3"/><circle class="chart-dot fit-level-0" cx="263.9" cy="56.8" r="3"/><circle class="chart-dot fit-level-0" cx="237.2" cy="105.9" r="3"/><circle class="chart-dot fit-level-0" cx="115.5" cy="237.1" r="3"/><circle class="chart-dot fit-level-0" cx="68.6" cy="283.6" r="3"/><circle class="chart-dot fit-level-0" cx="68.4" cy="284.2" r="3"/><circle class="chart-dot fit-level-0" cx="226.0" cy="98.7" r="3"/><circle class="chart-dot fit-level-0" cx="288.6" cy="51.7" r="3"/><circle class="chart-dot fit-level-0" cx="296.1" cy="19.4" r="3"/><circle class="chart-dot fit-level-0" cx="288.2" cy="38.1" r="3"/><circle class="chart-dot fit-level-0" cx="115.5" cy="225.5" r="3"/><circle class="chart-dot fit-level-0" cx="108.4" cy="234.6" r="3"/><circle class="chart-dot fit-level-0" cx="275.3" cy="38.4" r="3"/><circle class="chart-dot fit-level-0" cx="261.1" cy="76.6" r="3"/><circle class="chart-dot fit-level-0" cx="251.4" cy="74.6" r="3"/><circle class="chart-dot fit-level-0" cx="81.9" cy="277.1" r="3"/><circle class="chart-dot fit-level-0" cx="247.3" cy="95.5" r="3"/><circle class="chart-dot fit-level-0" cx="239.6" cy="94.3" r="3"/><circle class="chart-dot fit-level-0" cx="248.9" cy="78.2" r="3"/><circle class="chart-dot fit-level-0" cx="140.6" cy="194.7" r="3"/><circle class="chart-dot fit-level-0" cx="155.6" cy="204.6" r="3"/><circle class="chart-dot fit-level-0" cx="156.9" cy="170.8" r="3"/><circle class="chart-dot fit-level-0" cx="102.1" cy="249.1" r="3"/><circle class="chart-dot fit-level-0" cx="91.9" cy="246.4" r="3"/><circle class="chart-dot fit-level-0" cx="253.0" cy="60.2" r="3"/><circle class="chart-dot fit-level-0" cx="96.4" cy="241.0" r="3"/><circle class="chart-dot fit-level-0" cx="217.6" cy="134.0" r="3"/><circle class="chart-dot fit-level-0" cx="144.8" cy="200.6" r="3"/><circle class="chart-dot fit-level-0" cx="65.1" cy="288.0" r="3"/><circle class="chart-dot fit-level-0" cx="292.0" cy="35.8" r="3"/><circle class="chart-dot fit-level-0" cx="283.2" cy="48.0" r="3"/><circle class="chart-dot fit-level-0" cx="164.6" cy="163.9" r="3"/><circle class="chart-dot fit-level-0" cx="111.8" cy="244.7" r="3"/><circle class="chart-dot fit-level-0" cx="121.5" cy="224.6" r="3"/><circle class="chart-dot fit-level-0" cx="200.8" cy="127.5" r="3"/></svg>
+                <div class="monitor-legend"><span><span class="legend-swatch chart-dot-swatch fit-level-0"></span> level 0</span><span>left out, predicted</span></div>
+              </div>
+              <table class="model-table">
+                <thead><tr><th>Level</th><th>Points</th><th>RMSE</th><th>R²</th><th>Signal std</th><th>Noise std</th><th>ρ</th></tr></thead>
+                <tbody><tr><td>0</td><td class="num">120</td><td class="num">0.184</td><td class="num">0.962</td><td class="num">1.42</td><td class="num">0.0031</td><td class="num">—</td></tr></tbody>
+                <thead><tr><th>Lengthscale</th><th>level 0</th></tr></thead>
+                <tbody><tr><td>sweep</td><td class="num">0.412</td></tr><tr><td>taper</td><td class="num">0.287</td></tr><tr><td>twist</td><td class="num">0.336</td></tr><tr><td>span</td><td class="num">0.519</td></tr></tbody>
+              </table>
+            </div>
+          </section>
+          <section class="cfg-card">
+            <div class="cfg-card-header"><span class="cfg-card-title">Predict</span></div>
+            <div class="model-card-body">
+              <div class="predict-grid">
+                <label class="form-field"><span class="form-label">sweep (20 to 40)</span><input class="cfg-cell-input" value="30"></label>
+                <label class="form-field"><span class="form-label">taper (0.2 to 0.6)</span><input class="cfg-cell-input" value="0.4"></label>
+                <label class="form-field"><span class="form-label">twist (-6 to 0)</span><input class="cfg-cell-input" value="-3"></label>
+                <label class="form-field"><span class="form-label">span (28 to 40)</span><input class="cfg-cell-input" value="34"></label>
+              </div>
+              <div class="predict-actions"><button class="source-toggle">Predict</button><span class="predict-status"></span></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div></main></div>
+  </div>
+</div>
+<script>
+  if (location.search.includes("hover")) {
+    const b = document.getElementById("download"), cs = getComputedStyle(document.documentElement), v = (n) => cs.getPropertyValue(n).trim();
+    b.style.background = v("--surface-sunken"); b.style.borderColor = v("--charcoal-300"); b.style.color = v("--text");
+  }
+</script>
+</body></html>
