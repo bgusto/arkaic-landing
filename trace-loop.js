@@ -175,7 +175,6 @@
         { text: "Arm length", a3: DRONE.anchors.arm },
         { text: "Battery capacity", a3: DRONE.anchors.battery },
         { text: "Payload mass", a3: DRONE.anchors.payload },
-        { text: "Camera tilt", a3: DRONE.anchors.camera },
       ],
     },
   ];
