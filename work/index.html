@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Design campaigns, run for you — Arkaic</title>
-  <meta name="description" content="Design campaigns, field analysis and full-field surrogates, run by the Arkaic team on the solver you already have.">
+  <meta name="description" content="Optimization, design-database and surrogate projects run by the Arkaic team on Evolve: bare-metal nodes linked by RDMA, OpenFOAM and SU2 built in, STAR-CCM+ and Fluent under your own license.">
   <meta name="theme-color" content="#1E1D1A">
   <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -29,7 +29,6 @@
   </header>
 
   <main id="main">
-    <!-- the offer: three kinds of project, each written as what you send, what you get, how long -->
     <section class="section paper work" aria-labelledby="work-title">
       <div>
         <p class="tag"><span class="tag-num">&rarr;</span><span class="tag-label">Work with us</span></p>
@@ -42,87 +41,50 @@
           are parallelized across Oracle Cloud, cutting simulation-based design
           processes by an order of magnitude compared to a sole workstation.
         </p>
-        <ol class="steps offers" role="list">
-          <li>
-            <span class="step-num">1</span>
-            <h4>A design campaign, end to end</h4>
-            <p>
-              A parameterized case, the inputs and their ranges, the outputs
-              that matter. We set up the study in Evolve, run it across as
-              many machines as it needs, and hand back the optimum or the
-              Pareto front with everything behind it.
-            </p>
-            <dl class="offer-facts">
-              <dt>You send</dt><dd>A case file and a list of parameters.</dd>
-              <dt>You get</dt><dd>The dataset as CGNS, the model as <code>.surrogate.h5</code>, the workflow to run again.</dd>
-              <dt>Time</dt><dd>Two to six weeks.</dd>
-            </dl>
-          </li>
-          <li>
-            <span class="step-num">2</span>
-            <h4>Field analysis on runs you have</h4>
-            <p>
-              Modal decompositions of transient fields, POD and DMD, with the
-              modes, their energy and growth rates, and a reading of what they
-              say about the design. Sensitivity analysis across an existing
-              sweep.
-            </p>
-            <dl class="offer-facts">
-              <dt>You send</dt><dd>Field exports from past runs.</dd>
-              <dt>You get</dt><dd>The modes and spectra, and a written report.</dd>
-              <dt>Time</dt><dd>One to three weeks.</dd>
-            </dl>
-          </li>
-          <li>
-            <span class="step-num">3</span>
-            <h4>Full-field surrogates</h4>
-            <p>
-              From an archive of past runs, a model that predicts the whole
-              field rather than a scalar, with a held-out error map that
-              shows where to trust it.
-            </p>
-            <dl class="offer-facts">
-              <dt>You send</dt><dd>Fifty or more past runs: inputs and fields.</dd>
-              <dt>You get</dt><dd>The model, its error report, and a notebook that queries it.</dd>
-              <dt>Time</dt><dd>Three to eight weeks.</dd>
-            </dl>
-          </li>
-        </ol>
       </div>
 
-      <!-- the first step: small, fixed, on their own data -->
-      <div class="pipeline">
-        <h2 class="h2">Start with a week.</h2>
+      <div class="pipeline pain">
+        <h2 class="h2">What we take on.</h2>
         <p class="body-lg">
-          Send us fifty runs you already have, inputs and results. A week
-          later you get a surrogate trained on them, its fit report, and a
-          call to walk through what it found. Fixed price, agreed up front,
-          and no commitment past that week.
+          Problems where a solver has to run many times before a decision
+          can be made. We set up the study, run it, and hand back the
+          results with the data behind them.
         </p>
-        <ol class="steps" role="list">
-          <li>
-            <span class="step-num">1</span>
-            <h4>A call</h4>
-            <p>Thirty minutes on the problem and the data you have. <a href="/meet/">Pick a time.</a></p>
-          </li>
-          <li>
-            <span class="step-num">2</span>
-            <h4>A scope in writing</h4>
-            <p>What we need from you, what you get back, the date and the price.</p>
-          </li>
-          <li>
-            <span class="step-num">3</span>
-            <h4>The work, in your workspace</h4>
-            <p>It runs in an Evolve workspace that is yours. You see every run as it lands, and you keep the workspace when the project ends.</p>
-          </li>
-        </ol>
+        <div class="pain-how">
+          <ul class="principles" role="list">
+            <li>Optimization of a design over its parameters, with one objective or several.</li>
+            <li>A design database: a sampled design space with a surrogate model over it.</li>
+            <li>A surrogate trained on runs you already have, with its error measured.</li>
+            <li>Modal analysis of transient fields: POD, DMD, and what the modes say about the design.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pipeline pain">
+        <h2 class="h2">What it runs on.</h2>
+        <p class="body-lg">
+          We run solver images on Oracle Cloud virtual machines or bare metal.
+          Our current catalogue of solver images include OpenFOAM, SU2,
+          Calculix, and more.  We can also run proprietary solvers like
+          STAR-CCM+ under your own license.
+        </p>
+        <div class="pain-how">
+          <ul class="principles" role="list">
+            <li>Bare-metal nodes of 36, 144 or 256 cores and up to 3 TB of memory, linked by 100 Gb/s RDMA.</li>
+            <li>GPU nodes with eight A100, H100 or MI300X.</li>
+            <li>Sampling by Latin hypercube or Sobol. Sample-efficient Bayesian optimization with expected improvement, single or multi-fidelity. CMA-ES, BOHB and NSGA-III.</li>
+            <li>Gaussian process models, single and multi-fidelity, with built-in accuracy metrics. Results as CGNS and <code>.surrogate.h5</code> files.</li>
+          </ul>
+        </div>
       </div>
 
       <div class="pipeline">
-        <h2 class="h2">Who you work with.</h2>
+        <h2 class="h2">How it starts.</h2>
         <p class="body-lg">
-          The people who build Evolve. No handoff to a delivery team.
-          <a href="/#team">Meet them.</a>
+          A call about the problem and the data you have. Then a written
+          scope: what we need, what you get, when, and the price. The work
+          runs in an Evolve workspace under your account, and the workspace
+          stays yours afterwards.
         </p>
       </div>
     </section>
