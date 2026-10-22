@@ -1,15 +1,15 @@
 // Section 01's drawings, on rotation in one canvas: a rocket engine, a transport wing, a ship
 // propeller, a NIF fusion shot, then an FPV quadcopter (3D wireframes that turn in space; the
 // rocket engine, the shot and the quadcopter are built by scripts/engine3d.py, nif3d.py and
-// drone3d.py). Each is a set of vector strokes drawn on live like a plotter, held, then faded before
-// the next, with callouts naming what you would optimize over. The engine and the quadcopter are
-// drawn with the lines behind their solids hidden.
+// drone3d.py, ic3d.py). Each is a set of vector strokes drawn on live like a plotter, held, then faded before
+// the next, with callouts naming what you would optimize over. The engine, the quadcopter and the
+// chip are drawn with the lines behind their solids hidden.
 // Line colour follows the section: Graphite on Paper, Paper on Graphite.
 // Honors prefers-reduced-motion (the engine, finished, as one still) and pauses off screen.
 (() => {
   const canvas = document.querySelector(".trace-canvas");
-  const ENGINE = window.ENGINE3D, WING = window.WING_TRACE, PROP = window.PROP_TRACE, NIF = window.NIF3D, DRONE = window.DRONE3D;
-  if (!canvas || !canvas.getContext || !ENGINE || !WING || !PROP || !NIF || !DRONE) return;
+  const ENGINE = window.ENGINE3D, WING = window.WING_TRACE, PROP = window.PROP_TRACE, NIF = window.NIF3D, DRONE = window.DRONE3D, IC = window.IC3D;
+  if (!canvas || !canvas.getContext || !ENGINE || !WING || !PROP || !NIF || !DRONE || !IC) return;
   const ctx = canvas.getContext("2d");
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -38,13 +38,13 @@
     !!ti && Math.min(ti[1], (z1 - p[2]) / v[2]) - Math.max(ti[0], (z0 - p[2]) / v[2], EPS) > EPS;
   const inCyls = (p, v, cyls) => cyls.some(([cx, cy, R, z0, z1]) => inside(rayCyl(p, v, cx, cy, R), p, v, z0, z1));
 
-  // the quadcopter: plates, arms and battery as boxes (centre, half sizes, turn about z), the
-  // motors as cylinders, the payload as a solid of revolution along x given as r every dx
-  function solidsOfDrone(o) {
-    const n = o.xrev.r.length, x1 = o.xrev.x0 + (n - 1) * o.xrev.dx, rMax = Math.max(...o.xrev.r), STEP = 16;
+  // a scene of parts: boxes (centre, half sizes, turn about z), cylinders, and for the quadcopter
+  // its payload, a solid of revolution along x given as r every dx
+  function solidsOfParts(o) {
+    const xr = o.xrev, n = xr ? xr.r.length : 0, x1 = xr ? xr.x0 + (n - 1) * xr.dx : 0, rMax = xr ? Math.max(...xr.r) : 0, STEP = 16;
     const rAt = (x) => {
-      const u = (x - o.xrev.x0) / o.xrev.dx, i = Math.floor(u);
-      return i < 0 || i >= n - 1 ? 0 : lerp(o.xrev.r[i], o.xrev.r[i + 1], u - i);
+      const u = (x - xr.x0) / xr.dx, i = Math.floor(u);
+      return i < 0 || i >= n - 1 ? 0 : lerp(xr.r[i], xr.r[i + 1], u - i);
     };
     return (x, y, z, v) => {
       const p = [x, y, z];
@@ -60,10 +60,11 @@
         }
         if (tb - ta > EPS) return true;
       }
+      if (!xr) return false;
       // the payload: walk the ray through the x range where it is within rMax of the axis
-      const py = y - o.xrev.cy, pz = z - o.xrev.cz, a = v[1] * v[1] + v[2] * v[2], b = 2 * (py * v[1] + pz * v[2]), c = py * py + pz * pz - rMax * rMax, D = b * b - 4 * a * c;
+      const py = y - xr.cy, pz = z - xr.cz, a = v[1] * v[1] + v[2] * v[2], b = 2 * (py * v[1] + pz * v[2]), c = py * py + pz * pz - rMax * rMax, D = b * b - 4 * a * c;
       if (D <= 0) return false;
-      const sq = Math.sqrt(D), xa = (o.xrev.x0 - x) / v[0], xb = (x1 - x) / v[0];
+      const sq = Math.sqrt(D), xa = (xr.x0 - x) / v[0], xb = (x1 - x) / v[0];
       const ta = Math.max(EPS, (-b - sq) / (2 * a), Math.min(xa, xb)), tb = Math.min((-b + sq) / (2 * a), Math.max(xa, xb));
       for (let t = ta + STEP / 2; t < tb; t += STEP) {
         if (Math.hypot(py + t * v[1], pz + t * v[2]) < rAt(x + t * v[0]) - 2) return true;
@@ -115,6 +116,22 @@
       ],
     },
     {
+      p: IC.p, three: true, elev: 0.5, cx: 0, cy: 0, rot: 0, squash: 1,
+      spin: 0.14, yaw0: 1.65, hide: solidsOfParts(IC.occ),             // ends with the cut-away corner toward the viewer
+      corners: null, bound: [900, 520],
+      order: (mx, my, mz) => clamp((mz + 420) / 840),               // the substrate first, up through the stack to the fins
+      build: 9, dur: 10, speed: 1300, maxDur: 2.4, tip: 300,
+      callouts: [
+        { text: "Power map", a3: IC.anchors.power },
+        { text: "Die stack order", a3: IC.anchors.stack },
+        { text: "TSV density", a3: IC.anchors.tsv },
+        { text: "Interlayer thickness", a3: IC.anchors.interlayer },
+        { text: "Interposer thickness", a3: IC.anchors.interposer },
+        { text: "Spreader thickness", a3: IC.anchors.spreader },
+        { text: "Fin pitch", a3: IC.anchors.fins },
+      ],
+    },
+    {
       p: WING.p, three: true, elev: 0.95, cx: 0, cy: 0, rot: 0, squash: 1,
       spin: 0.12, yaw0: -0.48, late: WING.late,
       corners: null, bound: [1150, 900],
@@ -128,22 +145,6 @@
         { text: "Thickness-to-chord", a3: WING.anchors.thick },
         { text: "Camber", a3: WING.anchors.camber },
         { text: "FFD control points", a3: WING.anchors.ffd },
-      ],
-    },
-    {
-      p: PROP.p, three: true, elev: 0.62, cx: 0, cy: 0, rot: 0, squash: 1,
-      spin: 0.14, yaw0: 0.365,
-      corners: null, bound: [1000, 930],
-      order: (mx, my) => Math.min(1, Math.hypot(mx, my) / 800),    // hub first, then out along the blades
-      build: 9, dur: 10, speed: 1300, maxDur: 2.4, tip: 300,
-      callouts: [
-        { text: "Blade count", a3: PROP.anchors.blades },
-        { text: "Pitch distribution", a3: PROP.anchors.pitch },
-        { text: "Chord distribution", a3: PROP.anchors.chord },
-        { text: "Skew", a3: PROP.anchors.skew },
-        { text: "Rake", a3: PROP.anchors.rake },
-        { text: "Section camber", a3: PROP.anchors.camber },
-        { text: "Hub diameter", a3: PROP.anchors.hub },
       ],
     },
     {
@@ -163,8 +164,24 @@
       ],
     },
     {
+      p: PROP.p, three: true, elev: 0.62, cx: 0, cy: 0, rot: 0, squash: 1,
+      spin: 0.14, yaw0: 0.365,
+      corners: null, bound: [1000, 930],
+      order: (mx, my) => Math.min(1, Math.hypot(mx, my) / 800),    // hub first, then out along the blades
+      build: 9, dur: 10, speed: 1300, maxDur: 2.4, tip: 300,
+      callouts: [
+        { text: "Blade count", a3: PROP.anchors.blades },
+        { text: "Pitch distribution", a3: PROP.anchors.pitch },
+        { text: "Chord distribution", a3: PROP.anchors.chord },
+        { text: "Skew", a3: PROP.anchors.skew },
+        { text: "Rake", a3: PROP.anchors.rake },
+        { text: "Section camber", a3: PROP.anchors.camber },
+        { text: "Hub diameter", a3: PROP.anchors.hub },
+      ],
+    },
+    {
       p: DRONE.p, three: true, elev: 0.55, cx: 0, cy: 0, rot: 0, squash: 1,
-      spin: 0.14, yaw0: 0.24, hide: solidsOfDrone(DRONE.occ),          // ends nose-on from the front left, a little above
+      spin: 0.14, yaw0: 0.24, hide: solidsOfParts(DRONE.occ),          // ends nose-on from the front left, a little above
       corners: null, bound: [880, 520],
       order: (mx, my) => Math.min(1, Math.hypot(mx, my) / 800),    // frame first, then out to the props
       build: 9, dur: 10, speed: 1300, maxDur: 2.4, tip: 300,
