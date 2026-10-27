@@ -32,7 +32,7 @@
   <meta property="og:image" content="https://arkaic.inc/assets/og.jpg">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="stylesheet" href="styles.css?v=73">
+  <link rel="stylesheet" href="styles.css?v=77">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -44,8 +44,9 @@
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="topnav">Menu</button>
     <nav class="topnav" id="topnav" aria-label="Site">
       <a href="/#product">Product</a>
-      <a href="/#research">Research</a>
+      <!-- <a href="/#research">Research</a> -->
       <a href="/#team">Team</a>
+      <!-- <a href="/plans/">Plans</a> -->
       <a href="/work/">Work with us</a>
     </nav>
   </header>
@@ -377,9 +378,8 @@
       </div>
     </section>
 
-    <!-- ============================================================ -->
-    <!-- 07 · Research                                                 -->
-    <!-- ============================================================ -->
+    <!-- 07 · Research: hidden until there is material for it; uncomment
+         this section, its link in each page's menu, and set Team back to 08.
     <section class="section graphite" id="research" aria-labelledby="research-title">
       <div>
         <p class="tag paper-tag"><span class="tag-num">07</span><span class="tag-label">Research</span></p>
@@ -395,43 +395,59 @@
         </p>
       </div>
     </section>
+    -->
 
     <!-- ============================================================ -->
-    <!-- 08 · Team                                                     -->
+    <!-- 07 · Team                                                     -->
     <!-- ============================================================ -->
     <section class="section graphite" id="team" aria-labelledby="team-title">
       <div>
-        <p class="tag paper-tag"><span class="tag-num">08</span><span class="tag-label">Team</span></p>
+        <p class="tag paper-tag"><span class="tag-num">07</span><span class="tag-label">Team</span></p>
         <h2 id="team-title" class="visually-hidden">Team</h2>
 
-        <ul class="team" role="list">
-          <li>
-            <h3 class="person-name">Brandon Gusto, PhD</h3>
-            <p>
+        <div class="team-carousel" aria-roledescription="carousel" aria-label="Team">
+          <ul class="team" role="list">
+          <li class="person" id="person-0">
+            <div class="person-card">
+              <img class="person-photo" src="assets/team/brandon-gusto.jpg" alt="Brandon Gusto" width="600" height="750" loading="lazy">
+              <h3 class="person-name">Brandon Gusto, PhD</h3>
+              <p class="person-role">Founder &amp; CEO</p>
+            </div>
+            <p class="person-bio">
               Brandon is a former Navy civilian scientist at NUWC Newport and
-              DoW SMART Scholar. He led projects in multi-fidelity Bayesian
-              optimization and GPU-accelerated adaptive beamforming for sonar.
-              He trained at FSU as a mechanical engineer, applied
-              mathematician, and computational scientist, and his doctoral
-              work advanced wavelet-based adaptive mesh refinement approaches
-              in the context of compressible and reacting flows, as well as ML
-              sub-grid scale modeling.
+                DoW SMART Scholar. He led projects in multi-fidelity Bayesian
+                optimization and GPU-accelerated adaptive beamforming for sonar.
+                He trained at FSU as a mechanical engineer, applied
+                mathematician, and computational scientist, and his doctoral
+                work advanced wavelet-based adaptive mesh refinement approaches
+                in the context of compressible and reacting flows, as well as ML
+                sub-grid scale modeling.
             </p>
           </li>
-          <li>
-            <h3 class="person-name">Toan Tran</h3>
-            <p>
+          <li class="person" id="person-1">
+            <div class="person-card">
+              <img class="person-photo" src="assets/team/headshot-toan-tran.jpg" alt="Toan Tran" width="600" height="750" loading="lazy">
+              <h3 class="person-name">Toan Tran</h3>
+              <p class="person-role">Founding Engineer</p>
+            </div>
+            <p class="person-bio">
               Toan is a research software engineer building scientific tools
-              from statistical packages to full-stack data systems. At FSU, he
-              analyzed large-scale in-vivo neural recordings and built a
-              computer-vision labeling pipeline to extract neural clusters of
-              motor activity in mice. At the University of Michigan, he
-              collaborated with Stan developers on a Bayesian data analysis
-              package, streamlining MRP workflows with visual analytics and a
-              domain-specific model compiler.
+                from statistical packages to full-stack data systems. At FSU, he
+                analyzed large-scale in-vivo neural recordings and built a
+                computer-vision labeling pipeline to extract neural clusters of
+                motor activity in mice. At the University of Michigan, he
+                collaborated with Stan developers on a Bayesian data analysis
+                package, streamlining MRP workflows with visual analytics and a
+                domain-specific model compiler.
             </p>
           </li>
-        </ul>
+          </ul>
+          <div class="team-controls" hidden>
+            <button class="team-arrow" type="button" data-step="-1" aria-label="Previous person">&larr;</button>
+            <span class="team-dots"></span>
+            <button class="team-arrow" type="button" data-step="1" aria-label="Next person">&rarr;</button>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -464,5 +480,6 @@
   <script src="ic3d-data.js?v=1" defer></script>
   <script src="trace-loop.js?v=31" defer></script>
   <script src="/nav.js?v=1" defer></script>
+  <script src="team.js?v=1" defer></script>
 </body>
 </html>
