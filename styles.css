@@ -354,12 +354,10 @@ strong { font-weight: 500; }
    white ground reads as a frame on Paper; phones get the main column alone */
 .ui-loop img { display: block; width: min(100%, 1150px); height: auto; margin: 0 auto; border: 1px solid var(--ink-15); }
 
-/* what Evolve does: three square loops under the hero, each framed with a
-   mono caption above (the case) and below (the result), then a heading and
-   a line. The GIFs are 800 px and rendered on Paper, so the frame holds
-   Paper margins around a white plot (evolve-clips/10-tiles). */
-.tiles { padding-top: var(--section-y); padding-bottom: 0; }
-.tiles + .section { padding-top: 48px; }   /* the tiles sit close over section 01: half the usual gap, then the rule */
+/* what Evolve does: three wide loops under section 01's heading, each framed with a
+   mono caption above (the method) and below (the result), then a heading and a line.
+   The GIFs are 780 x 432 with no margins of their own (evolve-clips/10-tiles). */
+.product-intro .tile-grid { margin-top: 48px; }   /* the three loops, under section 01's heading */
 /* the three tiles share rows (subgrid), so the headings sit on one line across the
    row and the paragraphs start level, as on boat.dev */
 .tile-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 32px; }

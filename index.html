@@ -32,7 +32,7 @@
   <meta property="og:image" content="https://arkaic.inc/assets/og.jpg">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="stylesheet" href="styles.css?v=85">
+  <link rel="stylesheet" href="styles.css?v=86">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -105,56 +105,6 @@
     </section>
 
     <!-- ============================================================ -->
-    <!-- What Evolve does: three tiles, one glance each                -->
-    <!-- The loops are built in evolve-clips/10-tiles (run, learn,     -->
-    <!-- optimize), on real runs: the RAE 2822 sweep and the L2-Sea   -->
-    <!-- hull. The captions live here so they stay sharp.              -->
-    <!-- ============================================================ -->
-    <section class="section paper tiles" aria-label="What Evolve does">
-      <div class="tile-grid">
-        <article class="tile">
-          <div class="tile-cap">latin hypercube sampling</div>
-          <div class="tile-box">
-            <img src="assets/tile-run.gif" width="780" height="432"
-              alt="A terminal on the user's own machine: evolve login signs it in, the machines are listed with their prices, a sweep of 100 sampled cases is launched on an e6-8 machine with SU2 loaded, and the job is listed as running">
-          </div>
-          <div class="tile-cmd">100 cases &rarr; one job, running</div>
-          <h2 class="h3">Launch simulations</h2>
-          <p>
-            Load a solver, pick a machine, say yes. Evolve runs every case and
-            keeps the files and logs.
-          </p>
-        </article>
-        <article class="tile">
-          <div class="tile-cap">gaussian process</div>
-          <div class="tile-box">
-            <img src="assets/tile-learn.gif" width="780" height="432"
-              alt="The 97 drag values over Mach number and angle of attack, then the Gaussian process surrogate fitted to them sweeps across the design space as a shaded map with contours, and a probe reads the predicted drag and its uncertainty at three places">
-          </div>
-          <div class="tile-cmd">97 runs &rarr; drag anywhere, &plusmn; std</div>
-          <h2 class="h3">Learn the design space</h2>
-          <p>
-            A surrogate fit to the runs predicts anywhere between them, with
-            its uncertainty.
-          </p>
-        </article>
-        <article class="tile">
-          <div class="tile-cap">multi-fidelity bayesian optimization</div>
-          <div class="tile-box">
-            <img src="assets/tile-optimize.gif" width="780" height="432"
-              alt="Drag of the L2-Sea hull against computing cost: 300 cheap coarse-grid runs cluster at the left, then 90 fine runs, and the best fine design steps down to 36.8 newtons, 11 percent below the original 41.5">
-          </div>
-          <div class="tile-cmd">300 coarse + 90 fine &rarr; &minus;11% drag</div>
-          <h2 class="h3">Optimize with fewer runs</h2>
-          <p>
-            Cheap coarse runs guide the expensive fine ones. A destroyer hull
-            lost 11% of its drag in 90 fine runs.
-          </p>
-        </article>
-      </div>
-    </section>
-
-    <!-- ============================================================ -->
     <!-- 01 · Evolve: what it is, and how it runs a study              -->
     <!-- ============================================================ -->
     <section class="section paper lead" id="product" aria-labelledby="product-title">
@@ -164,7 +114,51 @@
 
         <div class="product-intro">
           <h2 id="product-title" class="h2">Don&rsquo;t just optimize, <em class="evolve">Evolve</em>.</h2>
-          <p class="body-lg">
+          <!-- What Evolve does: three loops, one glance each. Built in evolve-clips/10-tiles
+               (run, learn, optimize) on real runs: the RAE 2822 sweep and the L2-Sea hull.
+               The captions live here so they stay sharp. -->
+          <div class="tile-grid">
+            <article class="tile">
+              <div class="tile-cap">latin hypercube sampling</div>
+              <div class="tile-box">
+                <img src="assets/tile-run.gif" width="780" height="432"
+                  alt="A terminal on the user's own machine: evolve login signs it in, the machines are listed with their prices, a sweep of 100 sampled cases is launched on an e6-8 machine with SU2 loaded, and the job is listed as running">
+              </div>
+              <div class="tile-cmd">100 cases &rarr; one job, running</div>
+              <h2 class="h3">Launch simulations</h2>
+              <p>
+                Load a solver, pick a machine, say yes. Evolve runs every case and
+                keeps the files and logs.
+              </p>
+            </article>
+            <article class="tile">
+              <div class="tile-cap">gaussian process</div>
+              <div class="tile-box">
+                <img src="assets/tile-learn.gif" width="780" height="432"
+                  alt="The 97 drag values over Mach number and angle of attack, then the Gaussian process surrogate fitted to them sweeps across the design space as a shaded map with contours, and a probe reads the predicted drag and its uncertainty at three places">
+              </div>
+              <div class="tile-cmd">97 runs &rarr; drag anywhere, &plusmn; std</div>
+              <h2 class="h3">Learn the design space</h2>
+              <p>
+                A surrogate fit to the runs predicts anywhere between them, with
+                its uncertainty.
+              </p>
+            </article>
+            <article class="tile">
+              <div class="tile-cap">multi-fidelity bayesian optimization</div>
+              <div class="tile-box">
+                <img src="assets/tile-optimize.gif" width="780" height="432"
+                  alt="Drag of the L2-Sea hull against computing cost: 300 cheap coarse-grid runs cluster at the left, then 90 fine runs, and the best fine design steps down to 36.8 newtons, 11 percent below the original 41.5">
+              </div>
+              <div class="tile-cmd">300 coarse + 90 fine &rarr; &minus;11% drag</div>
+              <h2 class="h3">Optimize with fewer runs</h2>
+              <p>
+                Cheap coarse runs guide the expensive fine ones. A destroyer hull
+                lost 11% of its drag in 90 fine runs.
+              </p>
+            </article>
+          </div>
+          <!-- <p class="body-lg">
             Evolve drives long-running simulations.  It compresses design
             cycles by an order of magnitude and removes computational barriers
             to discovery.  Run parameter exploration and sensitivity analysis at
@@ -172,7 +166,7 @@
             multi-fidelity surrogates and find optimal designs using
             Bayesian optimization.  Create loops for cyclical workflows.  Use
             agents to help craft, scale, and mend your workflows.  Evolve turns computing into discovery.
-          </p>
+          </p> -->
         </div>
     </section>
 
