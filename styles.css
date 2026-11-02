@@ -282,7 +282,7 @@ strong { font-weight: 500; }
 }
 
 /* ---- sections + grid ---- */
-.section { padding: var(--section-y) var(--gutter); }
+.section { padding: var(--section-y) var(--gutter) calc(var(--section-y) - 32px); }   /* less under than over: the next section's rule carries its own clearance */
 .section > * { max-width: var(--max); margin-left: auto; margin-right: auto; }
 .paper { background: var(--paper); color: var(--ink); }
 .graphite { background: var(--graphite); color: var(--paper); }

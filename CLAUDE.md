@@ -34,7 +34,7 @@ Then open http://localhost:8000. Any static server works. Verify changes in a br
 
 The `translate(-50%, -50%)` in the JS-written transform must match the CSS, since `left`/`top` mark the form's centre.
 
-**Page frame.** The content width, margins and section padding are boat.dev's: `--max` 1248px, `--gutter` 48px (32px under 1024px, 16px under 768px), `--section-y` 96px (80px, 64px). Keep them together if you change one.
+**Page frame.** The content width, margins and section padding are boat.dev's: `--max` 1248px, `--gutter` 48px (32px under 1024px, 16px under 768px), `--section-y` 96px (80px, 64px) over each section, 32px less under it. Keep them together if you change one.
 
 **Hero.** Graphite throughout. Copy on the left, held to three lines by `max-width: 6.6em` on the display text; the live drawings (`trace-loop.js`) on the right, Paper line on Graphite. Phones stack them. The headline is `6.6vw`, so `REF_FONT` in `main.js` is 84.5. The rotation is engine, wing, propeller, fusion shot, quadcopter, each scene 8 s with the build at `SPEED = 3` (three times the base timings); the chip stack (`ic3d-data.js`) is built but left out as not good enough. `data-ink="pencil"` on the canvas would draw Graphite pencil on paper instead, unused now.
 
