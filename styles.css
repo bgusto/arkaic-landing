@@ -109,7 +109,7 @@ strong { font-weight: 500; }
 .display {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(44px, 6.6vw, 96px);
+  font-size: clamp(44px, 6.6vw, 90px);
   line-height: 1.0;
   letter-spacing: -0.05em;
   color: var(--paper);
@@ -239,7 +239,6 @@ strong { font-weight: 500; }
 .hero-draw { aspect-ratio: 5 / 4; min-width: 0; }
 .hero-draw .trace-canvas { display: block; width: 100%; height: 100%; }
 .display .line { display: block; }
-.hero .display { max-width: 6.6em; }   /* three lines, so the prisms keep their letters */
 .lede { margin-top: 32px; max-width: 62ch; color: var(--paper-70); font-size: clamp(17px, 1.35vw, 20px); }
 .hero-cta { display: flex; align-items: center; gap: 28px; margin-top: 36px; }
 .hero-more {
