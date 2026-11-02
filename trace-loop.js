@@ -1,27 +1,30 @@
 // Section 01's drawings, on rotation in one canvas: a rocket engine, a transport wing, a ship
 // propeller, a NIF fusion shot, then an FPV quadcopter (3D wireframes that turn in space; the
 // rocket engine, the shot and the quadcopter are built by scripts/engine3d.py, nif3d.py and
-// drone3d.py, ic3d.py). Each is a set of vector strokes drawn on live like a plotter, held, then faded before
-// the next, with callouts naming what you would optimize over. The engine, the quadcopter and the
-// chip are drawn with the lines behind their solids hidden.
-// Line colour follows the section: Graphite on Paper, Paper on Graphite.
+// drone3d.py). Each is a set of vector strokes drawn on live like a plotter, held, then faded before
+// the next, with callouts naming what you would optimize over. The engine and the quadcopter
+// are drawn with the lines behind their solids hidden. (A 3D chip stack, ic3d-data.js, is
+// built but off the rotation: the drawing was not good enough.)
+// Line colour follows the section: Graphite on Paper, Paper on Graphite. A canvas marked
+// data-ink="pencil" (the hero) draws in pencil: Graphite at pencil weight and opacity, on paper.
 // Honors prefers-reduced-motion (the engine, finished, as one still) and pauses off screen.
 (() => {
   const canvas = document.querySelector(".trace-canvas");
-  const ENGINE = window.ENGINE3D, WING = window.WING_TRACE, PROP = window.PROP_TRACE, NIF = window.NIF3D, DRONE = window.DRONE3D, IC = window.IC3D;
-  if (!canvas || !canvas.getContext || !ENGINE || !WING || !PROP || !NIF || !DRONE || !IC) return;
+  const ENGINE = window.ENGINE3D, WING = window.WING_TRACE, PROP = window.PROP_TRACE, NIF = window.NIF3D, DRONE = window.DRONE3D;
+  if (!canvas || !canvas.getContext || !ENGINE || !WING || !PROP || !NIF || !DRONE) return;
   const ctx = canvas.getContext("2d");
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   const TAU = Math.PI * 2;
   const FADE_OUT = 1.0;
-  const SPEED = 2;         // how much faster than the base timings below the drawings are drawn
+  const SPEED = 3;         // how much faster than the base timings below the drawings are drawn
   const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
   const ease = (x) => (x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2);
   const lerp = (a, b, u) => a + (b - a) * u;
-  const ink = canvas.closest(".paper") ? "30, 29, 26" : "245, 240, 232";
-  const col = (a) => `rgba(${ink}, ${a})`;
-  const bg = canvas.closest(".paper") ? "245, 240, 232" : "30, 29, 26";   // knocks lines out behind a name
+  const pencil = canvas.dataset.ink === "pencil", onPaper = pencil || !!canvas.closest(".paper");
+  const ink = onPaper ? "30, 29, 26" : "245, 240, 232";
+  const TONE = pencil ? 0.72 : 1;   // pencil: lighter than ink
+  const col = (a) => `rgba(${ink}, ${a * TONE})`;
 
   // Hidden lines. A scene's `hide(x, y, z, v)` says whether the ray from a point toward the viewer
   // (v, unit, in the scene's coordinates) passes through one of its solids. A point on a solid's
@@ -104,7 +107,7 @@
       spin: 0.14, yaw0: -0.935, hide: solidsOfEngine(ENGINE.occ),    // ends with the turbopump at the left, a little in front
       corners: null, bound: [700, 1130],
       order: (mx, my, mz) => clamp((mz + 1000) / 2000),             // from the exit lip up to the powerhead
-      build: 9, dur: 10, speed: 1300, maxDur: 2.4, tip: 300,
+      build: 9, dur: 8, speed: 1300, maxDur: 2.4, tip: 300,
       callouts: [
         { text: "Mixture ratio", a3: ENGINE.anchors.mix },
         { text: "Pump speed", a3: ENGINE.anchors.pump },
@@ -116,27 +119,11 @@
       ],
     },
     {
-      p: IC.p, three: true, elev: 0.5, cx: 0, cy: 0, rot: 0, squash: 1,
-      spin: 0.14, yaw0: 1.65, hide: solidsOfParts(IC.occ),             // ends with the cut-away corner toward the viewer
-      corners: null, bound: [900, 520],
-      order: (mx, my, mz) => clamp((mz + 420) / 840),               // the substrate first, up through the stack to the fins
-      build: 9, dur: 10, speed: 1300, maxDur: 2.4, tip: 300,
-      callouts: [
-        { text: "Power map", a3: IC.anchors.power },
-        { text: "Die stack order", a3: IC.anchors.stack },
-        { text: "TSV density", a3: IC.anchors.tsv },
-        { text: "Interlayer thickness", a3: IC.anchors.interlayer },
-        { text: "Interposer thickness", a3: IC.anchors.interposer },
-        { text: "Spreader thickness", a3: IC.anchors.spreader },
-        { text: "Fin pitch", a3: IC.anchors.fins },
-      ],
-    },
-    {
       p: WING.p, three: true, elev: 0.95, cx: 0, cy: 0, rot: 0, squash: 1,
       spin: 0.12, yaw0: -0.48, late: WING.late,
       corners: null, bound: [1150, 900],
       order: (mx, my) => Math.min(1, Math.abs(mx) / 950),          // fuselage first, then out to the tips
-      build: 9, dur: 10, speed: 1300, maxDur: 2.4, tip: 300,
+      build: 9, dur: 8, speed: 1300, maxDur: 2.4, tip: 300,
       callouts: [
         { text: "Sweep", a3: WING.anchors.sweep },
         { text: "Taper ratio", a3: WING.anchors.taper },
@@ -152,7 +139,7 @@
       spin: 0.14, yaw0: 0.3,
       corners: null, bound: [820, 1180],
       order: (mx, my, mz) => Math.min(1, Math.hypot(mx, my, mz) / 900),   // capsule, then the hohlraum, then the beams
-      build: 9, dur: 10, speed: 1300, maxDur: 2.4, tip: 300,
+      build: 9, dur: 8, speed: 1300, maxDur: 2.4, tip: 300,
       callouts: [
         { text: "Laser pulse shape", a3: NIF.anchors.pulse },
         { text: "Cone fraction", a3: NIF.anchors.cone },
@@ -168,7 +155,7 @@
       spin: 0.14, yaw0: 0.365,
       corners: null, bound: [1000, 930],
       order: (mx, my) => Math.min(1, Math.hypot(mx, my) / 800),    // hub first, then out along the blades
-      build: 9, dur: 10, speed: 1300, maxDur: 2.4, tip: 300,
+      build: 9, dur: 8, speed: 1300, maxDur: 2.4, tip: 300,
       callouts: [
         { text: "Blade count", a3: PROP.anchors.blades },
         { text: "Pitch distribution", a3: PROP.anchors.pitch },
@@ -184,7 +171,7 @@
       spin: 0.14, yaw0: 0.24, hide: solidsOfParts(DRONE.occ),          // ends nose-on from the front left, a little above
       corners: null, bound: [880, 520],
       order: (mx, my) => Math.min(1, Math.hypot(mx, my) / 800),    // frame first, then out to the props
-      build: 9, dur: 10, speed: 1300, maxDur: 2.4, tip: 300,
+      build: 9, dur: 8, speed: 1300, maxDur: 2.4, tip: 300,
       callouts: [
         { text: "Propeller diameter", a3: DRONE.anchors.prop },
         { text: "Blade pitch", a3: DRONE.anchors.pitch },
@@ -245,7 +232,7 @@
       }
     }
     ctx.strokeStyle = col(0.82);
-    ctx.lineWidth = 0.9;
+    ctx.lineWidth = pencil ? 1.1 : 0.9;
     ctx.stroke();
     ctx.fillStyle = col(0.95);
     for (const p of tips) {
@@ -324,7 +311,7 @@
         if (qv && s.len > sc.tip) tips.push(q);
       }
     });
-    ctx.lineWidth = 0.9;
+    ctx.lineWidth = pencil ? 1.1 : 0.9;
     bins.forEach((p, lv) => {
       ctx.strokeStyle = col(0.9 * lv / NB);
       ctx.stroke(p);
@@ -402,8 +389,11 @@
     let x = findSpot(g, c.sx, dir, w, h, ay);
     if (x === null) x = dir * (W / 2);   // nowhere clear: against the edge, over the drawing
     x = clamp(x + dir * PAD * 0.5, -W / 2 + (dir < 0 ? w : 0) + 2, W / 2 - (dir > 0 ? w : 0) - 2);
-    ctx.fillStyle = `rgba(${bg}, ${0.85 * u})`;   // knock the lines out behind the name where it has to sit over the drawing
+    ctx.save();   // knock the lines out behind the name where it has to sit over the drawing: erase them, so the ground shows through whatever it is
+    ctx.globalCompositeOperation = "destination-out";
+    ctx.fillStyle = `rgba(0, 0, 0, ${0.85 * u})`;
     ctx.fillRect(dir > 0 ? x - 4 : x - w - 2, ay - h / 2 - 1, w + 6, h + 2);
+    ctx.restore();
     ctx.fillStyle = col(0.92 * u);
     c.lines.forEach((l, i) => ctx.fillText(l, x, ay + (i - (c.lines.length - 1) / 2) * px * LINE));
     ctx.letterSpacing = "0px";

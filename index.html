@@ -32,7 +32,7 @@
   <meta property="og:image" content="https://arkaic.inc/assets/og.jpg">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="stylesheet" href="styles.css?v=77">
+  <link rel="stylesheet" href="styles.css?v=85">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -44,6 +44,14 @@
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="topnav">Menu</button>
     <nav class="topnav" id="topnav" aria-label="Site">
       <a href="/#product">Product</a>
+      <div class="nav-menu">
+        <button class="nav-menu-btn" type="button" aria-expanded="false" aria-controls="apps-menu">Applications</button>
+        <div class="nav-menu-list" id="apps-menu">
+          <a href="/#confidence">Design Databases</a>
+          <a href="/#cost">Efficient Optimization</a>
+          <a href="/#cycles">Cycling Systems</a>
+        </div>
+      </div>
       <!-- <a href="/#research">Research</a> -->
       <a href="/#team">Team</a>
       <!-- <a href="/plans/">Plans</a> -->
@@ -58,6 +66,7 @@
     <!-- ============================================================ -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-inner">
+       <div class="hero-copy">
         <!-- Each prism lives in an .anchor around its letter, so it follows
              that letter wherever the headline wraps. Line breaks fall only
              inside tags: whitespace between letters would show. -->
@@ -75,12 +84,74 @@
               width="268" height="293"></span><span class="lt-front">v</span>ery.</span>
         </h1>
         <p class="lede">
-          The future of high-performance computing software is here.  Arkaic is
-          building a next-generation, open platform for discovery science and
-          engineering.
+          Spawn HPC jobs in seconds: parameter sweeps, surrogate modeling,
+          Bayesian optimization, or design your own loop.
         </p>
+        <p class="hero-cta">
+          <a class="button button-paper" href="#waitlist">I&rsquo;m interested</a>
+          <a class="hero-more" href="#product">See it work</a>
+        </p>
+       </div>
+
+        <!-- the drawings on rotation, drawn live in pencil (trace-loop.js): a rocket engine, a 3D
+             integrated circuit, a transport wing, a NIF fusion shot, a ship propeller, then an FPV
+             quadcopter. The hero's ground fades from Graphite into graph paper under them. -->
+        <div class="hero-draw">
+          <canvas class="trace-canvas" role="img"
+            aria-label="Pencil line drawings, drawn live on graph paper: a rocket engine, a 3D integrated circuit, a transport wing, a laser fusion target with its beams, a ship propeller, then an FPV quadcopter"></canvas>
+        </div>
       </div>
       <div class="strokes-band" aria-hidden="true"></div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- What Evolve does: three tiles, one glance each                -->
+    <!-- The loops are built in evolve-clips/10-tiles (run, learn,     -->
+    <!-- optimize), on real runs: the RAE 2822 sweep and the L2-Sea   -->
+    <!-- hull. The captions live here so they stay sharp.              -->
+    <!-- ============================================================ -->
+    <section class="section paper tiles" aria-label="What Evolve does">
+      <div class="tile-grid">
+        <article class="tile">
+          <div class="tile-cap">latin hypercube sampling</div>
+          <div class="tile-box">
+            <img src="assets/tile-run.gif" width="780" height="432"
+              alt="A terminal on the user's own machine: evolve login signs it in, the machines are listed with their prices, a sweep of 100 sampled cases is launched on an e6-8 machine with SU2 loaded, and the job is listed as running">
+          </div>
+          <div class="tile-cmd">100 cases &rarr; one job, running</div>
+          <h2 class="h3">Launch simulations</h2>
+          <p>
+            Load a solver, pick a machine, say yes. Evolve runs every case and
+            keeps the files and logs.
+          </p>
+        </article>
+        <article class="tile">
+          <div class="tile-cap">gaussian process</div>
+          <div class="tile-box">
+            <img src="assets/tile-learn.gif" width="780" height="432"
+              alt="The 97 drag values over Mach number and angle of attack, then the Gaussian process surrogate fitted to them sweeps across the design space as a shaded map with contours, and a probe reads the predicted drag and its uncertainty at three places">
+          </div>
+          <div class="tile-cmd">97 runs &rarr; drag anywhere, &plusmn; std</div>
+          <h2 class="h3">Learn the design space</h2>
+          <p>
+            A surrogate fit to the runs predicts anywhere between them, with
+            its uncertainty.
+          </p>
+        </article>
+        <article class="tile">
+          <div class="tile-cap">multi-fidelity bayesian optimization</div>
+          <div class="tile-box">
+            <img src="assets/tile-optimize.gif" width="780" height="432"
+              alt="Drag of the L2-Sea hull against computing cost: 300 cheap coarse-grid runs cluster at the left, then 90 fine runs, and the best fine design steps down to 36.8 newtons, 11 percent below the original 41.5">
+          </div>
+          <div class="tile-cmd">300 coarse + 90 fine &rarr; &minus;11% drag</div>
+          <h2 class="h3">Optimize with fewer runs</h2>
+          <p>
+            Cheap coarse runs guide the expensive fine ones. A destroyer hull
+            lost 11% of its drag in 90 fine runs.
+          </p>
+        </article>
+      </div>
     </section>
 
     <!-- ============================================================ -->
@@ -91,7 +162,6 @@
         <p class="tag"><span class="tag-num">01</span><span class="tag-label">Evolve</span></p>
       </div>
 
-      <div class="lead-row">
         <div class="product-intro">
           <h2 id="product-title" class="h2">Don&rsquo;t just optimize, <em class="evolve">Evolve</em>.</h2>
           <p class="body-lg">
@@ -104,16 +174,6 @@
             agents to help craft, scale, and mend your workflows.  Evolve turns computing into discovery.
           </p>
         </div>
-
-        <!-- the drawings on rotation, drawn live (trace-loop.js): a rocket engine, a 3D integrated circuit, a transport wing, a NIF fusion shot, a ship propeller, then an FPV quadcopter. The old label and caption described the
-             three-pattern animation, so they are gone: add yours here if wanted. -->
-        <figure class="study">
-          <div class="study-frame trace-frame">
-            <canvas class="trace-canvas" role="img"
-              aria-label="Line drawings, drawn live: a rocket engine, a 3D integrated circuit, a transport wing, a laser fusion target with its beams, a ship propeller, then an FPV quadcopter"></canvas>
-          </div>
-        </figure>
-      </div>
     </section>
 
     <!-- ============================================================ -->
@@ -209,11 +269,11 @@
     </section>
 
     <!-- ============================================================ -->
-    <!-- 04 · Cycles: Hurricane Matthew, forecast every 6 hours        -->
+    <!-- 04 · Cycling systems: Hurricane Matthew, forecast every 6 hours        -->
     <!-- ============================================================ -->
     <section class="section paper" id="cycles" aria-labelledby="cycles-title">
       <div>
-        <p class="tag"><span class="tag-num">04</span><span class="tag-label">Cycles</span></p>
+        <p class="tag"><span class="tag-num">04</span><span class="tag-label">Cycling Systems</span></p>
       </div>
 
       <div class="pain">
@@ -471,15 +531,14 @@
     <p class="fine">© 2026 Arkaic Inc. · <a href="/work/">Work with us</a> · <a href="/privacy/">Privacy</a></p>
   </footer>
 
-  <script src="main.js?v=4" defer></script>
+  <script src="main.js?v=5" defer></script>
   <script src="engine3d-data.js?v=6" defer></script>
   <script src="wing-trace-data.js?v=1" defer></script>
   <script src="prop-trace-data.js?v=2" defer></script>
   <script src="nif3d-data.js?v=1" defer></script>
   <script src="drone3d-data.js?v=1" defer></script>
-  <script src="ic3d-data.js?v=1" defer></script>
-  <script src="trace-loop.js?v=31" defer></script>
-  <script src="/nav.js?v=1" defer></script>
+  <script src="trace-loop.js?v=35" defer></script>
+  <script src="/nav.js?v=2" defer></script>
   <script src="team.js?v=1" defer></script>
 </body>
 </html>

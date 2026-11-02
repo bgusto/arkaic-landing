@@ -34,6 +34,14 @@ Then open http://localhost:8000. Any static server works. Verify changes in a br
 
 The `translate(-50%, -50%)` in the JS-written transform must match the CSS, since `left`/`top` mark the form's centre.
 
+**Page frame.** The content width, margins and section padding are boat.dev's: `--max` 1248px, `--gutter` 48px (32px under 1024px, 16px under 768px), `--section-y` 96px (80px, 64px). Keep them together if you change one.
+
+**Hero.** Graphite throughout. Copy on the left, held to three lines by `max-width: 6.6em` on the display text; the live drawings (`trace-loop.js`) on the right, Paper line on Graphite. Phones stack them. The headline is `6.6vw`, so `REF_FONT` in `main.js` is 84.5. The rotation is engine, wing, propeller, fusion shot, quadcopter, each scene 8 s with the build at `SPEED = 3` (three times the base timings); the chip stack (`ic3d-data.js`) is built but left out as not good enough. `data-ink="pencil"` on the canvas would draw Graphite pencil on paper instead, unused now.
+
+**Tiles under the hero.** `.tiles` holds three GIF loops (`assets/tile-run.gif`, `tile-learn.gif`, `tile-optimize.gif`) in boat.dev's feature layout: 390 x 216 boxes with a 1px frame, a 24px mono caption above (the method) and below (the result), a 24/32 heading and a 46ch line. The three articles share rows through `subgrid`, so the headings sit on one line across the row and the paragraphs start level; keep headings short enough for one line. The GIFs are rendered from `evolve-clips/10-tiles` (`python3 render.py run learn optimize`) at 780 x 432 with no margins of their own: the whole box is the plot, or the terminal. The captions live in `index.html`, not in the GIFs. The tiles have no bottom padding and section 01 under them takes half the usual top padding, so the row sits close over it.
+
+**Topbar.** The site links are repeated by hand in `index.html`, `work/index.html` and `meet/index.html`; change all three. The Applications item is a `.nav-menu`: a button and a panel of section links (`#confidence`, `#cost`, `#cycles`). CSS opens it on hover and focus, `nav.js` toggles it on click and closes it on an outside click or Escape. On phones the panel is always shown, indented under the word, inside the Menu panel.
+
 **Waitlist form.** Posts to Formspree (`action` URL in `index.html`). `main.js` intercepts submit and uses `fetch`, reporting the result in `.waitlist-msg`. Without JS the form posts normally. The `_gotcha` input is a honeypot, so leave it hidden.
 
 **Responsive breakpoints.** 820px (single-column layouts, hero height), 480px (headline lines go inline so it wraps as one run of text).

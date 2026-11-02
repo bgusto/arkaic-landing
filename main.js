@@ -37,7 +37,7 @@
   // Drift radii (data-rx/ry) are tuned for the 1280px desktop headline; scale
   // them with the type so small screens keep the forms on their letters.
   const headline = document.querySelector(".display");
-  const REF_FONT = 107.5;
+  const REF_FONT = 84.5;   // 6.6vw at 1280px
   let scale = 1;
   const Rescale = () => { scale = parseFloat(getComputedStyle(headline).fontSize) / REF_FONT; };
   Rescale();
