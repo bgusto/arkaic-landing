@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Platform — Arkaic</title>
+  <meta name="description" content="Evolve runs your simulations on remote computing, fits surrogate models to the results, and optimizes your design. One command, billed by the second.">
+  <meta name="theme-color" content="#1E1D1A">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="canonical" href="https://arkaic.inc/platform/">
+  <link rel="stylesheet" href="/styles.css?v=88">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Arkaic home">
+      <img src="/assets/logo-horizontal-paper.svg" alt="Arkaic" width="146" height="34">
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="topnav">Menu</button>
+    <nav class="topnav" id="topnav" aria-label="Site">
+      <div class="nav-links">
+        <a href="/platform/" aria-current="page">Platform</a>
+        <a href="/solutions/">Solutions</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/resources/">Resources</a>
+        <a href="/about/">About us</a>
+        <a href="/work/">Work with us</a>
+      </div>
+      <a class="nav-login" href="https://evolve.arkaic.inc">Log in</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="section paper site-hero centered" aria-labelledby="platform-title">
+      <div>
+        <p class="tag"><span class="tag-num">&rarr;</span><span class="tag-label">Platform</span></p>
+        <h1 id="platform-title" class="h2">Run, learn from, and optimize your simulations.</h1>
+        <p class="body-lg">Evolve runs your solver as many times as a decision needs, on remote computing that starts when you submit and stops when the work is done. It records what ran, fits models to the results, and steers the next runs toward the design you want.</p>
+        <div class="install-wrap"><div class="install install-pill"><code id="install-cmd">curl -fsSL https://evolve.arkaic.inc/install.sh | sh</code><button class="copy-btn" type="button" data-copy="install-cmd" aria-label="Copy command" title="Copy"><svg class="icon-copy" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="9" y="9" width="11" height="11" rx="2.5"/><path d="M5 15V6.5A2.5 2.5 0 0 1 7.5 4H15"/></svg><svg class="icon-check" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></button></div></div>
+        <p class="site-actions"><a class="button button-graphite" href="https://evolve.arkaic.inc">Sign up</a> <a class="button button-line" href="/pricing/">See pricing</a></p>
+      </div>
+    </section>
+
+    <section class="section paper" aria-labelledby="platform-what">
+      <div>
+        <h2 id="platform-what" class="site-h">What the platform does</h2>
+        <div class="site-grid">
+          <article class="site-card"><h3 class="site-card-title">Run</h3><p>Any script, on any number of machines. A sweep runs one job per set of values, and each job gets a whole machine.</p><ul class="plan-list" role="list"><li>Machines billed by the second; start-up and idle minutes are free</li><li>Open-source solvers built in: OpenFOAM, SU2, CalculiX, Castro, WRF</li><li>Your own code on the toolchain: GCC, MPI, and the scientific libraries</li><li>Your own machines, with Evolve directing the work</li></ul></article>
+          <article class="site-card"><h3 class="site-card-title">Sample and fit</h3><p>Cover a design space with a planned set of runs, then fit a surrogate model to what they returned.</p><ul class="plan-list" role="list"><li>Surrogates from many samples or from few</li><li>Multi-fidelity: many cheap runs and a few accurate ones in one model</li><li>Accuracy measured, with the error shown</li><li>Models are files you can keep and run anywhere</li></ul></article>
+          <article class="site-card"><h3 class="site-card-title">Optimize</h3><p>Choose the next runs from what the earlier ones showed, for one goal or several.</p><ul class="plan-list" role="list"><li>Cheap runs steer where the costly ones go</li><li>Constraints and mixed variables</li><li>Stop, resume, or cancel a campaign at any time</li><li>Repeating work on a schedule, such as a daily forecast</li></ul></article>
+          <article class="site-card"><h3 class="site-card-title">Keep a record</h3><p>Every run records exactly what ran, so a result can be repeated or cited.</p><ul class="plan-list" role="list"><li>The solver image and the exact files of your folder</li><li>Logs that stream while a run is going</li><li>Files kept per run, listed and downloaded from the terminal</li><li>Usage and spend by job</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section graphite" aria-labelledby="platform-use">
+      <div>
+        <h2 id="platform-use" class="site-h">From the terminal or the browser</h2>
+        <p class="body-lg">The <code>evolve</code> command and the web app talk to the same service. Install the command, sign in, and run the example. Sign-up happens in the browser during login, and you can buy credit there.</p>
+        <pre class="install"><code>curl -fsSL https://evolve.arkaic.inc/install.sh | sh
+evolve login
+evolve init
+evolve sweep -out f job.sh thickness=10,7,5</code></pre>
+        <p class="site-note">Windows: use <code>install.ps1</code> from the same address.</p>
+      </div>
+    </section>
+
+    <section class="contact" aria-label="Contact">
+      <div class="contact-card">
+        <p class="body-lg">Start with the free plan.</p>
+        <a class="button button-graphite" href="https://evolve.arkaic.inc">Sign up</a>
+        <a class="mail" href="mailto:inquiries@arkaic.inc">inquiries@arkaic.inc</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <img src="/assets/logo-horizontal-paper.svg" alt="Arkaic" width="120" height="28">
+    <p class="fine"><a href="/platform/">Platform</a> · <a href="/solutions/">Solutions</a> · <a href="/pricing/">Pricing</a> · <a href="/resources/">Resources</a> · <a href="/work/">Work with us</a></p>
+    <p class="fine">© 2026 Arkaic Inc. · <a href="/privacy/">Privacy</a></p>
+  </footer>
+  <script src="/nav.js?v=1" defer></script>
+  <script src="/copy.js?v=2" defer></script>
+</body>
+</html>

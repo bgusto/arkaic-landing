@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solutions — Arkaic</title>
+  <meta name="description" content="Evolve for aerodynamics, structures, weather, astrophysics, design databases, and your own solver.">
+  <meta name="theme-color" content="#1E1D1A">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="canonical" href="https://arkaic.inc/solutions/">
+  <link rel="stylesheet" href="/styles.css?v=88">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Arkaic home">
+      <img src="/assets/logo-horizontal-paper.svg" alt="Arkaic" width="146" height="34">
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="topnav">Menu</button>
+    <nav class="topnav" id="topnav" aria-label="Site">
+      <div class="nav-links">
+        <a href="/platform/">Platform</a>
+        <a href="/solutions/" aria-current="page">Solutions</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/resources/">Resources</a>
+        <a href="/about/">About us</a>
+        <a href="/work/">Work with us</a>
+      </div>
+      <a class="nav-login" href="https://evolve.arkaic.inc">Log in</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="section paper site-hero" aria-labelledby="solutions-title">
+      <div>
+        <p class="tag"><span class="tag-num">&rarr;</span><span class="tag-label">Solutions</span></p>
+        <h1 id="solutions-title" class="h2">Problems where a solver has to run many times.</h1>
+        <p class="body-lg">If a decision waits on a simulation, Evolve runs the simulations in parallel and uses each result to choose the next. These are the fields it ships with solvers for.</p>
+      </div>
+    </section>
+
+    <section class="section paper" aria-label="Solutions">
+      <div>
+        <div class="site-grid">
+          <article class="site-card"><h3 class="site-card-title">Aerodynamics and fluid flow</h3><p>Design a nozzle, an airfoil, or a duct by running the flow solver across its parameters.</p><ul class="plan-list" role="list"><li>OpenFOAM and SU2 as ready modules, with MPI across a machine's cores</li><li>Optimize a geometry, or sweep conditions against test data</li><li>Fit a model of the whole flow field, not only the forces</li></ul></article>
+          <article class="site-card"><h3 class="site-card-title">Structures</h3><p>Find the thickness, shape, or material that carries the load for the least weight.</p><ul class="plan-list" role="list"><li>CalculiX as a ready module</li><li>Sweeps and optimization over any parameter your script reads</li><li>Constraints on stress and displacement</li></ul></article>
+          <article class="site-card"><h3 class="site-card-title">Weather and atmosphere</h3><p>Run forecasts and regional studies on a schedule, with each step reading the last.</p><ul class="plan-list" role="list"><li>WRF and its preprocessing as a ready module</li><li>Staged tasks that fetch, prepare, and run</li><li>Retries when a data source is late</li></ul></article>
+          <article class="site-card"><h3 class="site-card-title">Astrophysics</h3><p>Explore a simulation's parameters and see where the physics changes.</p><ul class="plan-list" role="list"><li>Castro as a ready module</li><li>Python for analysis of the output</li><li>Many runs at once on large machines</li></ul></article>
+          <article class="site-card"><h3 class="site-card-title">Design databases and surrogates</h3><p>Replace a slow solver with a fast model you can query in a design meeting.</p><ul class="plan-list" role="list"><li>Planned sampling of the design space</li><li>Surrogates fitted to your runs or to runs you already have</li><li>Accuracy measured before you rely on a model</li></ul></article>
+          <article class="site-card"><h3 class="site-card-title">Your own solver</h3><p>Compile it on the toolchain, put it in your folder, and submit it like any script.</p><ul class="plan-list" role="list"><li>GCC, MPI, CMake, and the scientific libraries</li><li>No container to build or host</li><li>The same sweeps, models, and records as the built-in solvers</li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" aria-label="Contact">
+      <div class="contact-card">
+        <p class="body-lg">Have a problem that isn&rsquo;t listed, or want it run for you?</p>
+        <a class="button button-graphite" href="/work/">Work with us</a>
+        <a class="mail" href="mailto:inquiries@arkaic.inc">inquiries@arkaic.inc</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <img src="/assets/logo-horizontal-paper.svg" alt="Arkaic" width="120" height="28">
+    <p class="fine"><a href="/platform/">Platform</a> · <a href="/solutions/">Solutions</a> · <a href="/pricing/">Pricing</a> · <a href="/resources/">Resources</a> · <a href="/work/">Work with us</a></p>
+    <p class="fine">© 2026 Arkaic Inc. · <a href="/privacy/">Privacy</a></p>
+  </footer>
+  <script src="/nav.js?v=1" defer></script>
+</body>
+</html>

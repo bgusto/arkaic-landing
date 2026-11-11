@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plans — Arkaic</title>
+  <meta name="description" content="Evolve's First-Order plan: buy credit and pay by the second for the machines your simulations run on. Storage and downloads included, no subscription.">
+  <meta name="theme-color" content="#1E1D1A">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="canonical" href="https://arkaic.inc/plans/">
+  <link rel="stylesheet" href="/styles.css?v=88">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Arkaic home">
+      <img src="/assets/logo-horizontal-paper.svg" alt="Arkaic" width="146" height="34">
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="topnav">Menu</button>
+    <nav class="topnav" id="topnav" aria-label="Site">
+      <a href="/#product">Product</a>
+      <!-- <a href="/#research">Research</a> -->
+      <a href="/#team">Team</a>
+      <a href="/plans/" aria-current="page">Plans</a>
+      <a href="/work/">Work with us</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="section paper plans" aria-labelledby="plans-title">
+      <h1 id="plans-title" class="plans-title">Plans</h1>
+      <p class="plans-lede">Pay by the second for the machines your work runs on. No subscription.</p>
+
+      <div class="plans-grid">
+        <article class="plan-card" aria-labelledby="first-order-name">
+          <img class="plan-icon" src="/assets/plans/first-order.svg" alt="" aria-hidden="true" width="240" height="212">
+          <h2 id="first-order-name" class="plan-name">First-Order</h2>
+          <p class="plan-kind">Pay as you go</p>
+          <p class="plan-price">$0 <span>+ compute</span></p>
+          <p class="plan-note">Credit from $15. No subscription.</p>
+          <a class="button button-graphite plan-cta" href="/#waitlist">Join the waitlist</a>
+          <ul class="plan-list" role="list">
+            <li>2 machines and 32 cores at once</li>
+            <li>OpenFOAM, SU2, CalculiX and more, or your own code</li>
+            <li>The web app, a terminal in the browser, and the <code>evolve</code> command</li>
+            <li>5 GB of files kept for as long as your account exists</li>
+          </ul>
+        </article>
+
+        <div>
+          <table class="price-sheet">
+            <caption>Compute, billed by the second</caption>
+            <thead>
+              <tr><th scope="col">Machine</th><th scope="col" class="num">Cores</th><th scope="col" class="num">Memory</th><th scope="col" class="num">Per hour</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Standard 2</th><td class="num">2</td><td class="num">16 GB</td><td class="num">$0.13</td></tr>
+              <tr><th scope="row">Standard 4</th><td class="num">4</td><td class="num">32 GB</td><td class="num">$0.26</td></tr>
+              <tr><th scope="row">Standard 8</th><td class="num">8</td><td class="num">64 GB</td><td class="num">$0.52</td></tr>
+              <tr><th scope="row">Standard 16</th><td class="num">16</td><td class="num">128 GB</td><td class="num">$1.03</td></tr>
+              <tr><th scope="row">Standard 32</th><td class="num">32</td><td class="num">256 GB</td><td class="num">$2.06</td></tr>
+              <tr><th scope="row">GPU, 1&times; A10 24 GB</th><td class="num">15</td><td class="num">240 GB</td><td class="num">$2.80</td></tr>
+            </tbody>
+          </table>
+          <p class="price-foot">About $0.064 a core-hour with 8 GB per core. A machine&rsquo;s start-up and idle minutes are not billed.</p>
+
+          <table class="price-sheet spaced">
+            <caption>Storage, downloads and credit</caption>
+            <tbody>
+              <tr><th scope="row">Storage</th><td>5 GB included, then $0.05 per GB a month</td></tr>
+              <tr><th scope="row">Downloads</th><td>25 GB a month included, then $0.02 per GB</td></tr>
+              <tr><th scope="row">Credit</th><td>$15 to $1,000, any whole dollar; it never expires</td></tr>
+            </tbody>
+          </table>
+
+          <div class="price-example">
+            <p class="example-label">Example</p>
+            <p>A sweep of 200 runs of a 10-minute OpenFOAM case, each on Standard 8: 33 machine-hours at $0.52, about <strong>$17</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="plans-more">
+        <div class="plans-start">
+          <h2 class="plans-sub">Get started</h2>
+          <p>Sign up and buy credit in the browser, then run from the web app or your terminal:</p>
+          <pre class="install"><code>curl -fsSL https://evolve.arkaic.inc/install.sh | sh
+evolve login</code></pre>
+          <p>Need more machines at once? <a href="/meet/">Let&rsquo;s talk &rarr;</a></p>
+        </div>
+
+        <div class="plans-faq">
+          <h2 class="plans-sub">Questions</h2>
+          <details>
+            <summary>What exactly is billed?</summary>
+            <p>Each run&rsquo;s seconds on its machine, at the machine&rsquo;s hourly price. Starting a machine, and the minutes it waits for the next run, are on us.</p>
+          </details>
+          <details>
+            <summary>What happens when my credit runs out?</summary>
+            <p>Runs already going finish. New runs wait until you add credit.</p>
+          </details>
+          <details>
+            <summary>What happens to my files?</summary>
+            <p>Your first 5 GB stay for as long as your account exists. Beyond that, storage is drawn from credit; after 90 days without credit, files beyond 5 GB may be deleted, and we email you first.</p>
+          </details>
+          <details>
+            <summary>Can I use my own solver?</summary>
+            <p>Yes. Run your own code on the toolchain, with the compilers and libraries it provides, or use a solver from the catalog.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <img src="/assets/logo-horizontal-paper.svg" alt="Arkaic" width="120" height="28">
+    <p class="fine">© 2026 Arkaic Inc. · <a href="/privacy/">Privacy</a></p>
+  </footer>
+  <script src="/nav.js?v=1" defer></script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resources — Arkaic</title>
+  <meta name="description" content="Install the Evolve command, run the example, and find help.">
+  <meta name="theme-color" content="#1E1D1A">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="canonical" href="https://arkaic.inc/resources/">
+  <link rel="stylesheet" href="/styles.css?v=88">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Arkaic home">
+      <img src="/assets/logo-horizontal-paper.svg" alt="Arkaic" width="146" height="34">
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="topnav">Menu</button>
+    <nav class="topnav" id="topnav" aria-label="Site">
+      <div class="nav-links">
+        <a href="/platform/">Platform</a>
+        <a href="/solutions/">Solutions</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/resources/" aria-current="page">Resources</a>
+        <a href="/about/">About us</a>
+        <a href="/work/">Work with us</a>
+      </div>
+      <a class="nav-login" href="https://evolve.arkaic.inc">Log in</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="section paper site-hero" aria-labelledby="resources-title">
+      <div>
+        <p class="tag"><span class="tag-num">&rarr;</span><span class="tag-label">Resources</span></p>
+        <h1 id="resources-title" class="h2">Everything for your first run.</h1>
+        <p class="body-lg">Install the command, run the example, and read what a job did. Tutorials are being written for the first release.</p>
+      </div>
+    </section>
+
+    <section class="section paper" aria-label="Resources">
+      <div>
+        <div class="site-grid">
+          <article class="site-card"><h3 class="site-card-title">Get started</h3><p>Install, sign in, and run the example sweep.</p><pre class="install"><code>curl -fsSL https://evolve.arkaic.inc/install.sh | sh
+evolve login
+evolve init
+evolve sweep -out f job.sh thickness=10,7,5</code></pre></article>
+          <article class="site-card"><h3 class="site-card-title">The command</h3><p>Run <code>evolve help</code> for every command, and <code>evolve help COMMAND</code> for one. The main ones:</p><ul class="plan-list" role="list"><li><code>submit</code>, <code>sweep</code>, <code>sample</code>, <code>fit</code>, <code>optimize</code>: start work</li><li><code>jobs</code>, <code>log</code>, <code>cancel</code>: follow it</li><li><code>files</code>, <code>pull</code>: download what a job kept</li><li><code>account</code>, <code>usage</code>: plan, credit, and spend</li></ul></article>
+          <article class="site-card"><h3 class="site-card-title">Worked examples</h3><p>Two projects we ran on Evolve. Write-ups are coming.</p><ul class="plan-list" role="list"><li>A rocket nozzle optimized with OpenFOAM</li><li>An airfoil swept across conditions and checked against test data with SU2</li></ul></article>
+          <article class="site-card"><h3 class="site-card-title">Tutorials</h3><p>Step-by-step guides for sweeps, surrogates, and optimization are part of the first release.</p></article>
+          <article class="site-card"><h3 class="site-card-title">Support</h3><p>File a bug or a feature request from the terminal with <code>evolve ticket</code>. The team replies by email.</p><ul class="plan-list" role="list"><li>Or write to <a href="mailto:inquiries@arkaic.inc">inquiries@arkaic.inc</a></li></ul></article>
+          <article class="site-card"><h3 class="site-card-title">Privacy</h3><p>What we collect, and why.</p><ul class="plan-list" role="list"><li><a href="/privacy/">Read the privacy policy</a></li></ul></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" aria-label="Contact">
+      <div class="contact-card">
+        <p class="body-lg">Questions before you start?</p>
+        <a class="button button-graphite" href="/meet/">Let&rsquo;s talk</a>
+        <a class="mail" href="mailto:inquiries@arkaic.inc">inquiries@arkaic.inc</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <img src="/assets/logo-horizontal-paper.svg" alt="Arkaic" width="120" height="28">
+    <p class="fine"><a href="/platform/">Platform</a> · <a href="/solutions/">Solutions</a> · <a href="/pricing/">Pricing</a> · <a href="/resources/">Resources</a> · <a href="/work/">Work with us</a></p>
+    <p class="fine">© 2026 Arkaic Inc. · <a href="/privacy/">Privacy</a></p>
+  </footer>
+  <script src="/nav.js?v=1" defer></script>
+</body>
+</html>

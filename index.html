@@ -32,10 +32,12 @@
   <meta property="og:image" content="https://arkaic.inc/assets/og.jpg">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="stylesheet" href="styles.css?v=77">
+  <link rel="stylesheet" href="styles.css?v=88">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
+
+  <p class="announce"><a href="https://evolve.arkaic.inc">Evolve is here: start free and run your first sweep today. Sign up &rarr;</a></p>
 
   <header class="topbar">
     <a class="brand" href="/" aria-label="Arkaic home">
@@ -43,11 +45,15 @@
     </a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="topnav">Menu</button>
     <nav class="topnav" id="topnav" aria-label="Site">
-      <a href="/#product">Product</a>
-      <!-- <a href="/#research">Research</a> -->
-      <a href="/#team">Team</a>
-      <!-- <a href="/plans/">Plans</a> -->
-      <a href="/work/">Work with us</a>
+      <div class="nav-links">
+        <a href="/platform/">Platform</a>
+        <a href="/solutions/">Solutions</a>
+        <a href="/pricing/">Pricing</a>
+        <a href="/resources/">Resources</a>
+        <a href="/about/">About us</a>
+        <a href="/work/">Work with us</a>
+      </div>
+      <a class="nav-login" href="https://evolve.arkaic.inc">Log in</a>
     </nav>
   </header>
 
@@ -79,34 +85,121 @@
           building a next-generation, open platform for discovery science and
           engineering.
         </p>
+        <p class="hero-actions"><a class="button button-paper" href="https://evolve.arkaic.inc">Sign up</a> <a class="button button-ghost" href="/meet/">Talk to us</a></p>
+        <p class="strip">Solvers built in <span>OpenFOAM</span> <span>SU2</span> <span>CalculiX</span> <span>Castro</span> <span>WRF</span></p>
       </div>
       <div class="strokes-band" aria-hidden="true"></div>
     </section>
-
     <!-- ============================================================ -->
-    <!-- 01 · Evolve: what it is, and how it runs a study              -->
+    <!-- Platform: seven cards                                         -->
     <!-- ============================================================ -->
-    <section class="section paper lead" id="product" aria-labelledby="product-title">
+    <section class="section paper" id="product" aria-labelledby="platform-title">
       <div>
-        <p class="tag"><span class="tag-num">01</span><span class="tag-label">Evolve</span></p>
+        <p class="tag"><span class="tag-num">&rarr;</span><span class="tag-label">What we do best</span></p>
+        <h2 id="platform-title" class="site-h">The platform for simulation-driven design</h2>
+        <p class="body-lg">Built for long-running simulations and the teams that depend on them.</p>
+        <div class="bento">
+          <article class="bento-card bento-w4">
+            <h3 class="bento-title">Workflows in minutes</h3>
+            <p class="bento-sub">Go from a script to a running campaign with one command.</p>
+            <div class="viz" aria-hidden="true"><pre class="viz-term"><code><b>$</b> evolve init
+<b>$</b> evolve sweep -out f job.sh thickness=10,7,5
+<b>$</b> evolve jobs
+<b>$</b> evolve pull JOB</code></pre></div>
+          </article>
+          <article class="bento-card bento-w2">
+            <h3 class="bento-title">Run anywhere</h3>
+            <p class="bento-sub">Evolve&rsquo;s machines, yours, or an installation on your own systems.</p>
+            <div class="viz" aria-hidden="true"><ul class="viz-rows"><li>Evolve&rsquo;s machines</li><li>Your own machines</li><li>Your own systems</li></ul></div>
+          </article>
+          <article class="bento-card bento-w2">
+            <h3 class="bento-title">Limits and spend, in view</h3>
+            <p class="bento-sub">Plan limits, credit, and what each job cost.</p>
+            <div class="viz" aria-hidden="true"><ul class="viz-bars"><li><span>Compute</span><i style="width:78%"></i></li><li><span>Storage</span><i style="width:34%"></i></li><li><span>Downloads</span><i style="width:18%"></i></li></ul></div>
+          </article>
+          <article class="bento-card bento-w2">
+            <h3 class="bento-title">You stay in control</h3>
+            <p class="bento-sub">Pause, resume, or cancel a campaign at any time.</p>
+            <div class="viz" aria-hidden="true"><p class="viz-pills"><span>Pause</span><span>Resume</span><span>Cancel</span></p></div>
+          </article>
+          <article class="bento-card bento-w2">
+            <h3 class="bento-title">LLM agnostic</h3>
+            <p class="bento-sub">Evolve picks no model. Bring the assistant you already use, through the open MCP standard (coming).</p>
+            <div class="viz" aria-hidden="true"><svg class="viz-hub" viewBox="0 0 220 120" width="220" height="120" focusable="false"><g stroke="currentColor" stroke-opacity=".5" stroke-width="1.5" fill="none"><line x1="110" y1="60" x2="30" y2="22"/><line x1="110" y1="60" x2="30" y2="98"/><line x1="110" y1="60" x2="190" y2="22"/><line x1="110" y1="60" x2="190" y2="98"/><line x1="110" y1="60" x2="110" y2="12"/></g><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="30" cy="22" r="9"/><circle cx="30" cy="98" r="9"/><circle cx="190" cy="22" r="9"/><circle cx="190" cy="98" r="9"/><circle cx="110" cy="12" r="9"/></g><circle cx="110" cy="60" r="20" fill="#F27649"/></svg></div>
+          </article>
+          <article class="bento-card bento-w3">
+            <h3 class="bento-title">Every run on the record</h3>
+            <p class="bento-sub">The solver image and the exact files behind every result, to repeat or to cite.</p>
+            <div class="viz" aria-hidden="true"><ul class="viz-rows"><li>Version 3<span>solver image + folder</span></li><li>Version 2<span>solver image + folder</span></li><li>Version 1<span>solver image + folder</span></li></ul></div>
+          </article>
+          <article class="bento-card bento-w3">
+            <h3 class="bento-title">White-glove experience</h3>
+            <p class="bento-sub">Dedicated support from the engineers who build Evolve, or have us run the study for you.</p>
+            <div class="viz" aria-hidden="true"><p class="viz-bubble">Can you set up my study?</p><p class="viz-bubble reply">Yes. We scope it, run it, and hand back the results.</p></div>
+          </article>
+        </div>
+        <p class="more"><a href="/platform/">See the platform &rarr;</a></p>
       </div>
+    </section>
 
+    <!-- ============================================================ -->
+    <!-- Solvers                                                       -->
+    <!-- ============================================================ -->
+    <section class="section paper" aria-labelledby="solvers-title">
+      <div>
+        <h2 id="solvers-title" class="site-h">Run the solvers your team uses</h2>
+        <p class="body-lg">Open-source solvers are built in. Bring your own code, or your own license for a commercial solver.</p>
+        <ul class="chips" role="list"><li>OpenFOAM</li><li>SU2</li><li>CalculiX</li><li>Castro</li><li>WRF</li><li>Python</li><li>GCC and MPI toolchain</li><li>Your own code</li><li>Licensed solvers, on your license</li></ul>
+        <p class="more"><a href="/solutions/">More solutions &rarr;</a></p>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- Security: four numbered cards                                 -->
+    <!-- ============================================================ -->
+    <section class="section paper" aria-labelledby="security-title">
+      <div>
+        <h2 id="security-title" class="site-h">Built to keep your data yours</h2>
+        <div class="site-grid four">
+          <article class="site-card numcard"><p class="num-label">001</p><h3 class="site-card-title">One machine per run</h3><p>Each run gets a whole machine, with no network and no neighbors.</p><p class="num-tag">Isolation</p></article>
+          <article class="site-card numcard"><p class="num-label">002</p><h3 class="site-card-title">No keys on workers</h3><p>Workers move files on short-lived links and never hold a storage key.</p><p class="num-tag">Storage</p></article>
+          <article class="site-card numcard"><p class="num-label">003</p><h3 class="site-card-title">Your workspace, your data</h3><p>Files, models, and records are kept under your workspace.</p><p class="num-tag">Data</p></article>
+          <article class="site-card numcard"><p class="num-label">004</p><h3 class="site-card-title">Access you can revoke</h3><p>The command&rsquo;s token is yours: logging out ends it on the server.</p><p class="num-tag">Access</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- Workflows for every use case                                  -->
+    <!-- ============================================================ -->
+    <section class="section paper" id="workflows" aria-labelledby="workflows-title">
+      <div>
+        <p class="tag"><span class="tag-num">&rarr;</span><span class="tag-label">Workflows</span></p>
+        <h2 id="workflows-title" class="site-h">Workflows for every use case</h2>
+        <div class="site-grid">
+          <article class="site-card"><h3 class="site-card-title">Rocket nozzle design</h3><p>Find the shape that gives the most thrust.</p><ol class="steps-list"><li>Sample the shape parameters</li><li>Run each case on its own machine</li><li>Fit a model of the results</li><li>Optimize against the model</li></ol></article>
+          <article class="site-card"><h3 class="site-card-title">Airfoil validation</h3><p>Check a solver against test data across conditions.</p><ol class="steps-list"><li>Sweep the flow conditions</li><li>Compare with the measurements</li><li>Refine the grid and run again</li><li>Fit a surrogate over the sweep</li></ol></article>
+          <article class="site-card"><h3 class="site-card-title">Daily forecast</h3><p>Run a regional forecast on a schedule.</p><ol class="steps-list"><li>Fetch the data, retrying when it is late</li><li>Prepare the domain</li><li>Run the model</li><li>Keep the output files</li></ol></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- Powering discovery: the live drawings                         -->
+    <!-- ============================================================ -->
+    <section class="section paper lead" aria-labelledby="discovery-title">
       <div class="lead-row">
         <div class="product-intro">
-          <h2 id="product-title" class="h2">Don&rsquo;t just optimize, <em class="evolve">Evolve</em>.</h2>
+          <h2 id="discovery-title" class="h2">Don&rsquo;t just optimize, <em class="evolve">Evolve</em>.</h2>
           <p class="body-lg">
-            Evolve drives long-running simulations.  It compresses design
-            cycles by an order of magnitude and removes computational barriers
-            to discovery.  Run parameter exploration and sensitivity analysis at
-            scale.  Perform model verification and validation.  Build
-            multi-fidelity surrogates and find optimal designs using
-            Bayesian optimization.  Create loops for cyclical workflows.  Use
-            agents to help craft, scale, and mend your workflows.  Evolve turns computing into discovery.
+            Evolve compresses design cycles by an order of magnitude and
+            removes computational barriers to discovery. It turns computing
+            into discovery.
           </p>
+          <p class="site-actions"><a class="button button-graphite" href="https://evolve.arkaic.inc">Sign up</a> <a class="button button-line" href="/pricing/">See pricing</a></p>
         </div>
 
-        <!-- the drawings on rotation, drawn live (trace-loop.js): a rocket engine, a 3D integrated circuit, a transport wing, a NIF fusion shot, a ship propeller, then an FPV quadcopter. The old label and caption described the
-             three-pattern animation, so they are gone: add yours here if wanted. -->
+        <!-- the drawings on rotation, drawn live (trace-loop.js) -->
         <figure class="study">
           <div class="study-frame trace-frame">
             <canvas class="trace-canvas" role="img"
@@ -117,358 +210,51 @@
     </section>
 
     <!-- ============================================================ -->
-    <!-- 02 · Design databases: the RAE 2822 airfoil                   -->
+    <!-- Designed for your team: six solutions                         -->
     <!-- ============================================================ -->
-    <section class="section paper" id="confidence" aria-labelledby="confidence-title">
+    <section class="section paper" aria-labelledby="designed-title">
       <div>
-        <p class="tag"><span class="tag-num">02</span><span class="tag-label">Design Databases</span></p>
-      </div>
-
-      <div class="pain">
-        <h2 id="confidence-title" class="h2 pain-head">Accurate. Adaptable. Portable.</h2>
-        <p class="body-lg">
-          A design database captures how a system performs across its whole
-          design space, and engineers use it to explore trade-offs before
-          committing to a design. With Evolve, building one is nearly
-          effortless. Its data structures and modules were designed from the
-          outset with interoperability in mind. Build a pipeline once, then
-          add runs, add a fidelity, or swap a solver. Frictionless and
-          auditable.
-        </p>
-        <div class="pain-how">
-          <ul class="principles" role="list">
-            <li>Surrogates provide fast inference throughout the design space.</li>
-            <li>Uncertainty-aware sampling improves a surrogate with one command.</li>
-            <li>Reports on each surrogate&rsquo;s quality are generated automatically.</li>
-            <li>Trained surrogates are portable: download one as a <code>.surrogate.h5</code> file.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- the RAE 2822 aero database: 02-design-database/aerodb.html in evolve-clips -->
-      <figure class="result">
-        <video
-          class="demo"
-          src="assets/aerodb.mp4"
-          autoplay muted loop playsinline preload="metadata"
-          aria-label="A Gaussian process surrogate of the RAE 2822 airfoil's drag, built automatically from 100 RANS simulations"></video>
-        <figcaption class="compare-note">
-          RAE 2822 airfoil simulated using SU2, over Mach number from 0.65 to
-          0.78, across the drag rise, and angle of attack from 0 to 3.5
-          degrees. Evolve ran 100 RANS simulations, 97 of which converged, and
-          fit a Gaussian process surrogate of drag to them automatically: a
-          prediction anywhere in the space, with its uncertainty.
-        </figcaption>
-      </figure>
-    </section>
-
-    <!-- ============================================================ -->
-    <!-- 03 · Efficient Optimization: the L2-Sea hull                  -->
-    <!-- ============================================================ -->
-    <section class="section paper" id="cost" aria-labelledby="cost-title">
-      <div>
-        <p class="tag"><span class="tag-num">03</span><span class="tag-label">Efficient Optimization</span></p>
-      </div>
-
-      <div class="pain">
-        <h2 id="cost-title" class="h2 pain-head">
-          <span class="line">High-fidelity results.</span>
-          <span class="line">Low-fidelity bill.</span>
-        </h2>
-        <p class="body-lg">
-          Optimization using high-fidelity computational fluid dynamics (CFD)
-          or finite-element analysis (FEA) often takes hundreds of runs and
-          millions of core-hours. Evolve uses multi-fidelity surrogates that
-          blend coarse-grid or reduced-order results, reducing the
-          time-to-solution and computational cost.
-        </p>
-        <div class="pain-how">
-          <ul class="principles" role="list">
-            <li>Multi-fidelity surrogates learn how your solver outputs relate.</li>
-            <li>Handles constraints and multiple objectives.</li>
-            <li>Batched evaluations parallelize the workflow.</li>
-            <li>Bayesian optimization that scales to dozens of parameters.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- L2-Sea hull, multi-fidelity BO on the Evolve platform: 03-optimization/multifidelity.html in evolve-clips -->
-      <figure class="result">
-        <video
-          class="demo"
-          src="assets/multifidelity.mp4"
-          autoplay muted loop playsinline preload="metadata"
-          aria-label="Multi-fidelity optimization of a destroyer hull: drag falling with cost as coarse and fine flow simulations run, then the waves and hull shape of the best design"></video>
-        <figcaption class="compare-note">
-          A destroyer hull from the L2-Sea benchmark, reshaped by Evolve over
-          14 shape variables on a coarse and a fine flow simulation. The
-          design it found has 11% less drag than the original: 36.8 N against
-          41.5 N.
-        </figcaption>
-      </figure>
-    </section>
-
-    <!-- ============================================================ -->
-    <!-- 04 · Cycles: Hurricane Matthew, forecast every 6 hours        -->
-    <!-- ============================================================ -->
-    <section class="section paper" id="cycles" aria-labelledby="cycles-title">
-      <div>
-        <p class="tag"><span class="tag-num">04</span><span class="tag-label">Cycles</span></p>
-      </div>
-
-      <div class="pain">
-        <h2 id="cycles-title" class="h2 pain-head">
-          <span class="line">New data arrives.</span>
-          <span class="line">The workflow runs again.</span>
-        </h2>
-        <p class="body-lg">
-          Some workflows are never finished: a forecast runs again with every
-          new analysis, a digital twin recalibrates as sensors report. A
-          cycle repeats a graph of tasks at each step in time, each from fresh
-          initial conditions. Describe the tasks once, and Evolve runs the
-          sequence.
-        </p>
-        <div class="pain-how">
-          <ul class="principles" role="list">
-            <li>Each cycle runs the same tasks on the newest data.</li>
-            <li>A task starts when its conditions are met: after another task, or after it fails.</li>
-            <li>Failed tasks retry after a delay, or a backup task takes over.</li>
-            <li>Every cycle keeps its own files and logs.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Hurricane Matthew, five WRF cycles: 04-cycles/cycling.html in evolve-clips -->
-      <figure class="result">
-        <video
-          class="demo"
-          src="assets/cycling.mp4"
-          autoplay muted loop playsinline preload="metadata"
-          aria-label="Hurricane Matthew forecast every six hours: five cycles, each a new 24-hour forecast from its own weather analysis, with the storm track and central pressure updating"></video>
-        <figcaption class="compare-note">
-          Hurricane Matthew, forecast with WRF on a 27 km grid. Five cycles,
-          six hours apart, from 00Z on October 6 to 00Z on October 7. Each
-          cycle starts from its own NCEP FNL analysis (archived data, played
-          back, which also supplies the boundary conditions) and runs a
-          24-hour forecast in about five minutes. The
-          track and the central pressure update with every cycle.
-        </figcaption>
-      </figure>
-    </section>
-
-    <!-- ============================================================ -->
-    <!-- 05 · Community: publish a study, fork it, reproduce it        -->
-    <!-- ============================================================ -->
-    <section class="section paper" id="community" aria-labelledby="community-title">
-      <div>
-        <p class="tag"><span class="tag-num">05</span><span class="tag-label">Community</span></p>
-      </div>
-
-      <div class="pain">
-        <h2 id="community-title" class="h2 pain-head">
-          <span class="line">Don&rsquo;t work in a vacuum.</span>
-          <span class="line">Publish the whole study.</span>
-        </h2>
-        <p class="body-lg">
-          With Evolve, your published article gets a digital companion.
-          Publish the data, the pipeline, and the trained models all in one
-          place.  Evolve's community page showcases your work and allows
-          community members to fork the study and run it again: check your
-          results, extend them, or start from them.  It's also great for small
-          teams working together in private on big problems.
-        </p>
-        <div class="pain-how">
-          <ul class="principles" role="list">
-            <li>Data, pipeline and trained models publish as one study.</li>
-            <li>Anyone can fork a published study and run it again.</li>
-            <li>A fork reads the published data in place: no download.</li>
-            <li>Every fork and reproduction is counted on the study.</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- the CALEBO L2-Sea benchmark, published and reproduced: 05-community/community.html in evolve-clips -->
-      <figure class="result">
-        <video
-          class="demo"
-          src="assets/community.mp4"
-          autoplay muted loop playsinline preload="metadata"
-          aria-label="The CALEBO benchmark study published to the Evolve community, then forked: its results are rebuilt from the published runs and match the paper"></video>
-        <figcaption class="compare-note">
-          A study from our CALEBO paper, published to the Evolve community
-          with its runs, pipeline and trained models. Another member forks
-          it, and the fork rebuilds the results table from the published
-          runs, matching the paper. The study page counts the fork.
-        </figcaption>
-      </figure>
-    </section>
-
-    <!-- ============================================================ -->
-    <!-- 06 · Portable Workflows, and the interest form                -->
-    <!-- ============================================================ -->
-    <section class="section paper" id="evolve" aria-labelledby="evolve-title">
-      <div>
-        <p class="tag"><span class="tag-num">06</span><span class="tag-label">Portable Workflows</span></p>
-      </div>
-
-      <div class="pipeline first">
-        <h2 id="evolve-title" class="h2">Your work doesn&rsquo;t stay in the cloud.</h2>
-        <p class="body-lg">
-          Run campaigns across many machines, then take the results to your
-          workstation &mdash; or to a collaborator.
-        </p>
-        <ol class="steps" role="list">
-          <li>
-            <span class="step-num">1</span>
-            <h4>Train in the cloud</h4>
-            <p>Campaigns scale across machines that start and stop as needed.</p>
-          </li>
-          <li>
-            <span class="step-num">2</span>
-            <h4>Download your results</h4>
-            <p>
-              The trained model as <code>.surrogate.h5</code>. Field datasets
-              as CGNS.
-            </p>
-          </li>
-          <li>
-            <span class="step-num">3</span>
-            <h4>Refine locally</h4>
-            <p>
-              Query the model from Python and run more trials on your own
-              hardware.
-            </p>
-          </li>
-        </ol>
-      </div>
-
-      <!-- the still for this section: a loop of Evolve's model page (built from the UI's own stylesheet
-           and markup, with example data: a transport wing model), the trained model downloaded, then the
-           CLI inspecting the file. Made by scripts in the session scratchpad, not screen-shared. -->
-      <figure class="study ui-loop">
-        <picture>
-          <source media="(max-width: 820px)" srcset="assets/loop-download-inspect-phone.gif?v=3" width="890" height="833">
-          <img src="assets/loop-download-inspect.gif?v=3" alt="Evolve's model page for a transport wing model, its Download button clicked, then a terminal running evolve inspect on the downloaded wing.surrogate.h5 file and listing its inputs, outputs, surrogates and provenance" width="1150" height="833" loading="lazy">
-        </picture>
-      </figure>
-
-      <!-- the interest form: an Eigenmode field (cyan) behind a Paper card.
-           It posts to Formspree; main.js sends it in place. -->
-      <div class="waitlist-band" id="waitlist">
-        <div class="waitlist-card">
-          <h3 class="cta-title"><em class="evolve">Evolve</em> with us.</h3>
-          <p class="cta-text">We&rsquo;re looking for researchers to try Evolve.</p>
-          <form class="waitlist" action="https://formspree.io/f/xnpnykan" method="POST">
-            <label class="visually-hidden" for="waitlist-email">Email address</label>
-            <input
-              id="waitlist-email" type="email" name="email"
-              placeholder="you@example.com" autocomplete="email" required>
-            <!-- a honeypot for bots: keep it hidden -->
-            <input
-              type="text" name="_gotcha" tabindex="-1" autocomplete="off"
-              class="visually-hidden" aria-hidden="true">
-            <button class="button button-graphite" type="submit">I&rsquo;m interested</button>
-            <p class="consent">
-              We use your email only to tell you when Evolve is open. See our
-              <a href="/privacy/">privacy page</a>.
-            </p>
-            <p class="waitlist-msg" role="status" aria-live="polite"></p>
-          </form>
+        <h2 id="designed-title" class="site-h">Designed for your team</h2>
+        <div class="site-grid">
+          <a class="site-card site-link" href="/solutions/"><h3 class="site-card-title">Aerodynamics and fluid flow</h3><p>Nozzles, airfoils, and ducts, with OpenFOAM and SU2.</p></a>
+          <a class="site-card site-link" href="/solutions/"><h3 class="site-card-title">Structures</h3><p>The lightest shape that carries the load, with CalculiX.</p></a>
+          <a class="site-card site-link" href="/solutions/"><h3 class="site-card-title">Weather and atmosphere</h3><p>Forecasts and regional studies on a schedule, with WRF.</p></a>
+          <a class="site-card site-link" href="/solutions/"><h3 class="site-card-title">Astrophysics</h3><p>Explore a simulation&rsquo;s parameters with Castro.</p></a>
+          <a class="site-card site-link" href="/solutions/"><h3 class="site-card-title">Design databases</h3><p>A fast model of a slow solver, ready for the design meeting.</p></a>
+          <a class="site-card site-link" href="/solutions/"><h3 class="site-card-title">Your own solver</h3><p>Compile it on the toolchain and submit it like any script.</p></a>
         </div>
       </div>
     </section>
 
-    <!-- 07 · Research: hidden until there is material for it; uncomment
-         this section, its link in each page's menu, and set Team back to 08.
-    <section class="section graphite" id="research" aria-labelledby="research-title">
-      <div>
-        <p class="tag paper-tag"><span class="tag-num">07</span><span class="tag-label">Research</span></p>
-      </div>
-
-      <div class="product-intro">
-        <h2 id="research-title" class="h2">Optimizers that remember.</h2>
-        <p class="body-lg">
-          Arkaic is developing cognitive Bayesian optimization &mdash; priors
-          built from past campaigns and applied to new ones in the same domain.
-          For a family of airfoils, each new campaign starts from priors built
-          on previous campaigns. Fewer high-fidelity runs on every new design.
-        </p>
-      </div>
-    </section>
-    -->
 
     <!-- ============================================================ -->
-    <!-- 07 · Team                                                     -->
+    <!-- Closing band                                                  -->
     <!-- ============================================================ -->
-    <section class="section graphite" id="team" aria-labelledby="team-title">
-      <div>
-        <p class="tag paper-tag"><span class="tag-num">07</span><span class="tag-label">Team</span></p>
-        <h2 id="team-title" class="visually-hidden">Team</h2>
-
-        <div class="team-carousel" aria-roledescription="carousel" aria-label="Team">
-          <ul class="team" role="list">
-          <li class="person" id="person-0">
-            <div class="person-card">
-              <img class="person-photo" src="assets/team/brandon-gusto.jpg" alt="Brandon Gusto" width="600" height="750" loading="lazy">
-              <h3 class="person-name">Brandon Gusto, PhD</h3>
-              <p class="person-role">Founder &amp; CEO</p>
-            </div>
-            <p class="person-bio">
-              Brandon is a former Navy civilian scientist at NUWC Newport and
-                DoW SMART Scholar. He led projects in multi-fidelity Bayesian
-                optimization and GPU-accelerated adaptive beamforming for sonar.
-                He trained at FSU as a mechanical engineer, applied
-                mathematician, and computational scientist, and his doctoral
-                work advanced wavelet-based adaptive mesh refinement approaches
-                in the context of compressible and reacting flows, as well as ML
-                sub-grid scale modeling.
-            </p>
-          </li>
-          <li class="person" id="person-1">
-            <div class="person-card">
-              <img class="person-photo" src="assets/team/headshot-toan-tran.jpg" alt="Toan Tran" width="600" height="750" loading="lazy">
-              <h3 class="person-name">Toan Tran</h3>
-              <p class="person-role">Founding Engineer</p>
-            </div>
-            <p class="person-bio">
-              Toan is a research software engineer building scientific tools
-                from statistical packages to full-stack data systems. At FSU, he
-                analyzed large-scale in-vivo neural recordings and built a
-                computer-vision labeling pipeline to extract neural clusters of
-                motor activity in mice. At the University of Michigan, he
-                collaborated with Stan developers on a Bayesian data analysis
-                package, streamlining MRP workflows with visual analytics and a
-                domain-specific model compiler.
-            </p>
-          </li>
-          </ul>
-          <div class="team-controls" hidden>
-            <button class="team-arrow" type="button" data-step="-1" aria-label="Previous person">&larr;</button>
-            <span class="team-dots"></span>
-            <button class="team-arrow" type="button" data-step="1" aria-label="Next person">&rarr;</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================ -->
-    <!-- Contact: an Eigenmode field (coral) behind a Paper card       -->
-    <!-- ============================================================ -->
-    <section class="contact" id="closing" aria-label="Contact">
+    <section class="contact" id="closing" aria-label="Get started">
       <div class="contact-card">
-        <p class="body-lg">Curious?</p>
+        <p class="body-lg">Let&rsquo;s build, together.</p>
+        <a class="button button-graphite" href="https://evolve.arkaic.inc">Sign up</a>
         <a class="mail" href="mailto:inquiries@arkaic.inc">inquiries@arkaic.inc</a>
       </div>
     </section>
   </main>
 
-  <footer class="footer">
-    <img src="assets/logo-horizontal-paper.svg" alt="Arkaic" width="120" height="28">
-    <p class="fine made">
-      Proudly made in the USA.
-      <img class="flag" src="assets/flag-usa.svg" alt="" aria-hidden="true" width="35" height="24">
-    </p>
-    <p class="fine">© 2026 Arkaic Inc. · <a href="/work/">Work with us</a> · <a href="/privacy/">Privacy</a></p>
+  <footer class="footer footer-wide">
+    <div class="footer-cols">
+      <div><h2 class="footer-h">Platform</h2><ul role="list"><li><a href="/platform/">Overview</a></li><li><a href="/pricing/">Pricing</a></li><li><a href="https://evolve.arkaic.inc">Log in</a></li></ul></div>
+      <div><h2 class="footer-h">Solutions</h2><ul role="list"><li><a href="/solutions/">Aerodynamics</a></li><li><a href="/solutions/">Structures</a></li><li><a href="/solutions/">Weather</a></li><li><a href="/solutions/">Astrophysics</a></li></ul></div>
+      <div><h2 class="footer-h">Resources</h2><ul role="list"><li><a href="/resources/">Get started</a></li><li><a href="/resources/">The command</a></li><li><a href="/resources/">Support</a></li></ul></div>
+      <div><h2 class="footer-h">Company</h2><ul role="list"><li><a href="/about/">About us</a></li><li><a href="/work/">Work with us</a></li><li><a href="/meet/">Book a call</a></li><li><a href="mailto:inquiries@arkaic.inc">Contact</a></li></ul></div>
+      <div><h2 class="footer-h">Legal</h2><ul role="list"><li><a href="/privacy/">Privacy</a></li></ul></div>
+    </div>
+    <div class="footer-base">
+      <img src="assets/logo-horizontal-paper.svg" alt="Arkaic" width="120" height="28">
+      <p class="fine made">
+        Proudly made in the USA.
+        <img class="flag" src="assets/flag-usa.svg" alt="" aria-hidden="true" width="35" height="24">
+      </p>
+      <p class="fine">© 2026 Arkaic Inc.</p>
+    </div>
   </footer>
 
   <script src="main.js?v=4" defer></script>
@@ -480,6 +266,5 @@
   <script src="ic3d-data.js?v=1" defer></script>
   <script src="trace-loop.js?v=31" defer></script>
   <script src="/nav.js?v=1" defer></script>
-  <script src="team.js?v=1" defer></script>
 </body>
 </html>
