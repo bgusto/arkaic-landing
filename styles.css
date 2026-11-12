@@ -109,7 +109,7 @@ strong { font-weight: 500; }
 .display {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(44px, 6.6vw, 90px);
+  font-size: clamp(48px, 8.4vw, 124px);
   line-height: 1.0;
   letter-spacing: -0.05em;
   color: var(--paper);
@@ -187,16 +187,24 @@ strong { font-weight: 500; }
 .topbar {
   position: sticky; top: 0; z-index: 50;
   display: flex; align-items: center;
-  padding: 22px var(--gutter);
+  padding: 20px var(--gutter);
   background: var(--graphite);
+  border-bottom: 1px solid var(--paper);
 }
 .brand img { height: 30px; width: auto; }
 /* the site links: at the right on wide screens; on phones a panel under the bar, opened by
    the Menu button (nav.js) */
 .topnav { display: flex; gap: 28px; margin-left: auto; }
+.nav-links { display: contents; }
 .topnav a {
-  font-weight: 500; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
-  color: var(--paper-70); padding-bottom: 2px; border-bottom: 1px solid transparent;
+  font-weight: 500; font-size: 17px; text-decoration: none;
+  color: var(--paper-70); padding-bottom: 3px; border-bottom: 1px solid transparent;
+}
+/* wide screens: the logo at the left, the links centered */
+@media (min-width: 821px) {
+  .topbar { display: grid; grid-template-columns: 1fr auto 1fr; }
+  .topnav { display: contents; }
+  .nav-links { display: flex; gap: 40px; }
 }
 .topnav a:hover, .topnav a[aria-current] { color: var(--paper); border-color: var(--coral); }
 .nav-toggle { display: none; }
@@ -205,8 +213,8 @@ strong { font-weight: 500; }
    of the menu, its links indented under the word. */
 .nav-menu { position: relative; display: flex; align-items: flex-start; }   /* flex, so the button sits level with the links, not on a line box */
 .nav-menu-btn {
-  padding: 0 0 2px; background: none; border: 0; border-bottom: 1px solid transparent; cursor: pointer;
-  font: inherit; font-weight: 500; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper-70);
+  padding: 0 0 3px; background: none; border: 0; border-bottom: 1px solid transparent; cursor: pointer;
+  font: inherit; font-weight: 500; font-size: 17px; color: var(--paper-70);
 }
 .nav-menu-btn::after {   /* a small caret */
   content: ""; display: inline-block; width: 5px; height: 5px; margin: 0 0 3px 8px;
@@ -234,18 +242,18 @@ strong { font-weight: 500; }
 }
 .hero-inner {
   position: relative; max-width: var(--max); margin: 0 auto; width: 100%;
-  display: grid; grid-template-columns: minmax(0, 12fr) minmax(0, 8fr); gap: clamp(24px, 3vw, 56px); align-items: center;
+  text-align: center;
 }
-.hero-draw { aspect-ratio: 5 / 4; min-width: 0; }
-.hero-draw .trace-canvas { display: block; width: 100%; height: 100%; }
 .display .line { display: block; }
-.lede { margin-top: 32px; max-width: 62ch; color: var(--paper-70); font-size: clamp(17px, 1.35vw, 20px); }
-.hero-cta { display: flex; align-items: center; gap: 28px; margin-top: 36px; }
+.lede { margin: 32px auto 0; max-width: 62ch; color: var(--paper-70); font-size: clamp(17px, 1.35vw, 20px); }
+.hero-cta { display: flex; align-items: center; justify-content: center; gap: 28px; margin-top: 36px; }
 .hero-more {
   font-weight: 500; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
   color: var(--paper-70); padding-bottom: 2px; border-bottom: 1px solid transparent;
 }
 .hero-more:hover { color: var(--paper); border-color: var(--coral); }
+.strip { margin-top: 28px; display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px 20px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper-45); }
+.strip span { color: var(--paper-70); }
 
 /* prisms wander around their own centroids (main.js) and thread through the
    type: the headline creates no stacking context, so a letter wrapped in
@@ -683,8 +691,6 @@ strong { font-weight: 500; }
   .hero {
     min-height: auto; padding-top: 64px; padding-bottom: 48px;   /* room under the strokes band */
   }
-  .hero-inner { grid-template-columns: minmax(0, 1fr); gap: 40px; }
-  .hero-draw { aspect-ratio: 4 / 3; }
   .tile-grid { grid-template-columns: minmax(0, 1fr); gap: 48px; }
   .tile { display: block; }
   .tile .h3 { white-space: normal; }
@@ -694,9 +700,9 @@ strong { font-weight: 500; }
     background: var(--graphite); border-top: 1px solid var(--paper-45);
   }
   .topbar.open .topnav { display: flex; }
-  .topnav a { display: block; padding: 15px 0; font-size: 13px; border-bottom: 1px solid var(--paper-45); color: var(--paper); }
+  .topnav a { display: block; padding: 15px 0; font-size: 18px; border-bottom: 1px solid var(--paper-45); color: var(--paper); }
   .topnav a:hover, .topnav a[aria-current] { border-color: var(--paper-45); color: var(--coral); }
-  .nav-menu-btn { display: block; width: 100%; text-align: left; padding: 15px 0 6px; font-size: 13px; color: var(--paper-70); cursor: default; border: 0; }
+  .nav-menu-btn { display: block; width: 100%; text-align: left; padding: 15px 0 6px; font-size: 18px; color: var(--paper-70); cursor: default; border: 0; }
   .nav-menu-btn::after { display: none; }
   .nav-menu:hover .nav-menu-btn, .nav-menu-btn[aria-expanded="true"], .nav-menu:focus-within .nav-menu-btn { color: var(--paper-70); }
   .nav-menu-list, .nav-menu:hover .nav-menu-list { display: block; position: static; min-width: 0; padding: 0; border: 0; }
@@ -705,7 +711,7 @@ strong { font-weight: 500; }
   .nav-menu-list a:last-child { border-bottom: 1px solid var(--paper-45); }
   .nav-toggle {
     display: inline-block; margin-left: auto; padding: 0; background: none; border: 0; cursor: pointer;
-    font: inherit; font-weight: 500; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--paper);
+    font: inherit; font-weight: 500; font-size: 17px; color: var(--paper);
   }
 }
 /* phones: "Computing Built" no longer fits on one line, so let the headline

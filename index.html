@@ -32,7 +32,7 @@
   <meta property="og:image" content="https://arkaic.inc/assets/og.jpg">
   <meta name="twitter:card" content="summary_large_image">
 
-  <link rel="stylesheet" href="styles.css?v=88">
+  <link rel="stylesheet" href="styles.css?v=91">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -43,19 +43,21 @@
     </a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="topnav">Menu</button>
     <nav class="topnav" id="topnav" aria-label="Site">
-      <a href="/#product">Product</a>
-      <div class="nav-menu">
-        <button class="nav-menu-btn" type="button" aria-expanded="false" aria-controls="apps-menu">Applications</button>
-        <div class="nav-menu-list" id="apps-menu">
-          <a href="/#confidence">Design Databases</a>
-          <a href="/#cost">Efficient Optimization</a>
-          <a href="/#cycles">Cycling Systems</a>
+      <div class="nav-links">
+        <a href="/#product">Product</a>
+        <div class="nav-menu">
+          <button class="nav-menu-btn" type="button" aria-expanded="false" aria-controls="apps-menu">Applications</button>
+          <div class="nav-menu-list" id="apps-menu">
+            <a href="/#confidence">Design Databases</a>
+            <a href="/#cost">Efficient Optimization</a>
+            <a href="/#cycles">Cycling Systems</a>
+          </div>
         </div>
+        <!-- <a href="/#research">Research</a> -->
+        <a href="/#team">Team</a>
+        <!-- <a href="/plans/">Plans</a> -->
+        <a href="/work/">Work with us</a>
       </div>
-      <!-- <a href="/#research">Research</a> -->
-      <a href="/#team">Team</a>
-      <!-- <a href="/plans/">Plans</a> -->
-      <a href="/work/">Work with us</a>
     </nav>
   </header>
 
@@ -91,15 +93,8 @@
           <a class="button button-paper" href="#waitlist">I&rsquo;m interested</a>
           <a class="hero-more" href="#product">See it work</a>
         </p>
+        <p class="strip">Solvers built in <span>OpenFOAM</span> <span>SU2</span> <span>CalculiX</span> <span>Castro</span> <span>WRF</span></p>
        </div>
-
-        <!-- the drawings on rotation, drawn live in pencil (trace-loop.js): a rocket engine, a 3D
-             integrated circuit, a transport wing, a NIF fusion shot, a ship propeller, then an FPV
-             quadcopter. The hero's ground fades from Graphite into graph paper under them. -->
-        <div class="hero-draw">
-          <canvas class="trace-canvas" role="img"
-            aria-label="Pencil line drawings, drawn live on graph paper: a rocket engine, a 3D integrated circuit, a transport wing, a laser fusion target with its beams, a ship propeller, then an FPV quadcopter"></canvas>
-        </div>
       </div>
       <div class="strokes-band" aria-hidden="true"></div>
     </section>
@@ -525,13 +520,7 @@
     <p class="fine">© 2026 Arkaic Inc. · <a href="/work/">Work with us</a> · <a href="/privacy/">Privacy</a></p>
   </footer>
 
-  <script src="main.js?v=5" defer></script>
-  <script src="engine3d-data.js?v=6" defer></script>
-  <script src="wing-trace-data.js?v=1" defer></script>
-  <script src="prop-trace-data.js?v=2" defer></script>
-  <script src="nif3d-data.js?v=1" defer></script>
-  <script src="drone3d-data.js?v=1" defer></script>
-  <script src="trace-loop.js?v=35" defer></script>
+  <script src="main.js?v=6" defer></script>
   <script src="/nav.js?v=2" defer></script>
   <script src="team.js?v=1" defer></script>
 </body>
